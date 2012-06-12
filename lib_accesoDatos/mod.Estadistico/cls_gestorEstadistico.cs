@@ -163,7 +163,50 @@ namespace COSEVI.CSLA.lib.accesoDatos.mod.Estadistico
 
         #endregion Gráfico Top Actividades por Proyecto
 
+        #region Gráfico Comparación Horas Actividad
 
+        /// <summary>
+        /// Método que permite seleccionar  
+        /// un único registro en la tabla estado
+        /// </summary>
+        /// <returns>vo_lista valor del resultado de la ejecución de la sentencia</returns>
+        public static List<cls_compHorasActividades> CompHorasActividadesPorProyecto(cls_compHorasActividades po_compHorasActividades)
+        {
+            List<cls_compHorasActividades> vo_lista = null;
+            cls_compHorasActividades vo_compHorasActividades = null;
+
+            try
+            {
+                String vs_comando = "PA_estd_comparacionHorasActividad";
+                cls_parameter[] vu_parametros = { new cls_parameter("@paramProyecto", po_compHorasActividades.pPK_proyecto),
+                                                  new cls_parameter("@paramPaquete", po_compHorasActividades.pPK_paquete)
+                                                };
+
+                DataSet vu_dataSet = cls_sqlDatabase.executeDataset(vs_comando, true, vu_parametros);
+
+                vo_lista = new List<cls_compHorasActividades>();
+                for (int i = 0; i < vu_dataSet.Tables[0].Rows.Count; i++)
+                {
+                    vo_compHorasActividades = new cls_compHorasActividades();
+
+                    vo_compHorasActividades.pNombreActividad = vu_dataSet.Tables[0].Rows[i]["nombreActividad"].ToString();
+
+                    vo_compHorasActividades.pHorasAsignadas = Convert.ToDecimal(vu_dataSet.Tables[0].Rows[i]["horasAsignadas"].ToString());
+
+                    vo_compHorasActividades.pHorasReales = Convert.ToDecimal(vu_dataSet.Tables[0].Rows[i]["horasReales"].ToString());
+
+                    vo_lista.Add(vo_compHorasActividades);
+                }
+
+                return vo_lista;
+            }
+            catch (Exception po_exception)
+            {
+                throw new Exception("Ocurrió un error al obtener el gráfico de comparación de horas de actividades por proyecto.", po_exception);
+            }
+        }
+
+        #endregion Gráfico Comparación Horas Actividad
 
     }
 }

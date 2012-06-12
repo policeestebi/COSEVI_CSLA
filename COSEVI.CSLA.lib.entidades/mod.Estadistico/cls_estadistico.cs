@@ -95,7 +95,7 @@ namespace COSEVI.CSLA.lib.entidades.mod.Estadistico
         #region Constructor
 
         /// <summary>
-        /// Constructor de la clase cls_estado.
+        /// Constructor de la clase cls_topActividades.
         /// </summary>
         public cls_topActividades()
         {
@@ -163,6 +163,88 @@ namespace COSEVI.CSLA.lib.entidades.mod.Estadistico
         /// Fecha Fin del filtro
         /// </summary>
         private DateTime fechaHasta;
+
+        #endregion
+
+    }
+
+    /// <summary>
+    /// Clase utilizada para la obtención de datos en el gráfico de comparación de horas de actividades por proyecto.
+    /// </summary>
+    public class cls_compHorasActividades
+    {
+
+        #region Constructor
+
+        /// <summary>
+        /// Constructor de la clase cls_compHorasActividades.
+        /// </summary>
+        public cls_compHorasActividades()
+        {
+        }
+
+        #endregion
+
+        #region Propiedades
+
+        public int pPK_proyecto
+        {
+            get { return PK_proyecto; }
+            set { this.PK_proyecto = value; }
+        }
+
+        public int pPK_paquete
+        {
+            get { return PK_paquete; }
+            set { this.PK_paquete = value; }
+        }
+
+        public string pNombreActividad
+        {
+            get { return nombreActividad; }
+            set { this.nombreActividad = value; }
+        }
+
+        public decimal pHorasAsignadas
+        {
+            get { return horasAsignadas; }
+            set { this.horasAsignadas = value; }
+        }
+
+        public decimal pHorasReales
+        {
+            get { return horasReales; }
+            set { this.horasReales = value; }
+        }
+
+        #endregion
+
+        #region Atributos
+
+        /// <summary>
+        /// Código del proyecto
+        /// </summary>
+        private int PK_proyecto;
+
+        /// <summary>
+        /// Código del paquete
+        /// </summary>
+        private int PK_paquete;
+
+        /// <summary>
+        /// Nombre de la actividad para el desgloce
+        /// </summary>
+        private string nombreActividad;
+        
+        /// <summary>
+        /// Horas asignadas a la actividad
+        /// </summary>
+        private decimal horasAsignadas;
+
+        /// <summary>
+        /// Horas reales invertidas en la actividad
+        /// </summary>
+        private decimal horasReales;
 
         #endregion
 
