@@ -18,3 +18,12 @@ D:\cslagit\CSLA\CSLA\ExceptionManagement\obj\Debug\GenerateResource-ResGen.read.
 D:\cslagit\CSLA\CSLA\ExceptionManagement\obj\Debug\GenerateResource-ResGen.write.1.tlog
 D:\cslagit\CSLA\CSLA\ExceptionManagement\obj\Debug\ExceptionManagement.dll
 D:\cslagit\CSLA\CSLA\ExceptionManagement\obj\Debug\ExceptionManagement.pdb
+C:\Users\Esteban\Documents\GIT\COSEVI_CSLA\ExceptionManagement\bin\Debug\ExceptionManagement.dll
+C:\Users\Esteban\Documents\GIT\COSEVI_CSLA\ExceptionManagement\bin\Debug\ExceptionManagement.pdb
+C:\Users\Esteban\Documents\GIT\COSEVI_CSLA\ExceptionManagement\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\Esteban\Documents\GIT\COSEVI_CSLA\ExceptionManagement\obj\Debug\ExceptionManagement.ExceptionManagerInstaller.resources
+C:\Users\Esteban\Documents\GIT\COSEVI_CSLA\ExceptionManagement\obj\Debug\ExceptionManagement.ExceptionManagerText.resources
+C:\Users\Esteban\Documents\GIT\COSEVI_CSLA\ExceptionManagement\obj\Debug\ResGen.read.1.tlog
+C:\Users\Esteban\Documents\GIT\COSEVI_CSLA\ExceptionManagement\obj\Debug\ResGen.write.1.tlog
+C:\Users\Esteban\Documents\GIT\COSEVI_CSLA\ExceptionManagement\obj\Debug\ExceptionManagement.dll
+C:\Users\Esteban\Documents\GIT\COSEVI_CSLA\ExceptionManagement\obj\Debug\ExceptionManagement.pdb

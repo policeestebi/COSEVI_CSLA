@@ -55,10 +55,10 @@ namespace CSLA.web.App_Constantes
         /// </summary>
         public const String FOLDER_PAGES = "App_pages";
 
-<<<<<<< HEAD
+
         //Constantes de Reportes
         public const String REP_REG_TIEMPOS_USUARIO = "/CSLA.Reports/r_csla_cont_registroTiemposUsuario";
-=======
+
         /// <summary>
         /// Constante que se utiliza para guardar el código
         /// del proyecto del que se va a obtener información 
@@ -79,7 +79,7 @@ namespace CSLA.web.App_Constantes
         /// para los gráficos.
         /// </summary>
         public const string FECHAHASTA = "vs_fechaHasta";
->>>>>>> 3e18a7e879482e8a9a890443b480e1fbc708781b
+
 
     }
 

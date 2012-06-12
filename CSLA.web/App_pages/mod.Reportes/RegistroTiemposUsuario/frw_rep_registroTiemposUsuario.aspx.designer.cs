@@ -19,7 +19,7 @@ namespace CSLA.web.App_pages.mod.Reportes.RegistroTiemposUsuario {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.ScriptManager srm_principal;
+        //protected global::System.Web.UI.WebControls.ScriptManager srm_principal;
         
         /// <summary>
         /// rpv_registroTiemposUsuario control.

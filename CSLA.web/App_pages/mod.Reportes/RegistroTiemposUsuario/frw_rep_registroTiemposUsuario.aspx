@@ -15,7 +15,7 @@ Reporte de Registro de Tiempos Usuario
 </asp:Content>
 <asp:Content ID="Content6" ContentPlaceHolderID="cuerpoPagina" runat="server">
     <asp:ScriptManager ID="srm_principal" runat="server"></asp:ScriptManager>
-    <rsweb:ReportViewer ID="rpv_registroTiemposUsuario" Width="" Height="600px" runat="server"
+    <rsweb:ReportViewer ID="rpv_registroTiemposUsuario" Width="100%" Height="800px" runat="server"
     ProcessingMode="Remote" ShowParameterPrompts="False" >
     </rsweb:ReportViewer>
 </asp:Content>
