@@ -49,94 +49,22 @@ namespace CSLA.web.App_pages.mod.Estadistico {
         protected global::System.Web.UI.WebControls.DropDownList ddl_proyecto;
         
         /// <summary>
-        /// lbl_fechaInicio control.
+        /// lbl_paquete control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbl_fechaInicio;
+        protected global::System.Web.UI.WebControls.Label lbl_paquete;
         
         /// <summary>
-        /// txt_fechaInicio control.
+        /// ddl_paquete control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txt_fechaInicio;
-        
-        /// <summary>
-        /// img_cldFechaInicio control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.ImageButton img_cldFechaInicio;
-        
-        /// <summary>
-        /// dt_fechaInicio control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::AjaxControlToolkit.CalendarExtender dt_fechaInicio;
-        
-        /// <summary>
-        /// rfv_fechaInicio control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfv_fechaInicio;
-        
-        /// <summary>
-        /// lbl_fechaFin control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbl_fechaFin;
-        
-        /// <summary>
-        /// txt_fechaFin control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txt_fechaFin;
-        
-        /// <summary>
-        /// img_cldFechaFinal control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.ImageButton img_cldFechaFinal;
-        
-        /// <summary>
-        /// dt_fechaFin control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::AjaxControlToolkit.CalendarExtender dt_fechaFin;
-        
-        /// <summary>
-        /// rfv_fechaFin control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfv_fechaFin;
+        protected global::System.Web.UI.WebControls.DropDownList ddl_paquete;
         
         /// <summary>
         /// btn_generar control.

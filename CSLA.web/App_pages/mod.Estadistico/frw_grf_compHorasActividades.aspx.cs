@@ -18,7 +18,7 @@ using COSEVI.CSLA.lib.entidades.mod.Administracion;
 // COSEVI - Consejo de Seguridad Vial. - 2011
 // Sistema CSLA (Sistema para el Control y Seguimiento de Labores)
 //
-// frw_grf_topActividades.aspx.cs
+// frw_grf_compHorasActividades.aspx.cs
 //
 // Explicación de los contenidos del archivo.
 // =========================================================================
@@ -95,14 +95,12 @@ namespace CSLA.web.App_pages.mod.Estadistico
                 {
                     //Cuando se está ingresando a la página, se limpian las variables de sesión para evitar valores incorrectos
                     LimpiarVariablesSession();
-                    txt_fechaInicio.Text = DateTime.Today.AddMonths(-1).ToString().Substring(0,10);
-                    txt_fechaFin.Text = DateTime.Today.ToString().Substring(0, 10);
                 }
                 else
                 {
                     if (!(Session[cls_constantes.CODIGOPROYECTO] == null))
                     {
-                        CargaGrafico(Convert.ToInt32(Session[cls_constantes.CODIGOPROYECTO]), Convert.ToDateTime(Session[cls_constantes.FECHADESDE]), Convert.ToDateTime(Session[cls_constantes.FECHAHASTA]));
+                        CargaGrafico(Convert.ToInt32(Session[cls_constantes.CODIGOPROYECTO]), Convert.ToInt32(Session[cls_constantes.CODIGOPAQUETE]));
                     }
                 }
             }
@@ -121,14 +119,14 @@ namespace CSLA.web.App_pages.mod.Estadistico
         /// <summary>
         /// Método que realiza la consulta en BD para obtener la información por proyecto y cargar sus valores
         /// </summary>
-        private void CargaGrafico(int ps_proyecto, DateTime pd_fechaDesde, DateTime pd_fechaHasta)
+        private void CargaGrafico(int pi_proyecto, int pi_paquete)
         {
             try
             {
                 //Si se está obteniendo información para un proyecto que NO es el proyecto por defecto
-                if (ps_proyecto > 0)
+                if (pi_proyecto > 0)
                 {
-                    obtenerGraficoActividadesPorProyecto(ps_proyecto, pd_fechaDesde, pd_fechaHasta);
+                    obtenerGraficoActividadesPorProyecto(pi_proyecto, pi_paquete);
                 }
                 else
                 {
@@ -164,19 +162,41 @@ namespace CSLA.web.App_pages.mod.Estadistico
         }
 
         /// <summary>
+        /// Metodo que carga el ddl de paquetes para escoger por cual se quiere filtrar
+        /// </summary>
+        private void cargarPaquetes(int pi_proyecto)
+        {
+            try
+            {
+                this.ddl_paquete.DataSource = cls_gestorEstadistico.listarPaquetesAsignacion(pi_proyecto);
+                this.ddl_paquete.DataTextField = "pNombre";
+                this.ddl_paquete.DataValueField = "pPK_paquete";
+                this.ddl_paquete.DataBind();
+
+                this.ddl_paquete.Items.Insert(0, new ListItem("Seleccione un paquete", "0"));
+                this.ddl_paquete.SelectedIndex = 0;
+                this.ddl_paquete.Enabled = true;
+
+            }
+            catch (Exception po_exception)
+            {
+                throw new Exception("Ocurrió un error al cargar la lista de proyectos.", po_exception);
+            }
+        }
+
+        /// <summary>
         /// Método que obtiene la información con la que se va a cargar en gráfico
         /// </summary>
-        private void obtenerGraficoActividadesPorProyecto(int ps_proyecto, DateTime pd_fechaDesde, DateTime pd_fechaHasta)
+        private void obtenerGraficoActividadesPorProyecto(int pi_proyecto, int pi_paquete)
         {
             try
             {
                 //Se procede a obtener la información por proyecto
-                cls_topActividades vo_topActividades = new cls_topActividades();
-                vo_topActividades.pPK_proyecto = ps_proyecto;
-                vo_topActividades.pFechaDesde = pd_fechaDesde;
-                vo_topActividades.pFechaHasta = pd_fechaHasta;
+                cls_compHorasActividades vo_compHorasActividades = new cls_compHorasActividades();
+                vo_compHorasActividades.pPK_proyecto = pi_proyecto;
+                vo_compHorasActividades.pPK_paquete = pi_paquete;
 
-                List<cls_topActividades> vl_topActividades = cls_gestorEstadistico.TopActividadesPorProyecto(vo_topActividades);
+                List<cls_compHorasActividades> vl_topActividades = cls_gestorEstadistico.CompHorasActividadesPorProyecto(vo_compHorasActividades);
 
                 //Se asignan los tooltips para el gráfico
                 Grafico.Series["Leyendas"].ToolTip = "#VALX: #VAL{d} horas";
@@ -187,7 +207,7 @@ namespace CSLA.web.App_pages.mod.Estadistico
                 Grafico.Series["Leyendas"].LegendPostBackValue = "#INDEX";
 
                 //Se realiza el binding de la información que se obtuvo en la consulta
-                Grafico.Series["Leyendas"].Points.DataBindXY(vl_topActividades, "pNombreActividad", vl_topActividades, "pCantidadHoras");
+                Grafico.Series["Leyendas"].Points.DataBindXY(vl_topActividades, "pNombreActividad", vl_topActividades, "pHorasReales");
 
 
                 //Se asignan los estilos del gráfico
@@ -227,28 +247,28 @@ namespace CSLA.web.App_pages.mod.Estadistico
 
 
                 // Set pyramid chart type
-                Grafico.Series["Leyendas"].ChartType = SeriesChartType.Pyramid;
+                Grafico.Series["Leyendas"].ChartType = SeriesChartType.Column;
 
                 // Set pyramid data point labels style
                 Grafico.Series["Leyendas"]["PyramidLabelStyle"] = "Outside";
 
-                // Place labels on the left side
-                Grafico.Series["Leyendas"]["PyramidOutsideLabelPlacement"] = "Right";
+                //// Place labels on the left side
+                //Grafico.Series["Leyendas"]["PyramidOutsideLabelPlacement"] = "Right";
 
-                // Set gap between points
-                Grafico.Series["Leyendas"]["PyramidPointGap"] = "2";
+                //// Set gap between points
+                //Grafico.Series["Leyendas"]["PyramidPointGap"] = "2";
 
-                // Set minimum point height
-                Grafico.Series["Leyendas"]["PyramidMinPointHeight"] = "1";
+                //// Set minimum point height
+                //Grafico.Series["Leyendas"]["PyramidMinPointHeight"] = "1";
 
                 // Set 3D mode
-                Grafico.ChartAreas["AreaGrafico"].Area3DStyle.Enable3D = true;
+                Grafico.ChartAreas["AreaGrafico"].Area3DStyle.Enable3D = false;
 
                 // Set 3D angle
-                Grafico.Series["Leyendas"]["Pyramid3DRotationAngle"] = "9";
+                //Grafico.Series["Leyendas"]["Pyramid3DRotationAngle"] = "9";
 
-                // Set 3D drawing style
-                Grafico.Series["Leyendas"]["Pyramid3DDrawingStyle"] = "SquareBase";
+                //// Set 3D drawing style
+                //Grafico.Series["Leyendas"]["Pyramid3DDrawingStyle"] = "SquareBase";
 
                 //Se aplica el estilo pastel a los colores definidos para el gráfico
                 Grafico.Palette = ChartColorPalette.BrightPastel;
@@ -304,8 +324,7 @@ namespace CSLA.web.App_pages.mod.Estadistico
         private void LimpiarVariablesSession()
         {
             Session[cls_constantes.CODIGOPROYECTO] = null;
-            Session[cls_constantes.FECHADESDE] = null;
-            Session[cls_constantes.FECHAHASTA] = null;
+            Session[cls_constantes.CODIGOPAQUETE] = null;
         }
 
         /// <summary>
@@ -350,20 +369,46 @@ namespace CSLA.web.App_pages.mod.Estadistico
             try
             {
                 Session[cls_constantes.CODIGOPROYECTO] = ddl_proyecto.SelectedValue;
-                Session[cls_constantes.FECHADESDE] = txt_fechaInicio.Text;
-                Session[cls_constantes.FECHAHASTA] = txt_fechaFin.Text;
+                Session[cls_constantes.CODIGOPAQUETE] = ddl_paquete.Text;
 
                 //Si el proyecto es un proyecto válido, se carga, de lo contrario, se limpia la variable en memoria
                 //Si el proyecto es el "0", no se traerá nada, por lo que no se mostrará nada en ventana, que es el 
                 //caso defecto, y está bien
                 if (Convert.ToInt32(ddl_proyecto.SelectedValue) > -1)
                 {
-                    CargaGrafico(Convert.ToInt32(ddl_proyecto.SelectedValue), Convert.ToDateTime(txt_fechaInicio.Text), Convert.ToDateTime(txt_fechaFin.Text));
+                    CargaGrafico(Convert.ToInt32(ddl_proyecto.SelectedValue), Convert.ToInt32(ddl_paquete.SelectedValue));
                 }
             }
             catch (Exception po_exception)
             {
                 String vs_error_usuario = "Ocurrió un error al enfocar la sección del gráfico.";
+                this.lanzarExcepcion(po_exception, vs_error_usuario);
+            }
+        }
+
+        /// <summary>
+        /// Evento obtiene el valor del ddl para el llamado al método que lo carga en ventana
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void ddlProyecto_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                this.ddl_proyecto.SelectedValue = ((DropDownList)sender).SelectedValue;
+                Session[cls_constantes.CODIGOPROYECTO] = ddl_proyecto.SelectedValue;
+
+                //Si el proyecto es un proyecto válido, se carga, de lo contrario, se limpia la variable en memoria
+                //Si el proyecto es el "0", no se traerá nada, por lo que no se mostrará nada en ventana, que es el 
+                //caso defecto, y está bien
+                if (Convert.ToInt32(ddl_proyecto.SelectedValue) > -1)
+                {
+                    cargarPaquetes(Convert.ToInt32(ddl_proyecto.SelectedValue));
+                }
+            }
+            catch (Exception po_exception)
+            {
+                String vs_error_usuario = "Ocurrió un error al obtener intentar cambiar el proyecto.";
                 this.lanzarExcepcion(po_exception, vs_error_usuario);
             }
         }

@@ -934,3 +934,42 @@ AS
 	GROUP BY tca.nombre, tcaa.horasAsignadas
 
 END 
+
+
+IF  EXISTS (SELECT * FROM sys.procedures WHERE object_id = OBJECT_ID(N'[dbo].[PA_estd_paquetesAsignacionActSelect]'))
+DROP PROCEDURE [dbo].[PA_estd_paquetesAsignacionActSelect]
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Autor: Cristian Arce Jiménez.
+-- Fecha Creación:	01-06-2012
+-- Fecha Actualización:	01-06-2012
+-- Descripción: 
+-- =============================================
+CREATE PROCEDURE  [dbo].[PA_estd_paquetesAsignacionActSelect]
+  @paramProyecto	INT
+AS 
+ BEGIN 
+
+		Select distinct tcpa.PK_paquete,
+			   tcpa.nombre AS nombrePaquete
+			From t_cont_registro_actividad tcra INNER JOIN t_cont_proyecto tcp
+				ON 
+				   tcra.PK_proyecto = tcp.PK_proyecto INNER JOIN t_cont_paquete tcpa
+				ON 
+				   tcra.PK_paquete = tcpa.PK_paquete INNER JOIN t_cont_asignacion_actividad tcaa 
+				ON 
+				   tcra.PK_actividad = tcaa.PK_actividad AND
+				   tcra.PK_paquete = tcaa.PK_paquete AND
+				   tcra.PK_componente = tcaa.PK_componente AND
+				   tcra.PK_entregable = tcaa.PK_entregable AND
+				   tcra.PK_proyecto = tcaa.PK_proyecto AND
+				   tcra.PK_usuario = tcaa.PK_usuario 
+			Where 
+				tcra.PK_proyecto = @paramProyecto 
+
+END 
+

@@ -74,6 +74,46 @@ namespace COSEVI.CSLA.lib.accesoDatos.mod.Estadistico
             }
         }
 
+        /// <summary>
+        /// Método que permite seleccionar  
+        /// la lista de paquetes provenientes de 
+        /// la asignación de actividades sobre un proyecto
+        /// </summary>
+        /// <returns>poEstado valor del resultado de la ejecución de la sentencia</returns>
+        public static List<cls_paquete> listarPaquetesAsignacion(int pi_proyecto)
+        {
+            List<cls_paquete> vo_lista = null;
+            cls_paquete vo_paquete = null;
+
+            try
+            {
+                String vs_comando = "PA_estd_paquetesAsignacionActSelect";
+                cls_parameter[] vu_parametros = { new cls_parameter("@paramProyecto", pi_proyecto)
+                                                };
+
+                DataSet vu_dataSet = cls_sqlDatabase.executeDataset(vs_comando, true, vu_parametros);
+
+                vo_lista = new List<cls_paquete>();
+
+                for (int i = 0; i < vu_dataSet.Tables[0].Rows.Count; i++)
+                {
+                    vo_paquete = new cls_paquete();
+
+                    vo_paquete.pPK_Paquete = Convert.ToInt32(vu_dataSet.Tables[0].Rows[i]["PK_paquete"].ToString());
+
+                    vo_paquete.pNombre = vu_dataSet.Tables[0].Rows[i]["nombrePaquete"].ToString();
+
+                    vo_lista.Add(vo_paquete);
+                }
+
+                return vo_lista;
+            }
+            catch (Exception po_exception)
+            {
+                throw new Exception("Ocurrió un error al obtener la lista de paquetes.", po_exception);
+            }
+        }
+
         #endregion Consultas Comunes
 
 

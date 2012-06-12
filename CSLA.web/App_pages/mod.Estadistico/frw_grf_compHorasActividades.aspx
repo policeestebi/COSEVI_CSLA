@@ -42,42 +42,20 @@
                             <asp:Label ID="lbl_proyecto" runat="server" Text="Proyecto: "></asp:Label>
                         </td>
                         <td>
-                            <asp:DropDownList ID="ddl_proyecto" runat="server">
+                            <asp:DropDownList ID="ddl_proyecto" runat="server" AutoPostBack="true"
+                            OnSelectedIndexChanged="ddlProyecto_SelectedIndexChanged">
                             </asp:DropDownList>
                         </td>
                     </tr>
                 </table>
                 <table id="Table3">
-                    <tr align="left">
+                    <tr align="right">
                         <td>
-                            <asp:Label ID="lbl_fechaInicio" runat="server" Text="Fecha Inicio: "></asp:Label>
+                            <asp:Label ID="lbl_paquete" runat="server" Text="Paquete: "></asp:Label>
                         </td>
                         <td>
-                            <asp:TextBox ID="txt_fechaInicio" runat="server"></asp:TextBox>
-                            <asp:ImageButton ID="img_cldFechaInicio" runat="server" ImageUrl="../../App_Themes/Basico/botones/img_calendario.png"
-                                CausesValidation="false" />
-                            <act:CalendarExtender ID="dt_fechaInicio" runat="server" TargetControlID="txt_fechaInicio"
-                                PopupButtonID="img_cldFechaInicio" Format="MMMM d, yyyy" />
-                        </td>
-                        <td>
-                            <asp:RequiredFieldValidator ID="rfv_fechaInicio" runat="server" ControlToValidate="txt_fechaInicio"
-                                ToolTip="Ingrese la fecha inicio de la actividad" ErrorMessage="Fecha inicio es requerida"><img alt="imagen" width="25px" height="20px" src="../../App_Themes/Basico/botones/img_warning.gif" border="none"/></asp:RequiredFieldValidator>
-                        </td>
-                    </tr>
-                    <tr align="left">
-                        <td>
-                            <asp:Label ID="lbl_fechaFin" runat="server" Text="Fecha Fin: "></asp:Label>
-                        </td>
-                        <td>
-                            <asp:TextBox ID="txt_fechaFin" runat="server"></asp:TextBox>
-                            <asp:ImageButton ID="img_cldFechaFinal" runat="server" ImageUrl="../../App_Themes/Basico/botones/img_calendario.png"
-                                CausesValidation="false" />
-                            <act:CalendarExtender ID="dt_fechaFin" runat="server" TargetControlID="txt_fechaFin"
-                                PopupButtonID="img_cldFechaFinal" Format="MMMM d, yyyy" />
-                        </td>
-                        <td>
-                            <asp:RequiredFieldValidator ID="rfv_fechaFin" runat="server" ControlToValidate="txt_fechaFin"
-                                ToolTip="Ingrese la fecha fin de la actividad" ErrorMessage="Fecha fin es requerida"><img alt="imagen" width="25px" height="20px" src="../../App_Themes/Basico/botones/img_warning.gif" border="none"/></asp:RequiredFieldValidator>
+                            <asp:DropDownList ID="ddl_paquete" runat="server" Enabled="false">
+                            </asp:DropDownList>
                         </td>
                     </tr>
                 </table>
