@@ -209,66 +209,65 @@ namespace CSLA.web.App_pages.mod.Estadistico
                 //Se realiza el binding de la información que se obtuvo en la consulta
                 Grafico.Series["Leyendas"].Points.DataBindXY(vl_topActividades, "pNombreActividad", vl_topActividades, "pHorasReales");
 
-
-                //Se asignan los estilos del gráfico
-                //Grafico.ChartAreas["AreaGrafico"].Area3DStyle.Enable3D = true;
-                // Draw as 3D Cylinder
-                //Grafico.Series["Leyendas"]["DrawingStyle"] = "Cylinder";
+                //
                 Grafico.Legends[0].Enabled = false;
-
-                // Set the X Angle to 30
-                //Grafico.ChartAreas["AreaGrafico"].Area3DStyle.Inclination = 10;
-                //// Set the Y Angle to 40
-                //Grafico.ChartAreas["AreaGrafico"].Area3DStyle.Rotation = 40;
-
-                //// Show columns as clustered
-                //Grafico.ChartAreas["AreaGrafico"].Area3DStyle.IsClustered = true;
-
-                // Set series point width
-               // Grafico.Series["Leyendas"]["PointWidth"] = "0.6";
-
-                // Show X axis end labels
-                //Grafico.ChartAreas["AreaGrafico"].AxisX.LabelStyle.IsEndLabelVisible = false;
-
-                // Set axis title
-                //Grafico.ChartAreas["AreaGrafico"].AxisX.Title = "Nombre de Actividades";
-
-                //// Set Title font
-                //Grafico.ChartAreas["AreaGrafico"].AxisX.TitleFont = new Font("Arial", 10, FontStyle.Bold);
-
-                //// Set axis title
-                //Grafico.ChartAreas["AreaGrafico"].AxisY.Title = "Cantidad de Horas Invertidas";
-
-                //// Set Title font
-                //Grafico.ChartAreas["AreaGrafico"].AxisY.TitleFont = new Font("Arial", 10, FontStyle.Bold);
-                
-                ////Set orientacion
-                //Grafico.ChartAreas["AreaGrafico"].AxisY.TextOrientation = TextOrientation.Auto;
-
 
                 // Set pyramid chart type
                 Grafico.Series["Leyendas"].ChartType = SeriesChartType.Column;
 
-                // Set pyramid data point labels style
-                Grafico.Series["Leyendas"]["PyramidLabelStyle"] = "Outside";
 
-                //// Place labels on the left side
-                //Grafico.Series["Leyendas"]["PyramidOutsideLabelPlacement"] = "Right";
 
-                //// Set gap between points
-                //Grafico.Series["Leyendas"]["PyramidPointGap"] = "2";
 
-                //// Set minimum point height
-                //Grafico.Series["Leyendas"]["PyramidMinPointHeight"] = "1";
+
+                // create the destination series and add it to the chart
+                Series destSeries = new Series("Pareto");
+
+                Grafico.Series.Add(destSeries);
+                
+                // ensure the destination series is a Line or Spline chart type
+                destSeries.ChartType = SeriesChartType.Line;
+                destSeries.BorderWidth = 3;
+                // assign the series to the same chart area as the column chart
+                destSeries.ChartArea = Grafico.Series["Leyendas"].ChartArea;
+                // assign this series to use the secondary axis and set it maximum to be 100%
+                destSeries.YAxisType = AxisType.Secondary;
+                Grafico.ChartAreas["AreaGrafico"].AxisY2.Maximum = 100;
+                // locale specific percentage format with no decimals
+                Grafico.ChartAreas["AreaGrafico"].AxisY2.LabelStyle.Format = "P0";
+                // turn off the end point values of the primary X axis
+                Grafico.ChartAreas["AreaGrafico"].AxisX.LabelStyle.IsEndLabelVisible = false;
+                // for each point in the source series find % of total and assign to series
+                //double percentage = 0.0;
+                //foreach (DataPoint pt in chart.Series[srcSeriesName].Points)
+                //{
+                //    // findes the growth percent and makes a cumulative function
+                //    percentage += (pt.YValues[0] / total * 100.0);
+                //    // Sets the cumulative value to the chart
+                //    destSeries.Points.Add(Math.Round(percentage, 2));
+                //}
+
+                //Se realiza el binding de la información que se obtuvo en la consulta
+                Grafico.Series["Pareto"].Points.DataBindXY(vl_topActividades, "pNombreActividad", vl_topActividades, "pHorasAsignadas");
+
+
+                // Set chart types for output data
+                Grafico.Series["Pareto"].ChartType = SeriesChartType.Line;
+                // set the markers for each point of the Pareto Line
+                Grafico.Series["Pareto"].IsValueShownAsLabel = true;
+                Grafico.Series["Pareto"].MarkerColor = Color.Red;
+                Grafico.Series["Pareto"].MarkerBorderColor = Color.MidnightBlue;
+                Grafico.Series["Pareto"].MarkerStyle = MarkerStyle.Circle;
+                Grafico.Series["Pareto"].MarkerSize = 8;
+                Grafico.Series["Pareto"].LabelFormat = "0.#";  // format with one decimal and leading zero
+                // Set Color of line Pareto chart
+                Grafico.Series["Pareto"].Color = Color.FromArgb(252, 180, 65);
+
+
+
+
 
                 // Set 3D mode
-                Grafico.ChartAreas["AreaGrafico"].Area3DStyle.Enable3D = false;
-
-                // Set 3D angle
-                //Grafico.Series["Leyendas"]["Pyramid3DRotationAngle"] = "9";
-
-                //// Set 3D drawing style
-                //Grafico.Series["Leyendas"]["Pyramid3DDrawingStyle"] = "SquareBase";
+                Grafico.ChartAreas["AreaGrafico"].Area3DStyle.Enable3D = false;              
 
                 //Se aplica el estilo pastel a los colores definidos para el gráfico
                 Grafico.Palette = ChartColorPalette.BrightPastel;
