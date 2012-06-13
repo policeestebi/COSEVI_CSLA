@@ -222,8 +222,10 @@ namespace CSLA.web.App_pages.mod.Estadistico
                 // create the destination series and add it to the chart
                 Series destSeries = new Series("Pareto");
 
-                Grafico.Series.Add(destSeries);
-                
+                if (!Grafico.Series.Contains(destSeries))
+                {
+                    Grafico.Series.Add(destSeries);
+                }
                 // ensure the destination series is a Line or Spline chart type
                 destSeries.ChartType = SeriesChartType.Line;
                 destSeries.BorderWidth = 3;
