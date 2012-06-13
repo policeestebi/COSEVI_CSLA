@@ -189,42 +189,7 @@ namespace CSLA.web.App_pages.mod.Estadistico
                 //Se realiza el binding de la información que se obtuvo en la consulta
                 Grafico.Series["Leyendas"].Points.DataBindXY(vl_topActividades, "pNombreActividad", vl_topActividades, "pCantidadHoras");
 
-
-                //Se asignan los estilos del gráfico
-                //Grafico.ChartAreas["AreaGrafico"].Area3DStyle.Enable3D = true;
-                // Draw as 3D Cylinder
-                //Grafico.Series["Leyendas"]["DrawingStyle"] = "Cylinder";
                 Grafico.Legends[0].Enabled = false;
-
-                // Set the X Angle to 30
-                //Grafico.ChartAreas["AreaGrafico"].Area3DStyle.Inclination = 10;
-                //// Set the Y Angle to 40
-                //Grafico.ChartAreas["AreaGrafico"].Area3DStyle.Rotation = 40;
-
-                //// Show columns as clustered
-                //Grafico.ChartAreas["AreaGrafico"].Area3DStyle.IsClustered = true;
-
-                // Set series point width
-               // Grafico.Series["Leyendas"]["PointWidth"] = "0.6";
-
-                // Show X axis end labels
-                //Grafico.ChartAreas["AreaGrafico"].AxisX.LabelStyle.IsEndLabelVisible = false;
-
-                // Set axis title
-                //Grafico.ChartAreas["AreaGrafico"].AxisX.Title = "Nombre de Actividades";
-
-                //// Set Title font
-                //Grafico.ChartAreas["AreaGrafico"].AxisX.TitleFont = new Font("Arial", 10, FontStyle.Bold);
-
-                //// Set axis title
-                //Grafico.ChartAreas["AreaGrafico"].AxisY.Title = "Cantidad de Horas Invertidas";
-
-                //// Set Title font
-                //Grafico.ChartAreas["AreaGrafico"].AxisY.TitleFont = new Font("Arial", 10, FontStyle.Bold);
-                
-                ////Set orientacion
-                //Grafico.ChartAreas["AreaGrafico"].AxisY.TextOrientation = TextOrientation.Auto;
-
 
                 // Set pyramid chart type
                 Grafico.Series["Leyendas"].ChartType = SeriesChartType.Pyramid;

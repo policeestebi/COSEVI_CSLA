@@ -222,7 +222,7 @@ namespace CSLA.web.App_pages.mod.Estadistico
                 // create the destination series and add it to the chart
                 Series destSeries = new Series("Pareto");
 
-                if (!Grafico.Series.Contains(destSeries))
+                if (Grafico.Series.IndexOf("Pareto") != 1)
                 {
                     Grafico.Series.Add(destSeries);
                 }
@@ -231,22 +231,7 @@ namespace CSLA.web.App_pages.mod.Estadistico
                 destSeries.BorderWidth = 3;
                 // assign the series to the same chart area as the column chart
                 destSeries.ChartArea = Grafico.Series["Leyendas"].ChartArea;
-                // assign this series to use the secondary axis and set it maximum to be 100%
-                destSeries.YAxisType = AxisType.Secondary;
-                Grafico.ChartAreas["AreaGrafico"].AxisY2.Maximum = 100;
-                // locale specific percentage format with no decimals
-                Grafico.ChartAreas["AreaGrafico"].AxisY2.LabelStyle.Format = "P0";
-                // turn off the end point values of the primary X axis
                 Grafico.ChartAreas["AreaGrafico"].AxisX.LabelStyle.IsEndLabelVisible = false;
-                // for each point in the source series find % of total and assign to series
-                //double percentage = 0.0;
-                //foreach (DataPoint pt in chart.Series[srcSeriesName].Points)
-                //{
-                //    // findes the growth percent and makes a cumulative function
-                //    percentage += (pt.YValues[0] / total * 100.0);
-                //    // Sets the cumulative value to the chart
-                //    destSeries.Points.Add(Math.Round(percentage, 2));
-                //}
 
                 //Se realiza el binding de la información que se obtuvo en la consulta
                 Grafico.Series["Pareto"].Points.DataBindXY(vl_topActividades, "pNombreActividad", vl_topActividades, "pHorasAsignadas");
@@ -256,7 +241,7 @@ namespace CSLA.web.App_pages.mod.Estadistico
                 Grafico.Series["Pareto"].ChartType = SeriesChartType.Line;
                 // set the markers for each point of the Pareto Line
                 Grafico.Series["Pareto"].IsValueShownAsLabel = true;
-                Grafico.Series["Pareto"].MarkerColor = Color.Red;
+                Grafico.Series["Pareto"].MarkerColor = Color.DarkRed;
                 Grafico.Series["Pareto"].MarkerBorderColor = Color.MidnightBlue;
                 Grafico.Series["Pareto"].MarkerStyle = MarkerStyle.Circle;
                 Grafico.Series["Pareto"].MarkerSize = 8;
@@ -264,12 +249,14 @@ namespace CSLA.web.App_pages.mod.Estadistico
                 // Set Color of line Pareto chart
                 Grafico.Series["Pareto"].Color = Color.FromArgb(252, 180, 65);
 
-
-
-
-
                 // Set 3D mode
-                Grafico.ChartAreas["AreaGrafico"].Area3DStyle.Enable3D = false;              
+                Grafico.ChartAreas["AreaGrafico"].Area3DStyle.Enable3D = true;
+                // Show a 30% perspective
+                Grafico.ChartAreas["AreaGrafico"].Area3DStyle.Perspective = 0;
+                // Set the X Angle to 30
+                Grafico.ChartAreas["AreaGrafico"].Area3DStyle.Inclination = 0;
+                // Set the Y Angle to 40
+                Grafico.ChartAreas["AreaGrafico"].Area3DStyle.Rotation = 5;
 
                 //Se aplica el estilo pastel a los colores definidos para el gráfico
                 Grafico.Palette = ChartColorPalette.BrightPastel;
