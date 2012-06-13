@@ -67,6 +67,13 @@ namespace CSLA.web.App_Constantes
         public const string CODIGOPROYECTO = "vs_codigoProyecto";
 
         /// <summary>
+        /// Constante que se utiliza para guardar el código
+        /// del paquete del que se va a obtener información 
+        /// para los gráficos.
+        /// </summary>
+        public const string CODIGOPAQUETE = "vs_codigoPaquete";
+
+        /// <summary>
         /// Constante que se utiliza para guardar la "fecha desde"
         /// del proyecto del que se va a obtener información 
         /// para los gráficos.

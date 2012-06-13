@@ -77,6 +77,7 @@
     <Content Include="App_pages\mod.ControlSeguimiento\frw_operaciones.aspx" />
     <Content Include="App_pages\mod.ControlSeguimiento\frw_proyectosCreacion.aspx" />
     <Content Include="App_pages\mod.ControlSeguimiento\frw_registroTiempos.aspx" />
+    <Content Include="App_pages\mod.Estadistico\frw_grf_compHorasActividades.aspx" />
     <Content Include="App_pages\mod.Estadistico\frw_grf_topActividades.aspx" />
     <Content Include="App_pages\mod.Estadistico\frw_grf_inversionTiempos.aspx" />
     <Content Include="App_pages\mod.Reportes\frw_rep_registroTiempos.aspx" />
@@ -216,6 +217,13 @@
     </Compile>
     <Compile Include="App_pages\mod.ControlSeguimiento\frw_registroTiempos.aspx.designer.cs">
       <DependentUpon>frw_registroTiempos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="App_pages\mod.Estadistico\frw_grf_compHorasActividades.aspx.cs">
+      <DependentUpon>frw_grf_compHorasActividades.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="App_pages\mod.Estadistico\frw_grf_compHorasActividades.aspx.designer.cs">
+      <DependentUpon>frw_grf_compHorasActividades.aspx</DependentUpon>
     </Compile>
     <Compile Include="App_pages\mod.Estadistico\frw_grf_topActividades.aspx.cs">
       <DependentUpon>frw_grf_topActividades.aspx</DependentUpon>
