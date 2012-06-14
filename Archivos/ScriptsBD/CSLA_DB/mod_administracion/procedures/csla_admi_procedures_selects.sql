@@ -185,9 +185,12 @@ AS
 		 tau.apellido2 apellido2,
 		 tau.puesto puesto,
 		 tau.email email,
-		 tar.nombre nombreRol
-        FROM t_admi_usuario tau, t_admi_rol tar
-		WHERE tar.PK_rol = tau.FK_rol
+		 tar.nombre nombreRol,
+		 tad.PK_departamento PK_departamento,
+		 tad.nombre nombreDepartamento
+        FROM t_admi_usuario tau, t_admi_rol tar, t_admi_departamento tad
+		WHERE tar.PK_rol = tau.FK_rol AND
+			  tad.PK_departamento = tau.FK_departamento
 END  
  GO 
 
@@ -407,7 +410,7 @@ GO
 -- Descripción: Select utilizado para realizar búsquedas con filtros en las tablas.
 -- =============================================
 CREATE PROCEDURE  PA_admi_selectFilter
-	@paramTable varchar(50),
+	@paramTable varchar(100),
 	@paramColumnas varchar(MAX),
 	@paramFilter   varchar(MAX)
 AS 

@@ -6,7 +6,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="tituloPagina" runat="server">
-    &nbsp;Actividades Top por Proyecto
+    &nbsp;Comparación de horas en Actividades por Proyecto
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="cuerpoPagina" runat="server">
     <asp:ScriptManager ID="scr_Man" runat="server">
@@ -67,20 +67,23 @@
                         </td>
                     </tr>
                 </table>
-                <asp:Chart ID="Grafico" runat="server" Height="408px" Width="752px"
-                    OnInit="Grafico_Init">
+                <asp:Chart ID="Grafico" runat="server" Height="408px" Width="752px" BorderlineDashStyle="Solid"
+                    Palette="BrightPastel" BackSecondaryColor="White" BackGradientStyle="TopBottom"
+                    BorderWidth="2" BackColor="WhiteSmoke" BorderColor="26, 59, 105" OnInit="Grafico_Init">
                     <Titles>
                         <asp:Title ShadowOffset="3" Name="Title1" />
                     </Titles>
                     <Legends>
                         <asp:Legend Alignment="Center" Docking="Bottom" IsTextAutoFit="False" Name="Leyendas"
-                              LegendStyle="Row" />
+                              BackColor="Transparent" LegendStyle="Row" Font="Trebuchet MS, 8.25pt, style=Bold" />
                     </Legends>
                     <Series>
                         <asp:Series Name="Leyendas"/>
                     </Series>
                     <ChartAreas>
-                        <asp:ChartArea Name="AreaGrafico" BorderWidth="0" />
+                        <asp:ChartArea Name="AreaGrafico" BorderWidth="0" BorderColor="64, 64, 64, 64" 
+                                       BackSecondaryColor="White" BackColor="Gainsboro" ShadowColor="Transparent" 
+                                       BackGradientStyle="TopBottom" />
                     </ChartAreas>
                 </asp:Chart>
             </td>

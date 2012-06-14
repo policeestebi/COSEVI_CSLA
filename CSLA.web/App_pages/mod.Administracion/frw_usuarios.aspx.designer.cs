@@ -481,22 +481,22 @@ namespace CSLA.web.App_pages.mod.Administracion {
         protected global::System.Web.UI.WebControls.RegularExpressionValidator rfv_emaillength;
         
         /// <summary>
-        /// lbl_rol control.
+        /// lbl_departamento control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbl_rol;
+        protected global::System.Web.UI.WebControls.Label lbl_departamento;
         
         /// <summary>
-        /// ddl_rol control.
+        /// ddl_departamento control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddl_rol;
+        protected global::System.Web.UI.WebControls.DropDownList ddl_departamento;
         
         /// <summary>
         /// lbl_puesto control.
@@ -533,6 +533,24 @@ namespace CSLA.web.App_pages.mod.Administracion {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RegularExpressionValidator rfv_puestolength;
+        
+        /// <summary>
+        /// lbl_rol control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lbl_rol;
+        
+        /// <summary>
+        /// ddl_rol control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddl_rol;
         
         /// <summary>
         /// lbl_activo control.

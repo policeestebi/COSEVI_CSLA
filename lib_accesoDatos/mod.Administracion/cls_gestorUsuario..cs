@@ -59,7 +59,8 @@ namespace COSEVI.CSLA.lib.accesoDatos.mod.Administracion
                     new cls_parameter("@paramapellido1", poUsuario.pApellido1),
                     new cls_parameter("@paramapellido2", poUsuario.pApellido2),
                     new cls_parameter("@parampuesto", poUsuario.pPuesto),
-                    new cls_parameter("@paramemail", poUsuario.pEmail)
+                    new cls_parameter("@paramemail", poUsuario.pEmail),
+                    new cls_parameter("@paramFK_departamento", poUsuario.pFK_departamento)
                 };
 
                 cls_sqlDatabase.beginTransaction();
@@ -104,7 +105,8 @@ namespace COSEVI.CSLA.lib.accesoDatos.mod.Administracion
                     new cls_parameter("@paramapellido1", poUsuario.pApellido1),
                     new cls_parameter("@paramapellido2", poUsuario.pApellido2),
                     new cls_parameter("@parampuesto", poUsuario.pPuesto),
-                    new cls_parameter("@paramemail", poUsuario.pEmail)
+                    new cls_parameter("@paramemail", poUsuario.pEmail),
+                    new cls_parameter("@paramFK_departamento", poUsuario.pFK_departamento)
                 };
 
 
@@ -205,6 +207,10 @@ namespace COSEVI.CSLA.lib.accesoDatos.mod.Administracion
                     poUsuario.pEmail = vu_dataSet.Tables[0].Rows[i]["email"].ToString();
 
                     poUsuario.pNombreRol = vu_dataSet.Tables[0].Rows[i]["nombreRol"].ToString();
+                    
+                    poUsuario.pFK_departamento = Convert.ToInt16(vu_dataSet.Tables[0].Rows[i]["PK_departamento"]);
+
+                    poUsuario.pNombreDepartamento = vu_dataSet.Tables[0].Rows[i]["nombreDepartamento"].ToString();
 
                     vo_lista.Add(poUsuario);
                 }
@@ -251,6 +257,10 @@ namespace COSEVI.CSLA.lib.accesoDatos.mod.Administracion
                 poUsuario.pApellido2 = vu_dataSet.Tables[0].Rows[0]["apellido2"].ToString();
 
                 poUsuario.pPuesto = vu_dataSet.Tables[0].Rows[0]["puesto"].ToString();
+                
+                poUsuario.pEmail = vu_dataSet.Tables[0].Rows[0]["email"].ToString();
+
+                poUsuario.pFK_departamento = Convert.ToInt32(vu_dataSet.Tables[0].Rows[0]["FK_departamento"]);
 
                 return poUsuario;
 
@@ -323,6 +333,8 @@ namespace COSEVI.CSLA.lib.accesoDatos.mod.Administracion
 
                     poUsuario.pEmail = vu_dataSet.Tables[0].Rows[0]["email"].ToString();
 
+                    poUsuario.pFK_departamento = Convert.ToInt32(vu_dataSet.Tables[0].Rows[0]["FK_departamento"]);
+
                 }
 
                 return poUsuario;
@@ -344,9 +356,11 @@ namespace COSEVI.CSLA.lib.accesoDatos.mod.Administracion
             cls_usuario voUsuario = null;
             try
             {
-                string vs_tablas = cls_constantes.USUARIO + " usu, " + cls_constantes.ROL + " rl";
-                string vs_columnas = " usu.PK_usuario PK_usuario, usu.FK_rol FK_rol, usu.nombre nombre, usu.apellido1 apellido1, usu.apellido2 apellido2, usu.puesto puesto, usu.activo activo, usu.email, rl.nombre nombreRol ";
-                psFiltro = " usu.FK_rol= rl.Pk_rol AND usu." + psFiltro;
+                string vs_tablas = cls_constantes.USUARIO + " usu, " + cls_constantes.ROL + " rl, " + cls_constantes.DEPARTAMENTO + " dep ";
+                string vs_columnas = " usu.PK_usuario PK_usuario, usu.FK_rol FK_rol, usu.nombre nombre, " + 
+                                     " usu.apellido1 apellido1, usu.apellido2 apellido2, usu.puesto puesto, " + 
+                                     " usu.activo activo, usu.email, rl.nombre nombreRol, usu.FK_departamento, dep.nombre nombreDepartamento ";
+                psFiltro = " usu.FK_departamento = dep.PK_departamento AND usu.FK_rol= rl.Pk_rol AND usu." + psFiltro;
 
                 DataSet vu_dataSet = cls_gestorUtil.selectFilter(vs_tablas, vs_columnas, psFiltro);
 
@@ -373,6 +387,10 @@ namespace COSEVI.CSLA.lib.accesoDatos.mod.Administracion
                     voUsuario.pEmail = vu_dataSet.Tables[0].Rows[i]["email"].ToString();
 
                     voUsuario.pNombreRol = vu_dataSet.Tables[0].Rows[i]["nombreRol"].ToString();
+
+                    voUsuario.pFK_departamento = Convert.ToInt32(vu_dataSet.Tables[0].Rows[i]["FK_departamento"].ToString());
+
+                    voUsuario.pNombreDepartamento = vu_dataSet.Tables[0].Rows[i]["nombreDepartamento"].ToString();
 
                     vo_lista.Add(voUsuario);
                 }
@@ -422,6 +440,28 @@ namespace COSEVI.CSLA.lib.accesoDatos.mod.Administracion
                 throw new Exception("Ocurrió un error al modificar el usuario.", po_exception);
             }
 
+        }
+
+        /// <summary>
+        /// Selecciona el posible departamento de los usuarios
+        /// </summary>
+        /// <returns></returns>
+        public static DataSet listarDepartamentosUsuario()
+        {
+            DataSet vo_lista = null;
+            try
+            {
+                String vs_comando = "PA_admi_departamentoSelect";
+                cls_parameter[] vu_parametros = { };
+
+                vo_lista = cls_sqlDatabase.executeDataset(vs_comando, true, vu_parametros);
+
+                return vo_lista;
+            }
+            catch (Exception po_exception)
+            {
+                throw new Exception("Ocurrió un error al obtener el listado de los departamentos para el usuario.", po_exception);
+            }
         }
 
     }

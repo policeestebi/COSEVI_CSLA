@@ -216,35 +216,33 @@ namespace CSLA.web.App_pages.mod.Estadistico
                 Grafico.Series["Leyendas"].ChartType = SeriesChartType.Column;
 
 
+                Grafico.BorderlineDashStyle = ChartDashStyle.Solid;
+                Grafico.BackSecondaryColor = Color.White;
+                Grafico.BackGradientStyle = GradientStyle.TopBottom;
+                Grafico.BorderlineWidth = 2;
+                Grafico.BackColor = Color.WhiteSmoke;
+                Grafico.BorderlineColor = Color.FromArgb(26, 59, 105);
 
+
+                Grafico.Series["Leyendas"]["BackColor"] = "Transparent";
+                //Grafico.Series["Leyendas"]["BackColor"] = "Transparent";
 
 
                 // create the destination series and add it to the chart
                 Series destSeries = new Series("Pareto");
 
-                Grafico.Series.Add(destSeries);
-                
+                if (Grafico.Series.IndexOf("Pareto") != 1)
+                {
+                    Grafico.Series.Add(destSeries);
+                    Grafico.Legends[1].Enabled = false;
+                    Grafico.Series["Pareto"]["BackColor"] = "Transparent";
+                }
                 // ensure the destination series is a Line or Spline chart type
                 destSeries.ChartType = SeriesChartType.Line;
                 destSeries.BorderWidth = 3;
                 // assign the series to the same chart area as the column chart
                 destSeries.ChartArea = Grafico.Series["Leyendas"].ChartArea;
-                // assign this series to use the secondary axis and set it maximum to be 100%
-                destSeries.YAxisType = AxisType.Secondary;
-                Grafico.ChartAreas["AreaGrafico"].AxisY2.Maximum = 100;
-                // locale specific percentage format with no decimals
-                Grafico.ChartAreas["AreaGrafico"].AxisY2.LabelStyle.Format = "P0";
-                // turn off the end point values of the primary X axis
                 Grafico.ChartAreas["AreaGrafico"].AxisX.LabelStyle.IsEndLabelVisible = false;
-                // for each point in the source series find % of total and assign to series
-                //double percentage = 0.0;
-                //foreach (DataPoint pt in chart.Series[srcSeriesName].Points)
-                //{
-                //    // findes the growth percent and makes a cumulative function
-                //    percentage += (pt.YValues[0] / total * 100.0);
-                //    // Sets the cumulative value to the chart
-                //    destSeries.Points.Add(Math.Round(percentage, 2));
-                //}
 
                 //Se realiza el binding de la información que se obtuvo en la consulta
                 Grafico.Series["Pareto"].Points.DataBindXY(vl_topActividades, "pNombreActividad", vl_topActividades, "pHorasAsignadas");
@@ -254,7 +252,7 @@ namespace CSLA.web.App_pages.mod.Estadistico
                 Grafico.Series["Pareto"].ChartType = SeriesChartType.Line;
                 // set the markers for each point of the Pareto Line
                 Grafico.Series["Pareto"].IsValueShownAsLabel = true;
-                Grafico.Series["Pareto"].MarkerColor = Color.Red;
+                Grafico.Series["Pareto"].MarkerColor = Color.DarkRed;
                 Grafico.Series["Pareto"].MarkerBorderColor = Color.MidnightBlue;
                 Grafico.Series["Pareto"].MarkerStyle = MarkerStyle.Circle;
                 Grafico.Series["Pareto"].MarkerSize = 8;
@@ -262,12 +260,21 @@ namespace CSLA.web.App_pages.mod.Estadistico
                 // Set Color of line Pareto chart
                 Grafico.Series["Pareto"].Color = Color.FromArgb(252, 180, 65);
 
-
-
-
-
                 // Set 3D mode
-                Grafico.ChartAreas["AreaGrafico"].Area3DStyle.Enable3D = false;              
+                Grafico.ChartAreas["AreaGrafico"].Area3DStyle.Enable3D = true;
+                // Show a 30% perspective
+                Grafico.ChartAreas["AreaGrafico"].Area3DStyle.Perspective = 0;
+                // Set the X Angle to 30
+                Grafico.ChartAreas["AreaGrafico"].Area3DStyle.Inclination = 0;
+                // Set the Y Angle to 40
+                Grafico.ChartAreas["AreaGrafico"].Area3DStyle.Rotation = 5;
+
+                Grafico.ChartAreas["AreaGrafico"].BackColor = Color.Gainsboro;
+                Grafico.ChartAreas["AreaGrafico"].BackSecondaryColor = Color.White;
+                Grafico.ChartAreas["AreaGrafico"].ShadowColor = Color.Transparent;
+                Grafico.ChartAreas["AreaGrafico"].BackGradientStyle = GradientStyle.TopBottom;
+                Grafico.ChartAreas["AreaGrafico"].BorderColor = Color.FromArgb(64, 64, 64, 64) ;
+
 
                 //Se aplica el estilo pastel a los colores definidos para el gráfico
                 Grafico.Palette = ChartColorPalette.BrightPastel;
@@ -284,6 +291,20 @@ namespace CSLA.web.App_pages.mod.Estadistico
                 // Set Antialiasing mode
                 Grafico.AntiAliasing = AntiAliasingStyles.Graphics;
                 Grafico.AlignDataPointsByAxisLabel();
+
+
+
+
+                Grafico.BorderlineDashStyle = ChartDashStyle.Solid;
+                Grafico.BackSecondaryColor = Color.White;
+                Grafico.BackGradientStyle = GradientStyle.TopBottom;
+                Grafico.BorderlineWidth = 2;
+                Grafico.BackColor = Color.WhiteSmoke;
+                Grafico.BorderlineColor = Color.FromArgb(26, 59, 105);
+
+
+                Grafico.Series["Leyendas"]["BackColor"] = "Transparent";
+
             }
             catch (Exception po_exception)
             {
@@ -368,7 +389,7 @@ namespace CSLA.web.App_pages.mod.Estadistico
             try
             {
                 Session[cls_constantes.CODIGOPROYECTO] = ddl_proyecto.SelectedValue;
-                Session[cls_constantes.CODIGOPAQUETE] = ddl_paquete.Text;
+                Session[cls_constantes.CODIGOPAQUETE] = ddl_paquete.SelectedValue;
 
                 //Si el proyecto es un proyecto válido, se carga, de lo contrario, se limpia la variable en memoria
                 //Si el proyecto es el "0", no se traerá nada, por lo que no se mostrará nada en ventana, que es el 

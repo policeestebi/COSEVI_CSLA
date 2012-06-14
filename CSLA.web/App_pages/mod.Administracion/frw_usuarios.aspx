@@ -123,6 +123,10 @@
                                                 <asp:BoundField DataField="pPuesto" HeaderText="Puesto" SortExpression="pPuesto" />
                                                 <asp:CheckBoxField DataField="pActivo" HeaderText="Activo" ReadOnly="true" />
                                                 <asp:BoundField DataField="pEmail" HeaderText="Email" SortExpression="pEmail" />
+                                                <asp:BoundField DataField="pFK_departamento" HeaderText="Departamento" SortExpression="pFK_departamento" Visible="false"
+                                                    ShowHeader="false" />
+                                                <asp:BoundField DataField="pNombreDepartamento" HeaderText="NombreDepartamento" SortExpression="pNombreDepartamento" Visible="false"
+                                                    ShowHeader="false" />
                                                 <asp:TemplateField>
                                                     <ItemTemplate>
                                                         <asp:ImageButton runat="server" ID="btn_ver" CommandName="Ver" CommandArgument='<%# DataBinder.Eval(Container, "RowIndex") %>'
@@ -310,10 +314,10 @@
                                             </tr>
                                             <tr align="left">
                                                 <td>
-                                                    <asp:Label ID="lbl_rol" runat="server" Text="Rol: "></asp:Label>
+                                                    <asp:Label ID="lbl_departamento" runat="server" Text="Departamento: "></asp:Label>
                                                 </td>
                                                 <td>
-                                                    <asp:DropDownList ID="ddl_rol" runat="server" OnSelectedIndexChanged="ddlRol_SelectedIndexChanged">
+                                                    <asp:DropDownList ID="ddl_departamento" runat="server" OnSelectedIndexChanged="ddlDepartamento_SelectedIndexChanged">
                                                     </asp:DropDownList>
                                                 </td>
                                             </tr>
@@ -330,6 +334,15 @@
                                                     <asp:RegularExpressionValidator ID="rfv_puestolength" runat="server" ErrorMessage="La longitud máxima son 45 caracteres."
                                                         ValidationGroup="usuario" ValidationExpression="^([\S\s]{0,45})$" ControlToValidate="txt_puesto"
                                                         Display="Dynamic"></asp:RegularExpressionValidator>
+                                                </td>
+                                            </tr>
+                                            <tr align="left">
+                                                <td>
+                                                    <asp:Label ID="lbl_rol" runat="server" Text="Rol: "></asp:Label>
+                                                </td>
+                                                <td>
+                                                    <asp:DropDownList ID="ddl_rol" runat="server" OnSelectedIndexChanged="ddlRol_SelectedIndexChanged">
+                                                    </asp:DropDownList>
                                                 </td>
                                             </tr>
                                             <tr align="left">
