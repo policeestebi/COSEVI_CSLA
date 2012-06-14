@@ -387,3 +387,97 @@ AS
 		
 END  
  GO 
+
+ IF  EXISTS (SELECT * FROM sys.procedures WHERE object_id = OBJECT_ID(N'[dbo].[PA_cont_imprimeReporteRegistro]'))
+DROP PROCEDURE [dbo].[PA_cont_imprimeReporteRegistro]
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Autor: Generador
+-- Fecha Creación:	12-06-2012
+-- Fecha Actulización:	12-06-2012
+-- Descripción: 
+-- =============================================
+CREATE PROCEDURE  PA_cont_imprimeReporteRegistro
+  @paramUsuario varchar(30),
+  @paramFecha	DATE
+AS
+BEGIN 
+DECLARE @departamento INT,
+		@consecutivo  INT,
+		@codigoDep NVARCHAR(30),
+		@codigo NVARCHAR(45)
+		
+
+	IF EXISTS
+		(SELECT 
+			PK_usuario 
+		 FROM
+			t_admi_consecutivo c
+		WHERE
+			c.PK_usuario = @paramUsuario AND
+			c.PK_fecha_impresion = @paramFecha)
+	BEGIN
+	
+		SELECT 
+			PK_consecutivo = @codigo
+		 FROM
+			t_admi_consecutivo c
+		WHERE
+			c.PK_usuario = @paramUsuario AND
+			c.PK_fecha_impresion = @paramFecha
+		
+		UPDATE t_admi_consecutivo 
+				SET reimpresion = reimpresion + 1
+		WHERE
+			PK_usuario = @paramUsuario AND
+			PK_fecha_impresion = @paramFecha
+		
+		INSERT t_admi_bitacora (FK_departamento,
+								FK_usuario,
+								accion,
+								fecha_accion, 
+								numero_registro,
+								tabla,maquina)
+				VALUES
+				(NULL,@paramUsuario,
+				'Modificar',
+				GETDATE(),
+				@paramUsuario + '/' + @codigo + '/' + CONVERT(VARCHAR,@paramFecha,103),
+				't_admi_consecutivo','')
+		
+	END
+	ELSE
+		SELECT @departamento = FK_departamento from t_admi_usuario
+		WHERE PK_usuario = @paramUsuario
+		
+		SELECT @consecutivo = CONVERT(int,consecutivo) + 1,
+			   @codigoDep = nombre
+		 FROM  t_admi_departamento
+		WHERE PK_departamento = @departamento;
+		
+		SELECT @codigo = 'IF-' + @codigoDep + '-'+ CONVERT(VARCHAR,YEAR(@paramFecha)) + '-' +  CONVERT(VARCHAR,@consecutivo)
+		
+		INSERT INTO t_admi_consecutivo (PK_usuario,PK_consecutivo,PK_fecha_impresion,reimpresion)
+		VALUES (@paramUsuario,@codigo,@paramFecha,0)
+		
+		INSERT t_admi_bitacora (FK_departamento,
+								FK_usuario,
+								accion,
+								fecha_accion, 
+								numero_registro,
+								tabla,maquina)
+				VALUES
+				(NULL,@paramUsuario,
+				'Insertar',
+				GETDATE(),
+				@paramUsuario + '/' + @codigo + '/' + CONVERT(VARCHAR,@paramFecha,103),
+				't_admi_consecutivo','')
+
+END   
+ GO
+ 
+

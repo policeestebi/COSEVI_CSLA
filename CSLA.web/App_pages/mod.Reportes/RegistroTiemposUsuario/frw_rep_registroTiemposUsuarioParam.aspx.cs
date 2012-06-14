@@ -6,6 +6,16 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Text;
 
+
+using COSEVI.CSLA.lib.accesoDatos.App_InterfaceComunes;
+using ExceptionManagement.Exceptions;
+using COSEVI.CSLA.lib.entidades.mod.Administracion;
+using COSEVI.CSLA.lib.accesoDatos.mod.Administracion;
+using COSEVI.CSLA.lib.accesoDatos.mod.Reportes;
+
+using CSLA.web.App_Variables;
+using CSLA.web.App_Constantes;
+
 namespace CSLA.web.App_pages.mod.Reportes.RegistroTiemposUsuario
 {
     public partial class frw_rep_registroTiemposUsuarioParam : System.Web.UI.Page
@@ -43,6 +53,8 @@ namespace CSLA.web.App_pages.mod.Reportes.RegistroTiemposUsuario
             DateTime vd_fechaInicial = Convert.ToDateTime(this.txt_fechaImpresion.Text);
 
             DateTime vd_fechaFinal = vd_fechaInicial.AddMonths(1).AddDays(-1);
+
+     //       cls_gestorReportes.insertConsecutivo(((cls_usuario)this.Session["cls_usuario"]).pPK_usuario, vd_fechaInicial);
 
             Response.Redirect(this.contruirURl(vd_fechaInicial,vd_fechaFinal));
 

@@ -206,7 +206,6 @@ AS
 		 FK_departamento
         FROM t_admi_usuario
 		WHERE 
-			PK_usuario = @paramPK_usuario AND
-			activo = 1
+			PK_usuario = @paramPK_usuario 
 END  
  GO 

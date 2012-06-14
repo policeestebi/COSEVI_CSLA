@@ -333,7 +333,7 @@ namespace COSEVI.CSLA.lib.accesoDatos.mod.Administracion
 
                     poUsuario.pEmail = vu_dataSet.Tables[0].Rows[0]["email"].ToString();
 
-                    poUsuario.pFK_departamento = Convert.ToInt32(vu_dataSet.Tables[0].Rows[0]["FK_departamento"]);
+                    poUsuario.pFK_departamento = vu_dataSet.Tables[0].Rows[0]["FK_departamento"] != DBNull.Value ? Convert.ToInt32(vu_dataSet.Tables[0].Rows[0]["FK_departamento"]) : -1;
 
                 }
 

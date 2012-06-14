@@ -99,6 +99,7 @@
     <Compile Include="mod.ControlSeguimiento\cls_gestorRegistroActividad.cs" />
     <Compile Include="mod.ControlSeguimiento\cls_gestorRegistroOperacion.cs" />
     <Compile Include="mod.Estadistico\cls_gestorEstadistico.cs" />
+    <Compile Include="mod.Reportes\cls_gestorReportes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -107,9 +108,7 @@
       <Name>COSEVI.CSLA.lib.entidades</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="mod.Reportes\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
       <Visible>False</Visible>

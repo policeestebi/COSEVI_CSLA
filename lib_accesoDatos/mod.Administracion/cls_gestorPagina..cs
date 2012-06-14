@@ -114,6 +114,7 @@ namespace COSEVI.CSLA.lib.accesoDatos.mod.Administracion
        {
             int vi_resultado;
             cls_paginaPermiso vo_paginaPermiso = null;
+            cls_pagina vo_pagina = null;
             try
             {
                 String vs_comando = "PA_admi_paginaUpdate";
@@ -149,13 +150,34 @@ namespace COSEVI.CSLA.lib.accesoDatos.mod.Administracion
 
                 cls_interface.insertarTransacccionBitacora(cls_constantes.MODIFICAR, cls_constantes.PAGINA, poPagina.pPK_pagina.ToString());
 
+                vo_pagina = new cls_pagina();
+                vo_pagina.pPK_pagina = poPagina.pPK_pagina;
+
+                vo_pagina = cls_gestorPagina.seleccionarPagina(vo_pagina);
+
+
                 foreach (cls_permiso vo_permiso in poPagina.Permisos)
                 {
-                    vo_paginaPermiso = new cls_paginaPermiso();
-                    vo_paginaPermiso.pPK_pagina = poPagina.pPK_pagina;
-                    vo_paginaPermiso.pPK_permiso = vo_permiso.pPK_permiso;
+                    if (!vo_pagina.Permisos.Exists(c => c.pPK_permiso == vo_permiso.pPK_permiso)) 
+                    {
+                        vo_paginaPermiso = new cls_paginaPermiso();
+                        vo_paginaPermiso.pPK_pagina = poPagina.pPK_pagina;
+                        vo_paginaPermiso.pPK_permiso = vo_permiso.pPK_permiso;
 
-                    cls_gestorPaginaPermiso.insertPaginaPermiso(vo_paginaPermiso);
+                        cls_gestorPaginaPermiso.insertPaginaPermiso(vo_paginaPermiso);
+                    }
+                }
+
+                foreach (cls_permiso vo_permiso in vo_pagina.Permisos)
+                {
+                    if (!poPagina.Permisos.Exists(c => c.pPK_permiso == vo_permiso.pPK_permiso))
+                    {
+                        vo_paginaPermiso = new cls_paginaPermiso();
+                        vo_paginaPermiso.pPK_pagina = poPagina.pPK_pagina;
+                        vo_paginaPermiso.pPK_permiso = vo_permiso.pPK_permiso;
+
+                        cls_gestorPaginaPermiso.deletePaginaPermiso(vo_paginaPermiso);
+                    }
                 }
 
                 cls_sqlDatabase.commitTransaction();

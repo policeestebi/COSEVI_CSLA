@@ -27,11 +27,11 @@
                 </asp:Panel>
             </div>
             <act:Accordion ID="ard_principal" runat="server" SelectedIndex="0" FadeTransitions="false" 
-                FramesPerSecond="40" TransitionDuration="250" AutoSize="None" RequireOpenedPane="false"
+                FramesPerSecond="40" TransitionDuration="250" AutoSize="None" RequireOpenedPane="false" Height="570"
                 SuppressHeaderPostbacks="true" HeaderCssClass="encabezadoAcordeon" ContentCssClass="contenidoAcordeon"
                 HeaderSelectedCssClass="encabezadoSeleccionadoAcordeon">
                 <Panes>
-                    <act:AccordionPane ID="acp_listadoDatos" runat="server" >
+                    <act:AccordionPane ID="acp_listadoDatos" runat="server" Height="570" >
                         <Header>
                             <a href="" style="color: #FFFFFF; font-size: 12px;">Listado de Roles</a>
                         </Header>

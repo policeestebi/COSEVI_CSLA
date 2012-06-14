@@ -437,7 +437,7 @@ namespace CSLA.web.App_pages.mod.Administracion
             }
             catch (Exception po_exception)
             {
-                throw new Exception("Ocurrió un error al guardar el registro.", po_exception);
+                throw new Exception("Ocurrió un error al guardar el registro, verifique que los permisos de la página no se encuentre asociados a un rol.", po_exception);
             }
         }
 

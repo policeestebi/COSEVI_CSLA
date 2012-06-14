@@ -83,7 +83,7 @@ namespace COSEVI.CSLA.lib.accesoDatos.mod.Administracion
 
             try
             {
-                String vs_comando = "PA_Pagina_permisoDelete";
+                String vs_comando = "PA_admi_pagina_permisoDelete";
 
                 cls_parameter[] vu_parametros = 
                 {
@@ -91,20 +91,15 @@ namespace COSEVI.CSLA.lib.accesoDatos.mod.Administracion
                     new cls_parameter("@paramPK_permiso", poPaginaPermiso.pPK_permiso)
                 };
 
-                cls_sqlDatabase.beginTransaction();
-
                 vi_resultado = cls_sqlDatabase.executeNonQuery(vs_comando, true, vu_parametros);
 
                 cls_interface.insertarTransacccionBitacora(cls_constantes.ELIMINAR, cls_constantes.PAGINA_PERMISO, poPaginaPermiso.pPK_pagina + "/" + poPaginaPermiso.pPK_permiso);
-
-                cls_sqlDatabase.commitTransaction();
 
                 return vi_resultado;
 
             }
             catch (Exception po_exception)
             {
-                cls_sqlDatabase.rollbackTransaction();
                 throw new Exception("Ocurrió un error al eliminar el permiso de la página.", po_exception);
             }
         }

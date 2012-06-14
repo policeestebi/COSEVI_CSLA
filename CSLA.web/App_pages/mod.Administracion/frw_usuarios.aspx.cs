@@ -268,6 +268,7 @@ namespace CSLA.web.App_pages.mod.Administracion
                 this.txt_usuario.Text = vo_usuario.pPK_usuario;
                 this.txt_nombre.Text = vo_usuario.pNombre;
                 this.txt_contrasena.Text = vo_usuario.pContrasena;
+                this.txt_confirmarContrasena.Text = vo_usuario.pContrasena; 
                 this.txt_apellido1.Text = vo_usuario.pApellido1;
                 this.txt_apellido2.Text = vo_usuario.pApellido2;
                 this.ddl_rol.SelectedValue = vo_usuario.pFK_rol.ToString();
@@ -564,7 +565,8 @@ namespace CSLA.web.App_pages.mod.Administracion
         {
             try
             {
-                if (!String.IsNullOrEmpty(this.txt_contrasena.Text) && !String.IsNullOrEmpty(this.txt_confirmarContrasena.Text) && this.txt_contrasena.Text == this.txt_confirmarContrasena.Text)
+                //!String.IsNullOrEmpty(this.txt_contrasena.Text) && !String.IsNullOrEmpty(this.txt_confirmarContrasena.Text) && 
+                if (this.txt_contrasena.Text == this.txt_confirmarContrasena.Text)
                 {
                     this.guardarDatos();
 
