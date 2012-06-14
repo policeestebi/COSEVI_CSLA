@@ -593,7 +593,7 @@ namespace CSLA.web.App_pages.mod.ControlSeguimiento
             {
                 this.Session.Abandon();
                 this.Session.Clear();
-                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Salida", cls_constantes.SCRIPTLOGOUT, true);
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Salida", cls_constantes.SCRIPTLOGOUT , true);
             }
         }
 
@@ -691,7 +691,7 @@ namespace CSLA.web.App_pages.mod.ControlSeguimiento
 
             try
             {
-                lsUrl = "#" + HttpContext.Current.Request.Url.AbsolutePath.Remove(0,1);
+                lsUrl = "#" + cls_util.ObtenerDireccion(HttpContext.Current.Request.Url.AbsolutePath.Remove(0, 1));
 
                 if (this.Session["cls_usuario"] != null)
                 {
