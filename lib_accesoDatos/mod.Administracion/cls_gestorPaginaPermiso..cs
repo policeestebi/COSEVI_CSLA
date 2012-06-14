@@ -49,7 +49,7 @@ namespace COSEVI.CSLA.lib.accesoDatos.mod.Administracion
 
             try
             {
-                String vs_comando = "PA_Pagina_permisoInsert";
+                String vs_comando = "PA_admi_pagina_permisoInsert";
 
                 cls_parameter[] vu_parametros = 
                 {
@@ -57,20 +57,15 @@ namespace COSEVI.CSLA.lib.accesoDatos.mod.Administracion
                     new cls_parameter("@paramPK_permiso", poPaginaPermiso.pPK_permiso)
                 };
 
-                cls_sqlDatabase.beginTransaction();
-
                 vi_resultado = cls_sqlDatabase.executeNonQuery(vs_comando, true, vu_parametros);
 
                 cls_interface.insertarTransacccionBitacora(cls_constantes.INSERTAR, cls_constantes.PAGINA_PERMISO, poPaginaPermiso.pPK_pagina + "/" + poPaginaPermiso.pPK_permiso);
-
-                cls_sqlDatabase.commitTransaction();
 
                 return vi_resultado;
 
             }
             catch (Exception po_exception)
-            {
-                cls_sqlDatabase.rollbackTransaction();
+            {                
                 throw new Exception("Ocurrió un error al insertar el permiso de la página.", po_exception);
             }
 
@@ -112,7 +107,46 @@ namespace COSEVI.CSLA.lib.accesoDatos.mod.Administracion
                 cls_sqlDatabase.rollbackTransaction();
                 throw new Exception("Ocurrió un error al eliminar el permiso de la página.", po_exception);
             }
-        }	
+        }
+
+        /// <summary>
+        /// Método que permite 
+        /// obtener las asociación que exite
+        /// entre las páginas y los permisos.
+        /// </summary>
+        /// <param name="poPagina">cls_permiso</param>
+       /// <returns>List</returns>
+       public static List<cls_permiso> listarPaginaPermiso(cls_pagina poPagina) 
+       {
+           List<cls_permiso> vo_lista = null;
+           cls_permiso voPermiso = null;
+           try
+           {
+               String vs_comando = "PA_admi_paginaPermisoSelect";
+               cls_parameter[] vu_parametros = { 
+                                                   new cls_parameter("@paramPagina", poPagina.pPK_pagina) 
+                                               };
+
+               DataSet vu_dataSet = cls_sqlDatabase.executeDataset(vs_comando, true, vu_parametros);
+
+               vo_lista = new List<cls_permiso>();
+
+               for (int i = 0; i < vu_dataSet.Tables[0].Rows.Count; i++)
+               {
+                   voPermiso = new cls_permiso();
+
+                   voPermiso.pPK_permiso = Convert.ToInt32(vu_dataSet.Tables[0].Rows[i]["PK_permiso"]);
+
+                   vo_lista.Add(voPermiso);
+               }
+
+               return vo_lista;
+           }
+           catch (Exception po_exception)
+           {
+               throw new Exception("Ocurrió un error al obtener el listado de los páginas de manera filtrada.", po_exception);
+           }
+       }
 
     }
 }

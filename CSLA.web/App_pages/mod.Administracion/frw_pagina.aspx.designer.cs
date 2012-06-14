@@ -229,6 +229,15 @@ namespace CSLA.web.App_pages.mod.Administracion {
         protected global::System.Web.UI.WebControls.DropDownList ddl_menu;
         
         /// <summary>
+        /// trv_permisos control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TreeView trv_permisos;
+        
+        /// <summary>
         /// btn_cancelar control.
         /// </summary>
         /// <remarks>

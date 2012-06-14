@@ -24,9 +24,9 @@ table#form_table
 body 
 {
 	/*background-image:url(../imagenes/css/img_body.jpg);/*img_background.png)*/
-	/*background-image:url(../imagenes/css/madera.png);*/
+	background-image:url(../imagenes/css/madera.png);
 	/*background-color:#DAA672;*/
-    background-color:#855205;
+    /*background-color:#855205;*/
 	font:12px/18px 'Trebuchet MS', Arial, Helvetica, Sans-serif;
 	background-repeat:repeat;
 }

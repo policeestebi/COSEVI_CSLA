@@ -509,3 +509,29 @@ BEGIN
 			numero_registro LIKE @paramRegistro
 END  
  GO 
+
+IF  EXISTS (SELECT * FROM sys.procedures WHERE object_id = OBJECT_ID(N'[dbo].[PA_admi_paginaPermisoSelect]'))
+DROP PROCEDURE [dbo].[PA_admi_paginaPermisoSelect]
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Autor: Generador
+-- Fecha Creación:	03-06-2012
+-- Fecha Actulización: 03-06-2012
+-- Descripción: 
+-- =============================================
+CREATE PROCEDURE  PA_admi_paginaPermisoSelect
+	@paramPagina int
+
+AS 
+BEGIN 
+		SELECT 
+			PK_permiso
+        FROM t_admi_pagina_permiso
+        WHERE
+			PK_pagina = @paramPagina
+END  
+ GO  
