@@ -57,19 +57,20 @@ namespace CSLA.web.App_pages.mod.Administracion
             {
 
                 try
-                {        
+                {
                     this.obtenerPermisos();
                     this.validarAcceso();
                     this.cargarPermisos();
 
                     this.llenarGridView();
                     this.llenarComboMenu();
+                    this.llenarTreeViewPermisos();
                 }
                 catch (Exception po_exception)
                 {
                     String vs_error_usuario = "Error al inicializar el mantenimiento de páginas.";
                     this.lanzarExcepcion(po_exception, vs_error_usuario);
-                } 
+                }
 
             }
 
@@ -115,7 +116,7 @@ namespace CSLA.web.App_pages.mod.Administracion
             {
                 String vs_error_usuario = "Ocurrió un error inicializando los controles del mantenimiento.";
                 this.lanzarExcepcion(po_exception, vs_error_usuario);
-            } 
+            }
         }
 
         /// <summary>
@@ -154,7 +155,7 @@ namespace CSLA.web.App_pages.mod.Administracion
             catch (Exception po_exception)
             {
                 throw new Exception("Ocurrió un error llenando la tabla.", po_exception);
-            } 
+            }
         }
 
         /// <summary>
@@ -194,11 +195,37 @@ namespace CSLA.web.App_pages.mod.Administracion
                 {
                     this.mostrarNoDatos();
                 }
+
             }
             catch (Exception po_exception)
             {
                 String vs_error_usuario = "Ocurrió un error llenando la tabla con filtro.";
                 this.lanzarExcepcion(po_exception, vs_error_usuario);
+            }
+        }
+
+        /// <summary>
+        /// Método que llena el tree de permismos.
+        /// </summary>
+        private void llenarTreeViewPermisos()
+        {
+            try
+            {
+                this.trv_permisos.ShowCheckBoxes = TreeNodeTypes.Leaf;
+                TreeNode vo_node = new TreeNode("Permisos", "-1");
+                this.trv_permisos.Nodes.Add(vo_node);
+                List<cls_permiso> vo_permisos = cls_gestorPermiso.listarPermiso();
+
+                foreach (cls_permiso vo_permiso in vo_permisos)
+                {
+                    vo_node.ChildNodes.Add(new TreeNode(vo_permiso.pNombre, vo_permiso.pPK_permiso.ToString()));
+                }
+
+                this.trv_permisos.ExpandAll();
+            }
+            catch (Exception po_exception)
+            {
+                throw new Exception("Ocurrió un error llenando la el combo tree view de permisos.", po_exception);
             }
         }
 
@@ -218,7 +245,7 @@ namespace CSLA.web.App_pages.mod.Administracion
             catch (Exception po_exception)
             {
                 throw new Exception("Ocurrió un error llenando la el combo del menú.", po_exception);
-            } 
+            }
         }
 
         /// <summary>
@@ -241,6 +268,19 @@ namespace CSLA.web.App_pages.mod.Administracion
                 vo_pagina.pUrl = txt_url.Text;
                 vo_pagina.FK_menu = this.ddl_menu.SelectedIndex;
                 vo_pagina.pHeight = this.txt_largo.Text;
+
+                vo_pagina.Permisos = new List<cls_permiso>();
+                cls_permiso vo_permiso = null;
+
+                foreach (TreeNode vo_nodo in this.trv_permisos.CheckedNodes) 
+                {
+                    vo_permiso = new cls_permiso();
+                    vo_permiso.pPK_permiso = Convert.ToInt32(vo_nodo.Value);
+                    vo_permiso.pNombre = vo_nodo.Text;
+
+                    vo_pagina.Permisos.Add(vo_permiso);
+                }
+
                 return vo_pagina;
             }
             catch (Exception po_exception)
@@ -265,6 +305,13 @@ namespace CSLA.web.App_pages.mod.Administracion
                 this.ddl_menu.SelectedIndex = vo_pagina.FK_menu;
                 this.txt_largo.Text = vo_pagina.pHeight;
 
+                
+
+                foreach (cls_permiso vo_permiso in vo_pagina.Permisos) 
+                {
+                    this.marcarNodo(vo_permiso);
+                }
+
                 if (cls_variablesSistema.tipoEstado == cls_constantes.VER)
                 {
                     this.habilitarControles(false);
@@ -277,8 +324,70 @@ namespace CSLA.web.App_pages.mod.Administracion
             catch (Exception po_exception)
             {
                 throw new Exception("Ocurrió un error al cargar el registro.", po_exception);
-            } 
+            }
 
+        }
+
+        /// <summary>
+        /// Método que se encarga
+        /// de marcar los permisos
+        /// asociados en la página.
+        /// </summary>
+        /// <param name="po_permiso"></param>
+        private void marcarNodo(cls_permiso po_permiso) 
+        {
+            foreach (TreeNode vo_node in this.trv_permisos.Nodes[0].ChildNodes) 
+            {
+                if(vo_node.Value.Equals(po_permiso.pPK_permiso.ToString()))
+                {
+                    vo_node.Checked = true;
+                    break;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Limpia los valores marcado del treeview
+        /// </summary>
+        private void limpiarTreeView()
+        {
+            //Lista de values
+            List<string> vo_values = new List<string>();
+
+            //Los nodos marcados se desmarcan.
+            foreach (TreeNode nodo in trv_permisos.CheckedNodes)
+            {
+                vo_values.Add(nodo.Value);
+            }
+
+            foreach (string value in vo_values)
+            {
+                this.marcarDesmarcarNodo(value, this.trv_permisos.Nodes, false);
+            }
+        }
+
+        /// <summary>
+        /// Busca y marca el nodo según su value.
+        /// </summary>
+        /// <param name="ps_value">String value a buscar.</param>
+        /// <returns>true|false</returns>
+        private void marcarDesmarcarNodo(string ps_value, TreeNodeCollection po_nodos, bool pb_marcado)
+        {
+            foreach (TreeNode node in po_nodos)
+            {
+                if (node.Value == ps_value)
+                {
+                    node.Checked = pb_marcado;
+
+                    return;
+                }
+                else
+                {
+                    marcarDesmarcarNodo(ps_value, node.ChildNodes, pb_marcado);
+
+                }
+
+            }
         }
 
         /// <summary>
@@ -329,7 +438,7 @@ namespace CSLA.web.App_pages.mod.Administracion
             catch (Exception po_exception)
             {
                 throw new Exception("Ocurrió un error al guardar el registro.", po_exception);
-            } 
+            }
         }
 
         /// <summary>
@@ -343,6 +452,9 @@ namespace CSLA.web.App_pages.mod.Administracion
             this.txt_url.Text = String.Empty;
             this.ddl_menu.SelectedIndex = 0;
             this.txt_largo.Text = String.Empty;
+
+            //Se limpia el treeview
+            this.limpiarTreeView();
         }
 
         /// <summary>
@@ -402,7 +514,7 @@ namespace CSLA.web.App_pages.mod.Administracion
         protected void ucSearchPagina_searchClick(object sender, EventArgs e, string value, ListItem seletecItem)
         {
 
-            this.llenarGridViewFilter(this.ucSearchPagina.Filter); 
+            this.llenarGridViewFilter(this.ucSearchPagina.Filter);
 
         }
 
@@ -430,7 +542,7 @@ namespace CSLA.web.App_pages.mod.Administracion
             {
                 String vs_error_usuario = "Ocurrió un error al intentar mostrar la ventana de edición para los registros.";
                 this.lanzarExcepcion(po_exception, vs_error_usuario);
-            } 
+            }
 
         }
 
@@ -458,7 +570,7 @@ namespace CSLA.web.App_pages.mod.Administracion
             {
                 String vs_error_usuario = "Ocurrió un error mientras se guardaba el registro.";
                 this.lanzarExcepcion(po_exception, vs_error_usuario);
-            } 
+            }
         }
 
         /// <summary>
@@ -485,7 +597,7 @@ namespace CSLA.web.App_pages.mod.Administracion
             {
                 String vs_error_usuario = "Ocurrió un error al cancelar la operación.";
                 this.lanzarExcepcion(po_exception, vs_error_usuario);
-            } 
+            }
 
         }
 
@@ -498,7 +610,7 @@ namespace CSLA.web.App_pages.mod.Administracion
         {
             try
             {
-                
+
                 this.grd_listaPaginas.PageIndex = e.NewPageIndex;
                 this.llenarGridView();
                 this.upd_Principal.Update();
@@ -507,7 +619,7 @@ namespace CSLA.web.App_pages.mod.Administracion
             {
                 String vs_error_usuario = "Ocurrió un error al realizar el listado de páginas.";
                 this.lanzarExcepcion(po_exception, vs_error_usuario);
-            } 
+            }
         }
 
         /// <summary>
@@ -528,7 +640,7 @@ namespace CSLA.web.App_pages.mod.Administracion
                 vo_pagina.pPK_pagina = Convert.ToInt32(vu_fila.Cells[0].Text.ToString());
                 vo_pagina.pNombre = vu_fila.Cells[0].Text.ToString();
                 vo_pagina.pUrl = vu_fila.Cells[0].Text.ToString();
-                
+
                 switch (e.CommandName.ToString())
                 {
                     case cls_constantes.VER:
@@ -577,7 +689,7 @@ namespace CSLA.web.App_pages.mod.Administracion
             {
                 String vs_error_usuario = "Ocurrió un error al intentar mostrar la ventana de edición para los registros.";
                 this.lanzarExcepcion(po_exception, vs_error_usuario);
-            } 
+            }
 
         }
 

@@ -46,6 +46,7 @@ namespace COSEVI.CSLA.lib.accesoDatos.mod.Administracion
 	   public static int insertPagina(cls_pagina poPagina)
         {
             int vi_resultado;
+           cls_paginaPermiso vo_paginaPermiso = null;
             try
             {
                 String vs_comando = "PA_admi_paginaInsert";
@@ -81,6 +82,15 @@ namespace COSEVI.CSLA.lib.accesoDatos.mod.Administracion
 
                 cls_interface.insertarTransacccionBitacora(cls_constantes.INSERTAR, cls_constantes.PAGINA, poPagina.pPK_pagina.ToString());
 
+                foreach(cls_permiso vo_permiso in poPagina.Permisos)
+                {
+                    vo_paginaPermiso = new cls_paginaPermiso();
+                    vo_paginaPermiso.pPK_pagina = poPagina.pPK_pagina;
+                    vo_paginaPermiso.pPK_permiso = vo_permiso.pPK_permiso;
+
+                    cls_gestorPaginaPermiso.insertPaginaPermiso(vo_paginaPermiso);
+                }
+
                 cls_sqlDatabase.commitTransaction();
 
                 return vi_resultado;
@@ -103,7 +113,7 @@ namespace COSEVI.CSLA.lib.accesoDatos.mod.Administracion
        public static int updatePagina(cls_pagina poPagina)
        {
             int vi_resultado;
-
+            cls_paginaPermiso vo_paginaPermiso = null;
             try
             {
                 String vs_comando = "PA_admi_paginaUpdate";
@@ -138,6 +148,15 @@ namespace COSEVI.CSLA.lib.accesoDatos.mod.Administracion
                 }
 
                 cls_interface.insertarTransacccionBitacora(cls_constantes.MODIFICAR, cls_constantes.PAGINA, poPagina.pPK_pagina.ToString());
+
+                foreach (cls_permiso vo_permiso in poPagina.Permisos)
+                {
+                    vo_paginaPermiso = new cls_paginaPermiso();
+                    vo_paginaPermiso.pPK_pagina = poPagina.pPK_pagina;
+                    vo_paginaPermiso.pPK_permiso = vo_permiso.pPK_permiso;
+
+                    cls_gestorPaginaPermiso.insertPaginaPermiso(vo_paginaPermiso);
+                }
 
                 cls_sqlDatabase.commitTransaction();
 
@@ -224,6 +243,7 @@ namespace COSEVI.CSLA.lib.accesoDatos.mod.Administracion
                    vo_lista.Add(poPagina);
                }
 
+
                return vo_lista;
            }
            catch (Exception po_exception)
@@ -259,6 +279,8 @@ namespace COSEVI.CSLA.lib.accesoDatos.mod.Administracion
                poPagina.pUrl = vu_dataSet.Tables[0].Rows[0]["url"].ToString();
 
                poPagina.pHeight = vu_dataSet.Tables[0].Rows[0]["height"].ToString();
+
+               poPagina.Permisos = cls_gestorPaginaPermiso.listarPaginaPermiso(poPagina);
 
                return poPagina;
 
