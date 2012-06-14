@@ -216,7 +216,16 @@ namespace CSLA.web.App_pages.mod.Estadistico
                 Grafico.Series["Leyendas"].ChartType = SeriesChartType.Column;
 
 
+                Grafico.BorderlineDashStyle = ChartDashStyle.Solid;
+                Grafico.BackSecondaryColor = Color.White;
+                Grafico.BackGradientStyle = GradientStyle.TopBottom;
+                Grafico.BorderlineWidth = 2;
+                Grafico.BackColor = Color.WhiteSmoke;
+                Grafico.BorderlineColor = Color.FromArgb(26, 59, 105);
 
+
+                Grafico.Series["Leyendas"]["BackColor"] = "Transparent";
+                //Grafico.Series["Leyendas"]["BackColor"] = "Transparent";
 
 
                 // create the destination series and add it to the chart
@@ -225,6 +234,8 @@ namespace CSLA.web.App_pages.mod.Estadistico
                 if (Grafico.Series.IndexOf("Pareto") != 1)
                 {
                     Grafico.Series.Add(destSeries);
+                    Grafico.Legends[1].Enabled = false;
+                    Grafico.Series["Pareto"]["BackColor"] = "Transparent";
                 }
                 // ensure the destination series is a Line or Spline chart type
                 destSeries.ChartType = SeriesChartType.Line;
@@ -258,6 +269,13 @@ namespace CSLA.web.App_pages.mod.Estadistico
                 // Set the Y Angle to 40
                 Grafico.ChartAreas["AreaGrafico"].Area3DStyle.Rotation = 5;
 
+                Grafico.ChartAreas["AreaGrafico"].BackColor = Color.Gainsboro;
+                Grafico.ChartAreas["AreaGrafico"].BackSecondaryColor = Color.White;
+                Grafico.ChartAreas["AreaGrafico"].ShadowColor = Color.Transparent;
+                Grafico.ChartAreas["AreaGrafico"].BackGradientStyle = GradientStyle.TopBottom;
+                Grafico.ChartAreas["AreaGrafico"].BorderColor = Color.FromArgb(64, 64, 64, 64) ;
+
+
                 //Se aplica el estilo pastel a los colores definidos para el gráfico
                 Grafico.Palette = ChartColorPalette.BrightPastel;
                 Grafico.ApplyPaletteColors();
@@ -273,6 +291,20 @@ namespace CSLA.web.App_pages.mod.Estadistico
                 // Set Antialiasing mode
                 Grafico.AntiAliasing = AntiAliasingStyles.Graphics;
                 Grafico.AlignDataPointsByAxisLabel();
+
+
+
+
+                Grafico.BorderlineDashStyle = ChartDashStyle.Solid;
+                Grafico.BackSecondaryColor = Color.White;
+                Grafico.BackGradientStyle = GradientStyle.TopBottom;
+                Grafico.BorderlineWidth = 2;
+                Grafico.BackColor = Color.WhiteSmoke;
+                Grafico.BorderlineColor = Color.FromArgb(26, 59, 105);
+
+
+                Grafico.Series["Leyendas"]["BackColor"] = "Transparent";
+
             }
             catch (Exception po_exception)
             {
@@ -357,7 +389,7 @@ namespace CSLA.web.App_pages.mod.Estadistico
             try
             {
                 Session[cls_constantes.CODIGOPROYECTO] = ddl_proyecto.SelectedValue;
-                Session[cls_constantes.CODIGOPAQUETE] = ddl_paquete.Text;
+                Session[cls_constantes.CODIGOPAQUETE] = ddl_paquete.SelectedValue;
 
                 //Si el proyecto es un proyecto válido, se carga, de lo contrario, se limpia la variable en memoria
                 //Si el proyecto es el "0", no se traerá nada, por lo que no se mostrará nada en ventana, que es el 

@@ -352,7 +352,8 @@ CREATE PROCEDURE  PA_admi_usuarioInsert
   @paramapellido1 varchar(45), 
   @paramapellido2 varchar(45),
   @parampuesto varchar(45),
-  @paramemail varchar(45)      
+  @paramemail varchar(45),
+  @paramFK_departamento int        
 AS 
  BEGIN 
  SET NOCOUNT ON; 
@@ -367,7 +368,8 @@ AS
 		 apellido1,
 		 apellido2,
 		 puesto,
-		 email		
+		 email,
+		 FK_departamento		
         ) 
         VALUES
         ( 
@@ -379,7 +381,8 @@ AS
 		 @paramapellido1,
 		 @paramapellido2,
 		 @parampuesto,
-		 @paramemail				 
+		 @paramemail,
+		 @paramFK_departamento				 
         ) 		
 		
 END  

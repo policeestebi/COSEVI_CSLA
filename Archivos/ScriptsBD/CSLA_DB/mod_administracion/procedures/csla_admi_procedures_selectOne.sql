@@ -202,7 +202,8 @@ AS
 		 apellido1,
 		 apellido2,
 		 puesto,
-		 email
+		 email,
+		 FK_departamento
         FROM t_admi_usuario
 		WHERE 
 			PK_usuario = @paramPK_usuario AND

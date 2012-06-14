@@ -892,7 +892,7 @@ AS
 	GROUP BY tca.nombre
 
 END  
-
+GO
 
 IF  EXISTS (SELECT * FROM sys.procedures WHERE object_id = OBJECT_ID(N'[dbo].[PA_estd_comparacionHorasActividad]'))
 DROP PROCEDURE [dbo].[PA_estd_comparacionHorasActividad]
@@ -934,7 +934,7 @@ AS
 	GROUP BY tca.nombre, tcaa.horasAsignadas
 
 END 
-
+GO
 
 IF  EXISTS (SELECT * FROM sys.procedures WHERE object_id = OBJECT_ID(N'[dbo].[PA_estd_paquetesAsignacionActSelect]'))
 DROP PROCEDURE [dbo].[PA_estd_paquetesAsignacionActSelect]

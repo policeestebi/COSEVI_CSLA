@@ -81,13 +81,11 @@ namespace CSLA.web.App_pages.mod.Administracion
         /// <param name="e"></param>
         protected override void OnInit(EventArgs e)
         {
-
             base.OnInit(e);
             if (!this.DesignMode)
             {
                 this.inicializarControles();
             }
-
         }
 
         /// <summary>
@@ -148,11 +146,17 @@ namespace CSLA.web.App_pages.mod.Administracion
             try
             {
                 this.grd_listaUsuarios.Columns[5].Visible = true;
+                this.grd_listaUsuarios.Columns[10].Visible = true;
+                this.grd_listaUsuarios.Columns[11].Visible = true;
                 this.grd_listaUsuarios.DataSource = cls_gestorUsuario.listarUsuarios();
                 cargarDataSetRoles();
+                cargarDataSetDepartamentos();
                 this.grd_listaUsuarios.DataBind();
                 this.ddl_rol.DataBind();
+                this.ddl_departamento.DataBind();
                 this.grd_listaUsuarios.Columns[5].Visible = false;
+                this.grd_listaUsuarios.Columns[10].Visible = false;
+                this.grd_listaUsuarios.Columns[11].Visible = false;
 
                 if (this.grd_listaUsuarios.Rows.Count == 0)
                 {
@@ -194,9 +198,14 @@ namespace CSLA.web.App_pages.mod.Administracion
             try
             {
                 this.grd_listaUsuarios.Columns[5].Visible = true;
+                this.grd_listaUsuarios.Columns[10].Visible = true;
+                this.grd_listaUsuarios.Columns[11].Visible = true;
                 this.grd_listaUsuarios.DataSource = cls_gestorUsuario.listarUsuarioFiltro(psFilter);
                 this.grd_listaUsuarios.DataBind();
                 this.grd_listaUsuarios.Columns[5].Visible = false;
+                this.grd_listaUsuarios.Columns[10].Visible = false;
+                this.grd_listaUsuarios.Columns[11].Visible = false;
+
 
                 if (this.grd_listaUsuarios.Rows.Count == 0)
                 {
@@ -235,7 +244,7 @@ namespace CSLA.web.App_pages.mod.Administracion
                 vo_usuario.pPuesto = txt_puesto.Text;
                 vo_usuario.pActivo = chk_activo.Checked;
                 vo_usuario.pEmail = txt_email.Text;
-
+                vo_usuario.pFK_departamento = Convert.ToInt32(ddl_departamento.SelectedValue);
 
                 return vo_usuario;
             }
@@ -265,7 +274,7 @@ namespace CSLA.web.App_pages.mod.Administracion
                 this.txt_puesto.Text = vo_usuario.pPuesto;
                 this.chk_activo.Checked = vo_usuario.pActivo;
                 this.txt_email.Text = vo_usuario.pEmail;
-
+                this.ddl_departamento.SelectedValue = vo_usuario.pFK_departamento.ToString();
 
                 if (cls_variablesSistema.tipoEstado == cls_constantes.VER)
                 {
@@ -373,6 +382,7 @@ namespace CSLA.web.App_pages.mod.Administracion
             this.txt_puesto.Text = String.Empty;
             this.chk_activo.Checked = false;
             this.txt_email.Text = String.Empty;
+            this.ddl_departamento.SelectedIndex = -1;
         }
 
         /// <summary>
@@ -397,7 +407,7 @@ namespace CSLA.web.App_pages.mod.Administracion
             this.chk_activo.Enabled = pb_habilitados;
             this.txt_email.Enabled = pb_habilitados;
             this.btn_guardar.Visible = pb_habilitados  && (this.pbAgregar || this.pbModificar);
-
+            this.ddl_departamento.Enabled = pb_habilitados;
         }
 
         /// <summary>
@@ -417,6 +427,27 @@ namespace CSLA.web.App_pages.mod.Administracion
             catch (Exception po_exception)
             {
                 throw new Exception("Ocurrió un error al cargar los roles del usuario.", po_exception);
+            }
+
+        }
+
+        /// <summary>
+        /// Metodo que carga el dataSet de los departamentos a los que se puede asociar un usuario
+        /// </summary>
+        private void cargarDataSetDepartamentos()
+        {
+            DataSet vo_dataSet = new DataSet();
+
+            try
+            {
+                vo_dataSet = cls_gestorUsuario.listarDepartamentosUsuario();
+                this.ddl_departamento.DataSource = vo_dataSet;
+                this.ddl_departamento.DataTextField = vo_dataSet.Tables[0].Columns["nombre"].ColumnName.ToString();
+                this.ddl_departamento.DataValueField = vo_dataSet.Tables[0].Columns["PK_departamento"].ColumnName.ToString();
+            }
+            catch (Exception po_exception)
+            {
+                throw new Exception("Ocurrió un error al cargar los departamentos para el usuario.", po_exception);
             }
 
         }
@@ -456,7 +487,6 @@ namespace CSLA.web.App_pages.mod.Administracion
         /// <param name="pb_habilitados"></param>
         private void habilitarContrasena(bool pb_habilitados)
         {
-
             this.lbl_contrasena.Visible = pb_habilitados;
 
             this.txt_contrasena.Visible = pb_habilitados;
@@ -476,7 +506,6 @@ namespace CSLA.web.App_pages.mod.Administracion
             this.cpv_contrasena.Visible = pb_habilitados;
 
             this.cpv_contrasena.Enabled = pb_habilitados;
-
         }
 
         #endregion
@@ -492,9 +521,7 @@ namespace CSLA.web.App_pages.mod.Administracion
         /// <param name="seletecItem"></param>
         protected void ucSearchUsuario_searchClick(object sender, EventArgs e, string value, ListItem seletecItem)
         {
-
             this.llenarGridViewFilter(this.ucSearchUsuario.Filter); 
-
         }
 
         /// <summary>
@@ -550,7 +577,6 @@ namespace CSLA.web.App_pages.mod.Administracion
                     this.ard_principal.SelectedIndex = 0;
 
                     this.habilitarContrasena(false);
-
                 }
                 else
                 { 
@@ -600,8 +626,7 @@ namespace CSLA.web.App_pages.mod.Administracion
         protected void grd_listaUsuarios_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
             try
-            {
-                
+            {   
                 this.grd_listaUsuarios.PageIndex = e.NewPageIndex;
                 this.llenarGridView();
                 this.upd_Principal.Update();
@@ -641,7 +666,7 @@ namespace CSLA.web.App_pages.mod.Administracion
                 chkBox = (CheckBox)(grd_listaUsuarios.Rows[vi_indice].Cells[8].Controls[0]);
                 vo_usuario.pActivo = chkBox.Checked;
                 vo_usuario.pEmail = vu_fila.Cells[9].Text.ToString();
-
+                vo_usuario.pFK_departamento = Convert.ToInt32(vu_fila.Cells[10].Text.ToString());
 
                 switch (e.CommandName.ToString())
                 {
@@ -702,6 +727,16 @@ namespace CSLA.web.App_pages.mod.Administracion
         }
 
         /// <summary>
+        /// Evento q asigna el nuevo valor del dropdown list de departamentos cuando se modifica el usuario
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void ddlDepartamento_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            this.ddl_departamento.Text = ((DropDownList)sender).SelectedValue;
+        }
+
+        /// <summary>
         /// Evento q asigna el nuevo valor del dropdown list de roles cuando se modifica el usuario
         /// </summary>
         /// <param name="sender"></param>
@@ -710,6 +745,7 @@ namespace CSLA.web.App_pages.mod.Administracion
         {
             this.ddl_rol.Text = ((DropDownList)sender).SelectedValue;
         }
+
 
         /// <summary>
         /// Cambia el password a un usuario.
@@ -731,7 +767,6 @@ namespace CSLA.web.App_pages.mod.Administracion
                     this.ard_principal.SelectedIndex = 0;
 
                     this.habilitarContrasena(false);
-
                 }
                 else
                 {

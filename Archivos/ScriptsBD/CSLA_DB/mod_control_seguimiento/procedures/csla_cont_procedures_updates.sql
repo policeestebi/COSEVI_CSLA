@@ -69,12 +69,8 @@ SET NOCOUNT ON;
 			fechaInicio = @paramfechaInicio ,
 			fechaFin = @paramfechaFin ,
 			horasAsignadas = @paramhorasAsignadas ,
-<<<<<<< HEAD
 			horasReales = @paramhorasReales     
-			    
-=======
-			horasReales = @paramhorasReales      
->>>>>>> 3e18a7e879482e8a9a890443b480e1fbc708781b
+
          WHERE 
 			PK_proyecto = @paramPK_proyecto 
   

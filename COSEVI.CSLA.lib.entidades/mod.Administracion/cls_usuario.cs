@@ -47,6 +47,7 @@ namespace COSEVI.CSLA.lib.entidades.mod.Administracion
         public cls_usuario()
         {
             this.rol = new cls_rol();
+            this.departamento = new cls_departamento();
         }
 
         #endregion
@@ -119,6 +120,24 @@ namespace COSEVI.CSLA.lib.entidades.mod.Administracion
             set { email = value; }
         }
 
+        public int pFK_departamento
+        {
+            get
+            {
+                return this.departamento.pPK_departamento;
+            }
+            set
+            {
+                this.departamento.pPK_departamento = value;
+            }
+        }
+
+        public string pNombreDepartamento
+        {
+            get { return this.departamento.pNombre; }
+            set { this.departamento.pNombre = value; }
+        }
+
         /// <summary>
         /// Nombre completo del usuario
         /// </summary>
@@ -182,7 +201,10 @@ namespace COSEVI.CSLA.lib.entidades.mod.Administracion
         /// </summary>
         private string email;
 
-       
+        /// <summary>
+        /// Atributo de clase departamento
+        /// </summary>
+        private cls_departamento departamento;
 
         #endregion
 

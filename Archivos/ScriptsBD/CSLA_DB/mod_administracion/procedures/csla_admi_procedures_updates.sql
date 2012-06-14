@@ -237,7 +237,8 @@ CREATE PROCEDURE  PA_admi_usuarioUpdate
   @paramapellido1 varchar(45), 
   @paramapellido2 varchar(45),
   @parampuesto varchar(45),
-  @paramemail varchar(45)  
+  @paramemail varchar(45),
+  @paramFK_departamento int 
 AS 
  BEGIN 
 SET NOCOUNT ON; 
@@ -251,7 +252,8 @@ SET NOCOUNT ON;
 			apellido1 = @paramapellido1 ,
 			apellido2 = @paramapellido2,
 			puesto = @parampuesto,
-			email = @paramemail			
+			email = @paramemail,
+			FK_departamento = @paramFK_departamento			
          WHERE 
 			PK_usuario = @paramPK_usuario
 
