@@ -154,6 +154,9 @@ namespace CSLA.web.App_pages.mod.Estadistico
                 this.ddl_proyecto.Items.Insert(0, new ListItem("Seleccione un proyecto", "0"));
                 this.ddl_proyecto.SelectedIndex = 0;
 
+                this.ddl_paquete.Items.Insert(0, new ListItem("Seleccione un paquete", "0"));
+                this.ddl_paquete.SelectedIndex = 0;
+
             }
             catch (Exception po_exception)
             {
@@ -201,7 +204,7 @@ namespace CSLA.web.App_pages.mod.Estadistico
                 //Se asignan los tooltips para el gráfico
                 Grafico.Series["Leyendas"].ToolTip = "#VALX: #VAL{d} horas";
                 Grafico.Series["Leyendas"].LegendToolTip = "#VALX: #VAL{d} Horas";
-                Grafico.Series["Leyendas"].IsVisibleInLegend = true;
+                Grafico.Series["Leyendas"].IsVisibleInLegend = false;
                 Grafico.Series["Leyendas"].Label = "#VALX\n#PERCENT";
                 Grafico.Series["Leyendas"].PostBackValue = "#INDEX";
                 Grafico.Series["Leyendas"].LegendPostBackValue = "#INDEX";
@@ -209,24 +212,8 @@ namespace CSLA.web.App_pages.mod.Estadistico
                 //Se realiza el binding de la información que se obtuvo en la consulta
                 Grafico.Series["Leyendas"].Points.DataBindXY(vl_topActividades, "pNombreActividad", vl_topActividades, "pHorasReales");
 
-                //
-                Grafico.Legends[0].Enabled = false;
-
                 // Set pyramid chart type
                 Grafico.Series["Leyendas"].ChartType = SeriesChartType.Column;
-
-
-                Grafico.BorderlineDashStyle = ChartDashStyle.Solid;
-                Grafico.BackSecondaryColor = Color.White;
-                Grafico.BackGradientStyle = GradientStyle.TopBottom;
-                Grafico.BorderlineWidth = 2;
-                Grafico.BackColor = Color.WhiteSmoke;
-                Grafico.BorderlineColor = Color.FromArgb(26, 59, 105);
-
-
-                Grafico.Series["Leyendas"]["BackColor"] = "Transparent";
-                //Grafico.Series["Leyendas"]["BackColor"] = "Transparent";
-
 
                 // create the destination series and add it to the chart
                 Series destSeries = new Series("Pareto");
@@ -234,26 +221,26 @@ namespace CSLA.web.App_pages.mod.Estadistico
                 if (Grafico.Series.IndexOf("Pareto") != 1)
                 {
                     Grafico.Series.Add(destSeries);
-                    Grafico.Legends[1].Enabled = false;
-                    Grafico.Series["Pareto"]["BackColor"] = "Transparent";
                 }
                 // ensure the destination series is a Line or Spline chart type
                 destSeries.ChartType = SeriesChartType.Line;
                 destSeries.BorderWidth = 3;
+                destSeries.Color = Color.Firebrick;
                 // assign the series to the same chart area as the column chart
                 destSeries.ChartArea = Grafico.Series["Leyendas"].ChartArea;
                 Grafico.ChartAreas["AreaGrafico"].AxisX.LabelStyle.IsEndLabelVisible = false;
 
+                Grafico.Legends[0].Enabled = false;
                 //Se realiza el binding de la información que se obtuvo en la consulta
                 Grafico.Series["Pareto"].Points.DataBindXY(vl_topActividades, "pNombreActividad", vl_topActividades, "pHorasAsignadas");
 
-
+                Grafico.Series["Pareto"]["BackColor"] = "Transparent";
                 // Set chart types for output data
                 Grafico.Series["Pareto"].ChartType = SeriesChartType.Line;
                 // set the markers for each point of the Pareto Line
                 Grafico.Series["Pareto"].IsValueShownAsLabel = true;
-                Grafico.Series["Pareto"].MarkerColor = Color.DarkRed;
-                Grafico.Series["Pareto"].MarkerBorderColor = Color.MidnightBlue;
+                Grafico.Series["Pareto"].MarkerColor = Color.Red;
+                Grafico.Series["Pareto"].MarkerBorderColor = Color.DarkRed;
                 Grafico.Series["Pareto"].MarkerStyle = MarkerStyle.Circle;
                 Grafico.Series["Pareto"].MarkerSize = 8;
                 Grafico.Series["Pareto"].LabelFormat = "0.#";  // format with one decimal and leading zero
@@ -268,13 +255,6 @@ namespace CSLA.web.App_pages.mod.Estadistico
                 Grafico.ChartAreas["AreaGrafico"].Area3DStyle.Inclination = 0;
                 // Set the Y Angle to 40
                 Grafico.ChartAreas["AreaGrafico"].Area3DStyle.Rotation = 5;
-
-                Grafico.ChartAreas["AreaGrafico"].BackColor = Color.Gainsboro;
-                Grafico.ChartAreas["AreaGrafico"].BackSecondaryColor = Color.White;
-                Grafico.ChartAreas["AreaGrafico"].ShadowColor = Color.Transparent;
-                Grafico.ChartAreas["AreaGrafico"].BackGradientStyle = GradientStyle.TopBottom;
-                Grafico.ChartAreas["AreaGrafico"].BorderColor = Color.FromArgb(64, 64, 64, 64) ;
-
 
                 //Se aplica el estilo pastel a los colores definidos para el gráfico
                 Grafico.Palette = ChartColorPalette.BrightPastel;
@@ -292,19 +272,11 @@ namespace CSLA.web.App_pages.mod.Estadistico
                 Grafico.AntiAliasing = AntiAliasingStyles.Graphics;
                 Grafico.AlignDataPointsByAxisLabel();
 
-
-
-
-                Grafico.BorderlineDashStyle = ChartDashStyle.Solid;
-                Grafico.BackSecondaryColor = Color.White;
-                Grafico.BackGradientStyle = GradientStyle.TopBottom;
-                Grafico.BorderlineWidth = 2;
-                Grafico.BackColor = Color.WhiteSmoke;
-                Grafico.BorderlineColor = Color.FromArgb(26, 59, 105);
-
-
-                Grafico.Series["Leyendas"]["BackColor"] = "Transparent";
-
+                Grafico.ChartAreas["AreaGrafico"].BackColor = Color.Snow;
+                Grafico.ChartAreas["AreaGrafico"].BackSecondaryColor = Color.White;
+                Grafico.ChartAreas["AreaGrafico"].ShadowColor = Color.LightBlue;
+                Grafico.ChartAreas["AreaGrafico"].BackGradientStyle = GradientStyle.TopBottom;
+                Grafico.ChartAreas["AreaGrafico"].BorderColor = Color.Chocolate;
             }
             catch (Exception po_exception)
             {
@@ -396,6 +368,7 @@ namespace CSLA.web.App_pages.mod.Estadistico
                 //caso defecto, y está bien
                 if (Convert.ToInt32(ddl_proyecto.SelectedValue) > -1)
                 {
+                    //int codigoPaquete = string.IsNullOrEmpty(ddl_paquete.SelectedValue) ? 0 : Convert.ToInt32(ddl_paquete.SelectedValue);
                     CargaGrafico(Convert.ToInt32(ddl_proyecto.SelectedValue), Convert.ToInt32(ddl_paquete.SelectedValue));
                 }
             }
