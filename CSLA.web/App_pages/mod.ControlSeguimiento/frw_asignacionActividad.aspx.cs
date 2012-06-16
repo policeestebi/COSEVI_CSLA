@@ -358,7 +358,6 @@ namespace CSLA.web.App_pages.mod.ControlSeguimiento
                 vo_asignacionActividad.pFechaInicio = Convert.ToDateTime(txt_fechaInicio.Text);
                 vo_asignacionActividad.pFechaFin = Convert.ToDateTime(txt_fechaFin.Text);
                 vo_asignacionActividad.pHorasAsignadas = Convert.ToDecimal(txt_horasAsignadas.Text);
-                vo_asignacionActividad.pHorasReales = Convert.ToDecimal(txt_horasReales.Text);
                 vo_asignacionActividad.pEstado.pPK_estado = Convert.ToInt32(ddl_estado.SelectedValue);
 
                 return vo_asignacionActividad;
@@ -634,9 +633,8 @@ namespace CSLA.web.App_pages.mod.ControlSeguimiento
                 this.txt_fechaInicio.Enabled = pb_habilitados;
                 this.txt_fechaFin.Enabled = pb_habilitados;
                 this.txt_horasAsignadas.Enabled = pb_habilitados;
-                this.txt_horasReales.Enabled = pb_habilitados;
                 this.ddl_estado.Enabled = pb_habilitados;
-
+                this.txt_horasReales.Enabled = pb_habilitados;
                 this.btn_guardar.Visible = pb_habilitados;
             }
             catch (Exception po_exception)

@@ -152,7 +152,6 @@ namespace CSLA.web.App_pages.mod.ControlSeguimiento
                 vo_proyecto.pFechaInicio = Convert.ToDateTime(txt_fechaInicio.Text);
                 vo_proyecto.pFechaFin = Convert.ToDateTime(txt_fechaFin.Text);
                 vo_proyecto.pHorasAsignadas = Convert.ToDecimal(txt_horasAsignadas.Text);
-                vo_proyecto.pHorasReales = Convert.ToDecimal(txt_horasReales.Text);
                 return vo_proyecto;
             }
             catch (Exception po_exception)
@@ -303,7 +302,6 @@ namespace CSLA.web.App_pages.mod.ControlSeguimiento
                 this.txt_fechaInicio.Enabled = pb_habilitados;
                 this.txt_fechaFin.Enabled = pb_habilitados;
                 this.txt_horasAsignadas.Enabled = pb_habilitados;
-                this.txt_horasReales.Enabled = pb_habilitados;
 
                 btn_asignarDepto.Enabled = pb_habilitados;
                 btn_removerDepto.Enabled = pb_habilitados;

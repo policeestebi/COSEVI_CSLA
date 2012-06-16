@@ -51,8 +51,7 @@ CREATE PROCEDURE  PA_cont_proyectoUpdate
   @parammeta varchar(500) , 
   @paramfechaInicio datetime, 
   @paramfechaFin datetime, 
-  @paramhorasAsignadas decimal, 
-  @paramhorasReales decimal, 
+  @paramhorasAsignadas decimal,
   @paramPK_proyecto int
 
 AS 
@@ -68,9 +67,7 @@ SET NOCOUNT ON;
 			meta = @parammeta ,
 			fechaInicio = @paramfechaInicio ,
 			fechaFin = @paramfechaFin ,
-			horasAsignadas = @paramhorasAsignadas ,
-			horasReales = @paramhorasReales     
-
+			horasAsignadas = @paramhorasAsignadas  
          WHERE 
 			PK_proyecto = @paramPK_proyecto 
   
@@ -477,7 +474,6 @@ CREATE PROCEDURE  PA_cont_asignacionActividadUpdate
   @paramfechaInicio datetime, 
   @paramfechaFin datetime, 
   @paramhorasAsignadas numeric(10,2), 
-  @paramhorasReales numeric(10,2), 
   @paramAccion int  
 AS 
  BEGIN 
@@ -522,7 +518,6 @@ AS
 					fechaInicio = @paramfechaInicio,
 					fechaFin = @paramfechaFin,
 					horasAsignadas = @paramhorasAsignadas,
-					horasReales = @paramhorasReales,
 					FK_estado  = @paramFK_estado
 				WHERE 
 				   PK_actividad = @paramPK_actividad AND
@@ -539,7 +534,6 @@ AS
 					fechaInicio = @paramfechaInicio,
 					fechaFin = @paramfechaFin,
 					horasAsignadas = @paramhorasAsignadas,
-					horasReales = @paramhorasReales,
 					FK_estado  = @paramFK_estado
 				WHERE 
 				   PK_actividad = @paramPK_actividad AND
@@ -553,7 +547,7 @@ AS
 	ELSE
 		BEGIN
 			EXEC PA_cont_asignacionActividadInsert @paramPK_actividad,@paramPK_paquete,@paramPK_componente,@paramPK_entregable,@paramPK_proyecto,
-												   @paramPK_usuario,@paramFK_estado,@paramdescripcion,@paramfechaInicio,@paramfechaFin,@paramhorasAsignadas,@paramhorasReales;
+												   @paramPK_usuario,@paramFK_estado,@paramdescripcion,@paramfechaInicio,@paramfechaFin,@paramhorasAsignadas;
 		END
 END   
  GO 

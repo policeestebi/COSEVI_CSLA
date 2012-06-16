@@ -53,8 +53,7 @@ CREATE PROCEDURE  PA_cont_proyectoInsert
   @parammeta varchar(500) , 
   @paramfechaInicio datetime, 
   @paramfechaFin datetime, 
-  @paramhorasAsignadas decimal, 
-  @paramhorasReales decimal
+  @paramhorasAsignadas decimal
 AS 
  BEGIN 
  SET NOCOUNT ON; 
@@ -68,8 +67,7 @@ AS
          meta,
          fechaInicio,
          fechaFin,
-         horasAsignadas,
-         horasReales
+         horasAsignadas
         ) 
         VALUES
         ( 
@@ -80,8 +78,7 @@ AS
          @parammeta,
          @paramfechaInicio,
          @paramfechaFin,
-         @paramhorasAsignadas,
-         @paramhorasReales
+         @paramhorasAsignadas
         ) 
 
 END   
@@ -456,8 +453,7 @@ CREATE PROCEDURE  PA_cont_asignacionActividadInsert
   @paramdescripcion varchar(100) , 
   @paramfechaInicio datetime, 
   @paramfechaFin datetime, 
-  @paramhorasAsignadas numeric(10,2), 
-  @paramhorasReales numeric(10,2)
+  @paramhorasAsignadas numeric(10,2)
   
 AS 
  BEGIN 
@@ -475,8 +471,7 @@ AS
          descripcion,
          fechaInicio,
          fechaFin,
-         horasAsignadas,
-         horasReales
+         horasAsignadas
         ) 
         VALUES
         ( 
@@ -490,8 +485,7 @@ AS
          @paramdescripcion,
          @paramfechaInicio,
          @paramfechaFin,
-         @paramhorasAsignadas,
-         @paramhorasReales
+         @paramhorasAsignadas
         ) 
 
 END   

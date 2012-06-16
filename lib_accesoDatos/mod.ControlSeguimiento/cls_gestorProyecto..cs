@@ -57,8 +57,7 @@ namespace COSEVI.CSLA.lib.accesoDatos.mod.ControlSeguimiento
                         new cls_parameter("@parammeta", poProyecto.pMeta),
                         new cls_parameter("@paramfechaInicio", poProyecto.pFechaInicio),
                         new cls_parameter("@paramfechaFin", poProyecto.pFechaFin),
-                        new cls_parameter("@paramhorasAsignadas", poProyecto.pHorasAsignadas),
-                        new cls_parameter("@paramhorasReales", poProyecto.pHorasReales)
+                        new cls_parameter("@paramhorasAsignadas", poProyecto.pHorasAsignadas)
                 };
 
                 cls_sqlDatabase.beginTransaction();
@@ -106,8 +105,7 @@ namespace COSEVI.CSLA.lib.accesoDatos.mod.ControlSeguimiento
                             new cls_parameter("@parammeta", poProyecto.pMeta),
                             new cls_parameter("@paramfechaInicio", poProyecto.pFechaInicio),
                             new cls_parameter("@paramfechaFin", poProyecto.pFechaFin),
-                            new cls_parameter("@paramhorasAsignadas", poProyecto.pHorasAsignadas),
-                            new cls_parameter("@paramhorasReales", poProyecto.pHorasReales)                
+                            new cls_parameter("@paramhorasAsignadas", poProyecto.pHorasAsignadas)           
                     };
 
                     cls_sqlDatabase.beginTransaction();
@@ -324,7 +322,7 @@ namespace COSEVI.CSLA.lib.accesoDatos.mod.ControlSeguimiento
 
                    voProyecto.pHorasAsignadas = Convert.ToDecimal(vu_dataSet.Tables[0].Rows[i]["horasAsignadas"]);
 
-                   voProyecto.pHorasReales = Convert.ToDecimal(vu_dataSet.Tables[0].Rows[i]["horasReales"]);
+                   voProyecto.pHorasReales = 0;
 
                    vo_lista.Add(voProyecto);
                }

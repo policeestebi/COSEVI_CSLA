@@ -328,24 +328,6 @@ namespace CSLA.web.App_pages.mod.ControlSeguimiento {
         protected global::System.Web.UI.WebControls.TextBox txt_horasReales;
         
         /// <summary>
-        /// rfv_horasReales control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfv_horasReales;
-        
-        /// <summary>
-        /// rfv_horasRealeslenght control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RegularExpressionValidator rfv_horasRealeslenght;
-        
-        /// <summary>
         /// lbl_estado control.
         /// </summary>
         /// <remarks>

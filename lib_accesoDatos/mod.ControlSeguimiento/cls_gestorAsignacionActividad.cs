@@ -61,8 +61,7 @@ namespace COSEVI.CSLA.lib.accesoDatos.mod.ControlSeguimiento
                         new cls_parameter("@paramdescripcion", po_Actividad.pDescripcion),
                         new cls_parameter("@paramfechaInicio", po_Actividad.pFechaInicio),
                         new cls_parameter("@paramfechaFin", po_Actividad.pFechaFin),
-                        new cls_parameter("@paramhorasAsignadas", po_Actividad.pHorasAsignadas),
-                        new cls_parameter("@paramhorasReales", po_Actividad.pHorasReales)
+                        new cls_parameter("@paramhorasAsignadas", po_Actividad.pHorasAsignadas)
                 };
 
                 cls_sqlDatabase.beginTransaction();
@@ -115,7 +114,6 @@ namespace COSEVI.CSLA.lib.accesoDatos.mod.ControlSeguimiento
                     new cls_parameter("@paramfechaInicio", po_Actividad.pFechaInicio),
                     new cls_parameter("@paramfechaFin", po_Actividad.pFechaFin),
                     new cls_parameter("@paramhorasAsignadas", po_Actividad.pHorasAsignadas),
-                    new cls_parameter("@paramhorasReales", po_Actividad.pHorasReales),
                     new cls_parameter("@paramAccion", ps_accion)
                 };
 

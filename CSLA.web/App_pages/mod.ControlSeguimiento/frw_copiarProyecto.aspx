@@ -161,14 +161,7 @@
                                                             <asp:Label ID="lbl_horasReales" runat="server" Text="Horas Reales: "></asp:Label>
                                                         </td>
                                                         <td>
-                                                            <asp:TextBox ID="txt_horasReales" runat="server"></asp:TextBox>
-                                                        </td>
-                                                        <td>
-                                                            <asp:RequiredFieldValidator ID="rfv_horasReales" runat="server" ControlToValidate="txt_horasReales"
-                                                                ToolTip="Ingrese la cantidad de horas realis para el proyecto" ErrorMessage="Horas reales son requeridas"><img alt="imagen" width="25px" height="20px" src="../../App_Themes/Basico/botones/img_warning.gif" border="none"/></asp:RequiredFieldValidator>
-                                                            <asp:RegularExpressionValidator ID="rfv_horasRealeslenght" runat="server" ErrorMessage="Número decimal fuera del rango establecido."
-                                                                ValidationExpression="^[0-9]{1,3}(\.[0-9]{0,2})?$" ControlToValidate="txt_horasReales"
-                                                                Display="Dynamic"></asp:RegularExpressionValidator>
+                                                            <asp:TextBox ID="txt_horasReales" runat="server" ReadOnly="true"></asp:TextBox>
                                                         </td>
                                                 </tr>
                                                 <tr>

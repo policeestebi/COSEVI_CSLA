@@ -55,7 +55,7 @@ AS
 			fechaInicio,
 			fechaFin,
 			horasAsignadas,
-			horasReales
+			ISNULL((SELECT SUM(horas) FROM t_cont_registro_actividad WHERE PK_proyecto = @paramPK_proyecto),0) horasReales
 		FROM t_cont_proyecto  
         WHERE 
 			PK_proyecto = @paramPK_proyecto
@@ -302,7 +302,7 @@ AS
 			 cont_asig_act.fechaInicio,
 			 cont_asig_act.fechaFin,
 			 cont_asig_act.horasAsignadas,
-			 cont_asig_act.horasReales,
+			 ISNULL((SELECT SUM(horas) FROM t_cont_registro_actividad WHERE PK_proyecto = @paramPK_proyecto AND PK_paquete = @paramPK_paquete AND PK_actividad = @paramPK_actividad),0) horasReales,
 			 cont_act.nombre nombreActividad,       
 			 cont_paq.nombre nombrePaquete,
 			 admi_usu.nombre nombreUsuario

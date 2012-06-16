@@ -50,8 +50,8 @@ AS
          fechaInicio,
          fechaFin,
          horasAsignadas,
-         horasReales
-        FROM t_cont_proyecto
+         ISNULL((SELECT SUM(horas) FROM t_cont_registro_actividad tcra WHERE tcra.PK_proyecto = tcp.PK_proyecto),0) horasReales
+        FROM t_cont_proyecto tcp
 END  
  GO 
   
@@ -531,7 +531,7 @@ AS
 			 pro.fechaInicio,
 			 pro.fechaFin,
 			 pro.horasAsignadas,
-			 pro.horasReales
+			 ISNULL((SELECT SUM(horas) FROM t_cont_registro_actividad tcra WHERE tcra.PK_proyecto = pro.PK_proyecto),0) horasReales
 		 FROM 
 			t_cont_proyecto pro
 		 INNER JOIN
