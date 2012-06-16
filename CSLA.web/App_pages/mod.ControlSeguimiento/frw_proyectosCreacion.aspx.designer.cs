@@ -157,6 +157,24 @@ namespace CSLA.web.App_pages.mod.ControlSeguimiento {
         protected global::System.Web.UI.WebControls.Label lbl_listaEntregables;
         
         /// <summary>
+        /// lse_entasociados control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.ListSearchExtender lse_entasociados;
+        
+        /// <summary>
+        /// lse_entregables control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.ListSearchExtender lse_entregables;
+        
+        /// <summary>
         /// lbx_entasociados control.
         /// </summary>
         /// <remarks>
@@ -245,6 +263,33 @@ namespace CSLA.web.App_pages.mod.ControlSeguimiento {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblComponentes;
+        
+        /// <summary>
+        /// lse_entregablesasociados control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.ListSearchExtender lse_entregablesasociados;
+        
+        /// <summary>
+        /// lse_compasociados control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.ListSearchExtender lse_compasociados;
+        
+        /// <summary>
+        /// lse_componentes control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.ListSearchExtender lse_componentes;
         
         /// <summary>
         /// lbx_entregablesasociados control.
@@ -346,6 +391,33 @@ namespace CSLA.web.App_pages.mod.ControlSeguimiento {
         protected global::System.Web.UI.WebControls.Label lblPaquetes;
         
         /// <summary>
+        /// lse_componentesasociados control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.ListSearchExtender lse_componentesasociados;
+        
+        /// <summary>
+        /// lse_paqasociados control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.ListSearchExtender lse_paqasociados;
+        
+        /// <summary>
+        /// lse_paquetes control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.ListSearchExtender lse_paquetes;
+        
+        /// <summary>
         /// lbx_componentesasociados control.
         /// </summary>
         /// <remarks>
@@ -443,6 +515,33 @@ namespace CSLA.web.App_pages.mod.ControlSeguimiento {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblActividades;
+        
+        /// <summary>
+        /// lse_paquetesasociados control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.ListSearchExtender lse_paquetesasociados;
+        
+        /// <summary>
+        /// lse_actasociadas control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.ListSearchExtender lse_actasociadas;
+        
+        /// <summary>
+        /// lse_actividades control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.ListSearchExtender lse_actividades;
         
         /// <summary>
         /// lbx_paquetesasociados control.

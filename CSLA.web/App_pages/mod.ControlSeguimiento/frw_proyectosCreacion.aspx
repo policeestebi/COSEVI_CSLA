@@ -11,6 +11,7 @@
 <asp:Content ID="Content3" ContentPlaceHolderID="cuerpoPagina" runat="server">
     <asp:ScriptManager ID="scr_Man" runat="server">
     </asp:ScriptManager>
+
     <asp:UpdatePanel ID="upd_Principal" runat="server" ChildrenAsTriggers="true" UpdateMode="Conditional">
         <ContentTemplate>
             <act:Accordion ID="ard_principal" runat="server" SelectedIndex="0" FadeTransitions="false"
@@ -114,6 +115,24 @@
                                                         <asp:Label ID="lbl_listaEntregables" runat="server" Text="Entregables: "></asp:Label>
                                                     </td>
                                                 </tr>
+                                                <tr align="left">
+                                                    <td>
+                                                        <act:ListSearchExtender ID="lse_entasociados" runat="server" TargetControlID="lbx_entasociados"
+                                                         PromptText="Digite para buscar..." PromptPosition="Top" />
+                                                    </td>
+                                                    <td>
+                                                        &nbsp;
+                                                    </td>
+                                                    <td>
+                                                    </td>
+                                                    <td>
+                                                        &nbsp;
+                                                    </td>
+                                                    <td>
+                                                        <act:ListSearchExtender ID="lse_entregables" runat="server" TargetControlID="lbx_entregables"
+                                                         PromptText="Digite para buscar..." PromptPosition="Top" />
+                                                    </td>
+                                                </tr>
                                                 <tr>
                                                     <td>
                                                         <asp:ListBox ID="lbx_entasociados" runat="server" SelectionMode="Multiple" Width="200px"
@@ -181,6 +200,34 @@
                                                     &nbsp;
                                                     <td>
                                                         <asp:Label ID="lblComponentes" runat="server" Text="Componentes"></asp:Label>
+                                                    </td>
+                                                    <td>
+                                                        &nbsp;
+                                                    </td>
+                                                    <td>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <act:ListSearchExtender ID="lse_entregablesasociados" runat="server" TargetControlID="lbx_entregablesasociados"
+                                                         PromptText="Digite para buscar..." PromptPosition="Top" />
+                                                    </td>
+                                                    <td>
+                                                        &nbsp;
+                                                    </td>
+                                                    <td>
+                                                        <act:ListSearchExtender ID="lse_compasociados" runat="server" TargetControlID="lbx_compasociados"
+                                                         PromptText="Digite para buscar..." PromptPosition="Top" />
+                                                    </td>
+                                                    <td>
+                                                        &nbsp;
+                                                    </td>
+                                                    <td>
+                                                    </td>
+                                                    &nbsp;
+                                                    <td>
+                                                        <act:ListSearchExtender ID="lse_componentes" runat="server" TargetControlID="lbx_componentes"
+                                                         PromptText="Digite para buscar..." PromptPosition="Top" />
                                                     </td>
                                                     <td>
                                                         &nbsp;
@@ -275,6 +322,34 @@
                                                 </tr>
                                                 <tr>
                                                     <td>
+                                                         <act:ListSearchExtender ID="lse_componentesasociados" runat="server" TargetControlID="lbx_componentesasociados"
+                                                         PromptText="Digite para buscar..." PromptPosition="Top" />
+                                                    </td>
+                                                    <td>
+                                                        &nbsp;
+                                                    </td>
+                                                    <td>
+                                                         <act:ListSearchExtender ID="lse_paqasociados" runat="server" TargetControlID="lbx_paqasociados"
+                                                         PromptText="Digite para buscar..." PromptPosition="Top" />
+                                                    </td>
+                                                    <td>
+                                                        &nbsp;
+                                                    </td>
+                                                    <td>
+                                                    </td>
+                                                    &nbsp;
+                                                    <td>
+                                                         <act:ListSearchExtender ID="lse_paquetes" runat="server" TargetControlID="lbx_paquetes"
+                                                         PromptText="Digite para buscar..." PromptPosition="Top" />
+                                                    </td>
+                                                    <td>
+                                                        &nbsp;
+                                                    </td>
+                                                    <td>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
                                                         <asp:ListBox ID="lbx_componentesasociados" runat="server" SelectionMode="Multiple"
                                                             Width="200px" Height="150px" OnSelectedIndexChanged="lbx_componentes_SelectedIndexChanged"
                                                             AutoPostBack="true"></asp:ListBox>
@@ -351,6 +426,34 @@
                                                     &nbsp;
                                                     <td>
                                                         <asp:Label ID="lblActividades" runat="server" Text="Actividades"></asp:Label>
+                                                    </td>
+                                                    <td>
+                                                        &nbsp;
+                                                    </td>
+                                                    <td>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <act:ListSearchExtender ID="lse_paquetesasociados" runat="server" TargetControlID="lbx_paquetesasociados"
+                                                         PromptText="Digite para buscar..." PromptPosition="Top" />
+                                                    </td>
+                                                    <td>
+                                                        &nbsp;
+                                                    </td>
+                                                    <td>
+                                                        <act:ListSearchExtender ID="lse_actasociadas" runat="server" TargetControlID="lbx_actasociadas"
+                                                         PromptText="Digite para buscar..." PromptPosition="Top" />
+                                                    </td>
+                                                    <td>
+                                                        &nbsp;
+                                                    </td>
+                                                    <td>
+                                                    </td>
+                                                    &nbsp;
+                                                    <td>
+                                                        <act:ListSearchExtender ID="lse_actividades" runat="server" TargetControlID="lbx_actividades"
+                                                         PromptText="Digite para buscar..." PromptPosition="Top" />
                                                     </td>
                                                     <td>
                                                         &nbsp;

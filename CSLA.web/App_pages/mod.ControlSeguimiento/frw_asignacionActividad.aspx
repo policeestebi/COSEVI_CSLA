@@ -13,42 +13,41 @@
     </asp:ScriptManager>
 
     <script type="text/javascript">
-
         var xPosAct, yPosAct, xPosAsg, yPosAsg, xPosUsu, yPosUsu;
-    var prm = Sys.WebForms.PageRequestManager.getInstance();
+        var prm = Sys.WebForms.PageRequestManager.getInstance();
 
-    function BeginRequestHandler(sender, args) {
-        if ($get('<%=lbx_actividades.ClientID %>') != null) {
-            xPosAct = $get('<%=lbx_actividades.ClientID %>').scrollLeft;
-            yPosAct = $get('<%=lbx_actividades.ClientID %>').scrollTop;
+        function BeginRequestHandler(sender, args) {
+            if ($get('<%=lbx_actividades.ClientID %>') != null) {
+                xPosAct = $get('<%=lbx_actividades.ClientID %>').scrollLeft;
+                yPosAct = $get('<%=lbx_actividades.ClientID %>').scrollTop;
+            }
+            if ($get('<%=lbx_usuariosAsociados.ClientID %>') != null) {
+                xPosAsg = $get('<%=lbx_usuariosAsociados.ClientID %>').scrollLeft;
+                yPosAsg = $get('<%=lbx_usuariosAsociados.ClientID %>').scrollTop;
+            }
+            if ($get('<%=lbx_usuarios.ClientID %>') != null) {
+                xPosUsu = $get('<%=lbx_usuarios.ClientID %>').scrollLeft;
+                yPosUsu = $get('<%=lbx_usuarios.ClientID %>').scrollTop;
+            }
         }
-        if ($get('<%=lbx_usuariosAsociados.ClientID %>') != null) {
-            xPosAsg = $get('<%=lbx_usuariosAsociados.ClientID %>').scrollLeft;
-            yPosAsg = $get('<%=lbx_usuariosAsociados.ClientID %>').scrollTop;
-        }
-        if ($get('<%=lbx_usuarios.ClientID %>') != null) {
-            xPosUsu = $get('<%=lbx_usuarios.ClientID %>').scrollLeft;
-            yPosUsu = $get('<%=lbx_usuarios.ClientID %>').scrollTop;
-        }
-    }
 
-    function EndRequestHandler(sender, args) {
-        if ($get('<%=lbx_actividades.ClientID %>') != null) {
-            $get('<%=lbx_actividades.ClientID %>').scrollLeft = xPosAct;
-            $get('<%=lbx_actividades.ClientID %>').scrollTop = yPosAct;
+        function EndRequestHandler(sender, args) {
+            if ($get('<%=lbx_actividades.ClientID %>') != null) {
+                $get('<%=lbx_actividades.ClientID %>').scrollLeft = xPosAct;
+                $get('<%=lbx_actividades.ClientID %>').scrollTop = yPosAct;
+            }
+            if ($get('<%=lbx_usuariosAsociados.ClientID %>') != null) {
+                $get('<%=lbx_usuariosAsociados.ClientID %>').scrollLeft = xPosAsg;
+                $get('<%=lbx_usuariosAsociados.ClientID %>').scrollTop = yPosAsg;
+            }
+            if ($get('<%=lbx_usuarios.ClientID %>') != null) {
+                $get('<%=lbx_usuarios.ClientID %>').scrollLeft = xPosUsu;
+                $get('<%=lbx_usuarios.ClientID %>').scrollTop = yPosUsu;
+            }
         }
-        if ($get('<%=lbx_usuariosAsociados.ClientID %>') != null) {
-            $get('<%=lbx_usuariosAsociados.ClientID %>').scrollLeft = xPosAsg;
-            $get('<%=lbx_usuariosAsociados.ClientID %>').scrollTop = yPosAsg;
-        }
-        if ($get('<%=lbx_usuarios.ClientID %>') != null) {
-            $get('<%=lbx_usuarios.ClientID %>').scrollLeft = xPosUsu;
-            $get('<%=lbx_usuarios.ClientID %>').scrollTop = yPosUsu;
-        }
-    }
 
-    prm.add_beginRequest(BeginRequestHandler);
-    prm.add_endRequest(EndRequestHandler);        
+        prm.add_beginRequest(BeginRequestHandler);
+        prm.add_endRequest(EndRequestHandler);        
     </script>  
 
     <asp:UpdatePanel ID="upd_Principal" runat="server" ChildrenAsTriggers="true" UpdateMode="Conditional">
