@@ -391,6 +391,24 @@ namespace CSLA.web.App_pages.mod.ControlSeguimiento {
         protected global::System.Web.UI.WebControls.TextBox txt_horasReales;
         
         /// <summary>
+        /// lse_depAsociados control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.ListSearchExtender lse_depAsociados;
+        
+        /// <summary>
+        /// lse_departamentos control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.ListSearchExtender lse_departamentos;
+        
+        /// <summary>
         /// Label1 control.
         /// </summary>
         /// <remarks>

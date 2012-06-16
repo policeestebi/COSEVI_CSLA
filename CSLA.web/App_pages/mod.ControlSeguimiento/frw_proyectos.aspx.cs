@@ -133,16 +133,12 @@ namespace CSLA.web.App_pages.mod.ControlSeguimiento
         {
             try
             {
-                this.ucSearchProyecto.LstCollecction.Add(new ListItem("Proyecto", "Pk_proyecto"));
-                this.ucSearchProyecto.LstCollecction.Add(new ListItem("Estado", "FK_estado"));
+                this.ucSearchProyecto.LstCollecction.Add(new ListItem("Código", "Pk_proyecto"));
+                this.ucSearchProyecto.LstCollecction.Add(new ListItem("Estado", "tce.descripcion"));
                 this.ucSearchProyecto.LstCollecction.Add(new ListItem("Nombre", "nombre"));
                 this.ucSearchProyecto.LstCollecction.Add(new ListItem("Descripcion", "descripcion"));
-                this.ucSearchProyecto.LstCollecction.Add(new ListItem("Objetivo", "objetivo"));
-                this.ucSearchProyecto.LstCollecction.Add(new ListItem("Meta", "meta"));
                 this.ucSearchProyecto.LstCollecction.Add(new ListItem("FechaInicio", "fechaInicio"));
                 this.ucSearchProyecto.LstCollecction.Add(new ListItem("FechaFin", "fechaFin"));
-                this.ucSearchProyecto.LstCollecction.Add(new ListItem("HorasAsignadas", "horasAsignadas"));
-                this.ucSearchProyecto.LstCollecction.Add(new ListItem("HorasReales", "horasReales"));
             }
             catch (Exception po_exception)
             {
@@ -165,11 +161,13 @@ namespace CSLA.web.App_pages.mod.ControlSeguimiento
             {
                 //Se ponen visibles las columas de llave del proyecto y estado, esto para el binding, luego se ocultan de nuevo
                 this.grd_listaProyecto.Columns[0].Visible = true;
-
                 this.grd_listaProyecto.Columns[10].Visible = true;
 
-                //this.grd_listaProyecto.Columns[12].Visible = true;
-
+                //Se habilitan las columnas de Objetivo, meta, horas asignadas y horas reales, luego se esconden
+                this.grd_listaProyecto.Columns[3].Visible = true;
+                this.grd_listaProyecto.Columns[4].Visible = true;
+                this.grd_listaProyecto.Columns[7].Visible = true;
+                this.grd_listaProyecto.Columns[8].Visible = true;
 
                 //El datasource del gridview es el listado de proyectos
                 this.grd_listaProyecto.DataSource = cls_gestorProyecto.listarProyectos();
@@ -182,10 +180,13 @@ namespace CSLA.web.App_pages.mod.ControlSeguimiento
 
                 //Se ponen invisibles las columas de llave del proyecto y estado
                 this.grd_listaProyecto.Columns[0].Visible = false;
-
                 this.grd_listaProyecto.Columns[10].Visible = false;
 
-                //this.grd_listaProyecto.Columns[12].Visible = false;
+                //Se deshabilitan las columnas de Objetivo, meta, horas asignadas y horas reales
+                this.grd_listaProyecto.Columns[3].Visible = false;
+                this.grd_listaProyecto.Columns[4].Visible = false;
+                this.grd_listaProyecto.Columns[7].Visible = false;
+                this.grd_listaProyecto.Columns[8].Visible = false;
 
                 if (this.grd_listaProyecto.Rows.Count == 0)
                 {
@@ -229,10 +230,13 @@ namespace CSLA.web.App_pages.mod.ControlSeguimiento
             {
                 //Se ponen visibles las columas de llave del proyecto y estado, esto para el binding, luego se ocultan de nuevo
                 this.grd_listaProyecto.Columns[0].Visible = true;
-
                 this.grd_listaProyecto.Columns[10].Visible = true;
 
-                //this.grd_listaProyecto.Columns[12].Visible = true;
+                //Se habilitan las columnas de Objetivo, meta, horas asignadas y horas reales, luego se esconden
+                this.grd_listaProyecto.Columns[3].Visible = true;
+                this.grd_listaProyecto.Columns[4].Visible = true;
+                this.grd_listaProyecto.Columns[7].Visible = true;
+                this.grd_listaProyecto.Columns[8].Visible = true;
 
 
                 //El datasource del gridview es el listado de proyectos pero ya con el filtro asignado
@@ -242,10 +246,13 @@ namespace CSLA.web.App_pages.mod.ControlSeguimiento
 
                 //Se ponen invisibles las columas de llave del proyecto y estado
                 this.grd_listaProyecto.Columns[0].Visible = false;
-
                 this.grd_listaProyecto.Columns[10].Visible = false;
 
-                //this.grd_listaProyecto.Columns[12].Visible = false;
+                //Se deshabilitan las columnas de Objetivo, meta, horas asignadas y horas reales
+                this.grd_listaProyecto.Columns[3].Visible = false;
+                this.grd_listaProyecto.Columns[4].Visible = false;
+                this.grd_listaProyecto.Columns[7].Visible = false;
+                this.grd_listaProyecto.Columns[8].Visible = false;
 
                 if (this.grd_listaProyecto.Rows.Count == 0)
                 {
@@ -516,6 +523,7 @@ namespace CSLA.web.App_pages.mod.ControlSeguimiento
                 this.txt_fechaInicio.Enabled = pb_habilitados;
                 this.txt_fechaFin.Enabled = pb_habilitados;
                 this.txt_horasAsignadas.Enabled = pb_habilitados;
+                this.txt_horasReales.Enabled = pb_habilitados;
 
                 btn_asignarDepto.Enabled = pb_habilitados;
                 btn_removerDepto.Enabled = pb_habilitados;

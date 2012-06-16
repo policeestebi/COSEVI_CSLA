@@ -11,22 +11,39 @@
 <asp:Content ID="Content3" ContentPlaceHolderID="cuerpoPagina" runat="server">
     <asp:ScriptManager ID="scr_Man" runat="server">
     </asp:ScriptManager>
+
     <script type="text/javascript">
 
-    var xPos, yPos;
+        var xPosAct, yPosAct, xPosAsg, yPosAsg, xPosUsu, yPosUsu;
     var prm = Sys.WebForms.PageRequestManager.getInstance();
 
     function BeginRequestHandler(sender, args) {
         if ($get('<%=lbx_actividades.ClientID %>') != null) {
-            xPos = $get('<%=lbx_actividades.ClientID %>').scrollLeft;
-            yPos = $get('<%=lbx_actividades.ClientID %>').scrollTop;
+            xPosAct = $get('<%=lbx_actividades.ClientID %>').scrollLeft;
+            yPosAct = $get('<%=lbx_actividades.ClientID %>').scrollTop;
+        }
+        if ($get('<%=lbx_usuariosAsociados.ClientID %>') != null) {
+            xPosAsg = $get('<%=lbx_usuariosAsociados.ClientID %>').scrollLeft;
+            yPosAsg = $get('<%=lbx_usuariosAsociados.ClientID %>').scrollTop;
+        }
+        if ($get('<%=lbx_usuarios.ClientID %>') != null) {
+            xPosUsu = $get('<%=lbx_usuarios.ClientID %>').scrollLeft;
+            yPosUsu = $get('<%=lbx_usuarios.ClientID %>').scrollTop;
         }
     }
 
     function EndRequestHandler(sender, args) {
         if ($get('<%=lbx_actividades.ClientID %>') != null) {
-            $get('<%=lbx_actividades.ClientID %>').scrollLeft = xPos;
-            $get('<%=lbx_actividades.ClientID %>').scrollTop = yPos;
+            $get('<%=lbx_actividades.ClientID %>').scrollLeft = xPosAct;
+            $get('<%=lbx_actividades.ClientID %>').scrollTop = yPosAct;
+        }
+        if ($get('<%=lbx_usuariosAsociados.ClientID %>') != null) {
+            $get('<%=lbx_usuariosAsociados.ClientID %>').scrollLeft = xPosAsg;
+            $get('<%=lbx_usuariosAsociados.ClientID %>').scrollTop = yPosAsg;
+        }
+        if ($get('<%=lbx_usuarios.ClientID %>') != null) {
+            $get('<%=lbx_usuarios.ClientID %>').scrollLeft = xPosUsu;
+            $get('<%=lbx_usuarios.ClientID %>').scrollTop = yPosUsu;
         }
     }
 

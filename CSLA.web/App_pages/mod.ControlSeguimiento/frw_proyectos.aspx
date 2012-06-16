@@ -11,6 +11,38 @@
 <asp:Content ID="Content3" ContentPlaceHolderID="cuerpoPagina" runat="server">
     <asp:ScriptManager ID="scr_Man" runat="server">
     </asp:ScriptManager>
+
+    <script type="text/javascript">
+
+            var xPos, yPos;
+            var prm = Sys.WebForms.PageRequestManager.getInstance();
+
+            function BeginRequestHandler(sender, args) {
+                if ($get('<%=lbx_depasociados.ClientID %>') != null) {
+                    xPos = $get('<%=lbx_depasociados.ClientID %>').scrollLeft;
+                    yPos = $get('<%=lbx_depasociados.ClientID %>').scrollTop;
+                }
+                if ($get('<%=lbx_departamentos.ClientID %>') != null) {
+                    xPos = $get('<%=lbx_departamentos.ClientID %>').scrollLeft;
+                    yPos = $get('<%=lbx_departamentos.ClientID %>').scrollTop;
+                }
+            }
+
+            function EndRequestHandler(sender, args) {
+                if ($get('<%=lbx_depasociados.ClientID %>') != null) {
+                    $get('<%=lbx_depasociados.ClientID %>').scrollLeft = xPos;
+                    $get('<%=lbx_depasociados.ClientID %>').scrollTop = yPos;
+                }
+                if ($get('<%=lbx_departamentos.ClientID %>') != null) {
+                    $get('<%=lbx_departamentos.ClientID %>').scrollLeft = xPos;
+                    $get('<%=lbx_departamentos.ClientID %>').scrollTop = yPos;
+                }
+            }
+
+            prm.add_beginRequest(BeginRequestHandler);
+            prm.add_endRequest(EndRequestHandler);        
+    </script>  
+
     <asp:UpdatePanel ID="upd_Principal" runat="server" ChildrenAsTriggers="true" UpdateMode="Conditional">
         <ContentTemplate>
             <act:Accordion ID="ard_principal" runat="server" SelectedIndex="0" FadeTransitions="false"
@@ -59,7 +91,7 @@
                                                 <asp:BoundField DataField="pFechaFin" HeaderText="FechaFin" SortExpression="pFechaFin" />
                                                 <asp:BoundField DataField="pHorasAsignadas" HeaderText="HorasAsignadas" SortExpression="pHorasAsignadas" />                                               
                                                 <asp:BoundField DataField="pHorasReales" HeaderText="HorasReales" SortExpression="pHorasReales" />
-                                                <asp:BoundField DataField="pDescripcionEstado" HeaderText="Nombre" SortExpression="pDescripcionEstado" />
+                                                <asp:BoundField DataField="pDescripcionEstado" HeaderText="Estado" SortExpression="pDescripcionEstado" />
                                                 <asp:BoundField DataField="pFK_estado" HeaderText="Estado" SortExpression="pFK_estado"
                                                     Visible="false" ShowHeader="false" />
                                                 <asp:TemplateField>
@@ -271,6 +303,34 @@
                                                             <br />
                                                         </td>
                                                     </tr>
+                                                </tr>
+                                                <tr align="left" style="text-align:center;">
+                                                    <td colspan="6">
+                                                        <table id="Table3">
+                                                            <tr>
+                                                                <td>
+                                                                &nbsp;
+                                                                </td>
+                                                                <td>
+                                                                    <act:ListSearchExtender ID="lse_depAsociados" runat="server" TargetControlID="lbx_depasociados"
+                                                                    PromptText="Digite para buscar..." PromptPosition="Top" />
+                                                                </td>
+                                                                <td>
+                                                                &nbsp;
+                                                                </td>
+                                                                <td>
+                                                                &nbsp;
+                                                                </td>
+                                                                <td>
+                                                                &nbsp;
+                                                                </td>
+                                                                <td align="left">
+                                                                    <act:ListSearchExtender ID="lse_departamentos" runat="server" TargetControlID="lbx_departamentos"
+                                                                    PromptText="Digite para buscar..." PromptPosition="Top" />
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                    </td>
                                                 </tr>
                                                 <tr align="left" style="text-align:center;">
                                                     <td colspan="6">

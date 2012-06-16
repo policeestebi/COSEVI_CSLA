@@ -204,6 +204,8 @@ namespace COSEVI.CSLA.lib.accesoDatos.mod.ControlSeguimiento
                    poProyecto.pHorasAsignadas = Convert.ToDecimal(vu_dataSet.Tables[0].Rows[i]["horasAsignadas"]);
 
                    poProyecto.pHorasReales = Convert.ToDecimal(vu_dataSet.Tables[0].Rows[i]["horasReales"]);
+                  
+                   poProyecto.pNombreEstado = vu_dataSet.Tables[0].Rows[i]["nombreEstado"].ToString();
 
                    vo_lista.Add(poProyecto);
                }
@@ -296,7 +298,12 @@ namespace COSEVI.CSLA.lib.accesoDatos.mod.ControlSeguimiento
            cls_proyecto voProyecto = null;
            try
            {
-               DataSet vu_dataSet = cls_gestorUtil.selectFilter(cls_constantes.PROYECTO, string.Empty, psFiltro);
+               string columnas = "tcp.PK_proyecto, tcp.FK_estado, tcp.nombre, " +
+                                 "tcp.descripcion, tcp.objetivo, tcp.meta, tcp.fechaInicio, " +
+                                 "tcp.fechaFin, tcp.horasAsignadas, ISNULL((SELECT SUM(horas) FROM t_cont_registro_actividad tcra WHERE tcra.PK_proyecto = tcp.PK_proyecto),0) horasReales, " +
+                                 "tce.descripcion nombreEstado";
+
+               DataSet vu_dataSet = cls_gestorUtil.selectFilter(cls_constantes.PROYECTO + " tcp INNER JOIN " + cls_constantes.ESTADO + " tce ON tcp.FK_estado = tce.PK_estado ", columnas, psFiltro);
 
                vo_lista = new List<cls_proyecto>();
 
@@ -322,7 +329,9 @@ namespace COSEVI.CSLA.lib.accesoDatos.mod.ControlSeguimiento
 
                    voProyecto.pHorasAsignadas = Convert.ToDecimal(vu_dataSet.Tables[0].Rows[i]["horasAsignadas"]);
 
-                   voProyecto.pHorasReales = 0;
+                   voProyecto.pHorasReales = Convert.ToDecimal(vu_dataSet.Tables[0].Rows[i]["horasReales"]);
+
+                   voProyecto.pNombreEstado = vu_dataSet.Tables[0].Rows[i]["nombreEstado"].ToString();
 
                    vo_lista.Add(voProyecto);
                }

@@ -41,17 +41,18 @@ CREATE PROCEDURE  PA_cont_proyectoSelect
 AS 
  BEGIN 
 		SELECT 
-         PK_proyecto,
-         FK_estado,
-         nombre,
-         descripcion,
-         objetivo,
-         meta,
-         fechaInicio,
-         fechaFin,
-         horasAsignadas,
-         ISNULL((SELECT SUM(horas) FROM t_cont_registro_actividad tcra WHERE tcra.PK_proyecto = tcp.PK_proyecto),0) horasReales
-        FROM t_cont_proyecto tcp
+         tcp.PK_proyecto,
+         tcp.FK_estado,
+         tcp.nombre,
+         tcp.descripcion,
+         tcp.objetivo,
+         tcp.meta,
+         tcp.fechaInicio,
+         tcp.fechaFin,
+         tcp.horasAsignadas,
+         ISNULL((SELECT SUM(horas) FROM t_cont_registro_actividad tcra WHERE tcra.PK_proyecto = tcp.PK_proyecto),0) horasReales,
+         tce.descripcion nombreEstado
+		FROM t_cont_proyecto tcp INNER JOIN t_cont_estado tce ON tcp.FK_estado = tce.PK_estado
 END  
  GO 
   

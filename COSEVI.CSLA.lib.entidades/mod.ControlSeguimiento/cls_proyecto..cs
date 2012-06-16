@@ -122,6 +122,12 @@ namespace COSEVI.CSLA.lib.entidades.mod.ControlSeguimiento
             set { this.horasReales = value; }
         }
 
+        public string pNombreEstado
+        {
+            get { return pEstado.pDescripcion; }
+            set { this.pEstado.pDescripcion = value; }
+        }
+
         public cls_estado pEstado
         {
             get { return estadoProyecto; }
