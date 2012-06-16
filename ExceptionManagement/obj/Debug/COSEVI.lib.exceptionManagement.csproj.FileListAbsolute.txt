@@ -36,3 +36,5 @@ D:\cslagit\COSEVI_CSLA\ExceptionManagement\obj\Debug\GenerateResource-ResGen.rea
 D:\cslagit\COSEVI_CSLA\ExceptionManagement\obj\Debug\GenerateResource-ResGen.write.1.tlog
 D:\cslagit\COSEVI_CSLA\ExceptionManagement\obj\Debug\ExceptionManagement.dll
 D:\cslagit\COSEVI_CSLA\ExceptionManagement\obj\Debug\ExceptionManagement.pdb
+D:\cslagit\COSEVI_CSLA\ExceptionManagement\obj\Debug\ResGen.read.1.tlog
+D:\cslagit\COSEVI_CSLA\ExceptionManagement\obj\Debug\ResGen.write.1.tlog
