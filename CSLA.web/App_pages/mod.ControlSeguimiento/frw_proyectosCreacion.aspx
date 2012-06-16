@@ -10,7 +10,125 @@
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="cuerpoPagina" runat="server">
     <asp:ScriptManager ID="scr_Man" runat="server">
-    </asp:ScriptManager>
+    </asp:ScriptManager> 
+
+    
+        <script type="text/javascript">
+
+            var xPosEntAsociados, yPosEntAsociados, xPosEntregables, yPosEntregables,
+                xPosEntregablesAsociados, yPosEntregablesAsociados, xPosCompAsociados, yPosCompAsociados, xPosComponentes, yPosComponentes,
+                xPosComponentesAsociados, yPosEComponentesAsociados, xPosPaqAsociados, yPosPaqAsociados, xPosPaquetes, yPosPaquetes,
+                xPosPaquetesAsociados, yPosPaquetesAsociados, xPosActAsociadas, yPosActAsociadas, xPosActividades, yPosActividades;
+
+            var prm = Sys.WebForms.PageRequestManager.getInstance();
+
+            function BeginRequestHandler(sender, args) {
+                
+                if ($get('<%=lbx_entasociados.ClientID %>') != null) {
+                    xPosEntAsociados = $get('<%=lbx_entasociados.ClientID %>').scrollLeft;
+                    yPosEntAsociados = $get('<%=lbx_entasociados.ClientID %>').scrollTop;
+                }
+                if ($get('<%=lbx_entregables.ClientID %>') != null) {
+                    xPosEntregables = $get('<%=lbx_entregables.ClientID %>').scrollLeft;
+                    yPosEntregables = $get('<%=lbx_entregables.ClientID %>').scrollTop;
+                }
+
+                if ($get('<%=lbx_entregablesasociados.ClientID %>') != null) {
+                    xPosEntregablesAsociados = $get('<%=lbx_entregablesasociados.ClientID %>').scrollLeft;
+                    yPosEntregablesAsociados = $get('<%=lbx_entregablesasociados.ClientID %>').scrollTop;
+                }
+                if ($get('<%=lbx_compasociados.ClientID %>') != null) {
+                    xPosCompAsociados = $get('<%=lbx_compasociados.ClientID %>').scrollLeft;
+                    yPosCompAsociados = $get('<%=lbx_compasociados.ClientID %>').scrollTop;
+                }
+                if ($get('<%=lbx_componentes.ClientID %>') != null) {
+                    xPosComponentes = $get('<%=lbx_componentes.ClientID %>').scrollLeft;
+                    yPosComponentes = $get('<%=lbx_componentes.ClientID %>').scrollTop;
+                }
+
+                if ($get('<%=lbx_componentesasociados.ClientID %>') != null) {
+                    xPosComponentesAsociados = $get('<%=lbx_componentesasociados.ClientID %>').scrollLeft;
+                    yPosEComponentesAsociados = $get('<%=lbx_componentesasociados.ClientID %>').scrollTop;
+                }
+                if ($get('<%=lbx_paqasociados.ClientID %>') != null) {
+                    xPosPaqAsociados = $get('<%=lbx_paqasociados.ClientID %>').scrollLeft;
+                    yPosPaqAsociados = $get('<%=lbx_paqasociados.ClientID %>').scrollTop;
+                }
+                if ($get('<%=lbx_paquetes.ClientID %>') != null) {
+                    xPosPaquetes = $get('<%=lbx_paquetes.ClientID %>').scrollLeft;
+                    yPosPaquetes = $get('<%=lbx_paquetes.ClientID %>').scrollTop;
+                }
+
+                if ($get('<%=lbx_paquetesasociados.ClientID %>') != null) {
+                    xPosPaquetesAsociados = $get('<%=lbx_paquetesasociados.ClientID %>').scrollLeft;
+                    yPosPaquetesAsociados = $get('<%=lbx_paquetesasociados.ClientID %>').scrollTop;
+                }
+                if ($get('<%=lbx_actasociadas.ClientID %>') != null) {
+                    xPosActAsociadas = $get('<%=lbx_actasociadas.ClientID %>').scrollLeft;
+                    yPosActAsociadas = $get('<%=lbx_actasociadas.ClientID %>').scrollTop;
+                }
+                if ($get('<%=lbx_actividades.ClientID %>') != null) {
+                    xPosActividades = $get('<%=lbx_actividades.ClientID %>').scrollLeft;
+                    yPosActividades = $get('<%=lbx_actividades.ClientID %>').scrollTop;
+                }
+               
+            }
+
+            function EndRequestHandler(sender, args) {
+                Asignación de scrolling para entregables
+                if ($get('<%=lbx_entasociados.ClientID %>') != null) {
+                    $get('<%=lbx_entasociados.ClientID %>').scrollLeft = xPosEntAsociados;
+                    $get('<%=lbx_entasociados.ClientID %>').scrollTop = yPosEntAsociados;
+                }
+                if ($get('<%=lbx_entregables.ClientID %>') != null) {
+                    $get('<%=lbx_entregables.ClientID %>').scrollLeft = xPosEntregables;
+                    $get('<%=lbx_entregables.ClientID %>').scrollTop = yPosEntregables;
+                }
+
+                if ($get('<%=lbx_entregablesasociados.ClientID %>') != null) {
+                    $get('<%=lbx_entregablesasociados.ClientID %>').scrollLeft = xPosEntregablesAsociados;
+                    $get('<%=lbx_entregablesasociados.ClientID %>').scrollTop = yPosEntregablesAsociados;
+                }
+                if ($get('<%=lbx_compasociados.ClientID %>') != null) {
+                    $get('<%=lbx_compasociados.ClientID %>').scrollLeft = xPosCompAsociados;
+                    $get('<%=lbx_compasociados.ClientID %>').scrollTop = yPosCompAsociados;
+                }
+                if ($get('<%=lbx_componentes.ClientID %>') != null) {
+                    $get('<%=lbx_componentes.ClientID %>').scrollLeft = xPosComponentes;
+                    $get('<%=lbx_componentes.ClientID %>').scrollTop = yPosComponentes;
+                }
+
+                if ($get('<%=lbx_componentesasociados.ClientID %>') != null) {
+                    $get('<%=lbx_componentesasociados.ClientID %>').scrollLeft = xPosComponentesAsociados;
+                    $get('<%=lbx_componentesasociados.ClientID %>').scrollTop = yPosComponentesAsociados;
+                }
+                if ($get('<%=lbx_paqasociados.ClientID %>') != null) {
+                    $get('<%=lbx_paqasociados.ClientID %>').scrollLeft = xPosPaqAsociados;
+                    $get('<%=lbx_paqasociados.ClientID %>').scrollTop = yPosPaqAsociados;
+                }
+                if ($get('<%=lbx_paquetes.ClientID %>') != null) {
+                    $get('<%=lbx_paquetes.ClientID %>').scrollLeft = xPosPaquetes;
+                    $get('<%=lbx_paquetes.ClientID %>').scrollTop = yPosPaquetes;
+                }
+
+                if ($get('<%=lbx_paquetesasociados.ClientID %>') != null) {
+                    $get('<%=lbx_paquetesasociados.ClientID %>').scrollLeft = xPosPaquetesAsociados;
+                    $get('<%=lbx_paquetesasociados.ClientID %>').scrollTop = yPosPaquetesAsociados;
+                }
+                if ($get('<%=lbx_actasociadas.ClientID %>') != null) {
+                    $get('<%=lbx_actasociadas.ClientID %>').scrollLeft = xPosActAsociadas;
+                    $get('<%=lbx_actasociadas.ClientID %>').scrollTop = yPosActAsociadas;
+                }
+                if ($get('<%=lbx_actividades.ClientID %>') != null) {
+                    $get('<%=lbx_actividades.ClientID %>').scrollLeft = xPosActividades;
+                    $get('<%=lbx_actividades.ClientID %>').scrollTop = yPosActividades;
+                }
+            }
+
+            prm.add_beginRequest(BeginRequestHandler);
+            prm.add_endRequest(EndRequestHandler);        
+    </script>
+
 
     <asp:UpdatePanel ID="upd_Principal" runat="server" ChildrenAsTriggers="true" UpdateMode="Conditional">
         <ContentTemplate>
