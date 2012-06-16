@@ -52,24 +52,23 @@ namespace CSLA.web.App_pages.mod.ControlSeguimiento
         /// <param name="sender"></param>
         /// <param name="e"></param>
         protected void Page_Load(object sender, EventArgs e)
-        {
-            this.validarSession();
+        { 
+            try
+            { 
+                this.validarSession();
 
-            if (!Page.IsPostBack)
-            {
-                try
-                {        
-                    this.validarAcceso();
-                    this.inicializarRegistros();
-                }
-                catch (Exception po_exception)
+                if (!Page.IsPostBack)
                 {
-                    String vs_error_usuario = "Error al inicializar el mantenimiento para la asignación de actividades.";
-                    this.lanzarExcepcion(po_exception, vs_error_usuario);
-                } 
-
+                      
+                        this.validarAcceso();
+                        this.inicializarRegistros();
+                }
             }
-
+            catch (Exception po_exception)
+            {
+                String vs_error_usuario = "Error al inicializar el mantenimiento para la asignación de actividades.";
+                this.lanzarExcepcion(po_exception, vs_error_usuario);
+            }
         }
 
         /// <summary>
@@ -780,6 +779,14 @@ namespace CSLA.web.App_pages.mod.ControlSeguimiento
 
                 //Se cargan los usuarios restantes que pueden ser asignados a la actividad seleccionada
                 cargarUsuarios();
+                
+                //ScriptManager.RegisterClientScriptBlock(this, typeof(Page), "FocusOnState","document.getElementById('" + lbx_actividades.ClientID + "').focus(); ", true);
+
+                //ScriptManager manager = ScriptManager.GetCurrent(this);
+                //manager.SetFocus("lbx_actividades");
+
+                lbx_actividades.Focus();
+
             }
             catch (Exception po_exception)
             {

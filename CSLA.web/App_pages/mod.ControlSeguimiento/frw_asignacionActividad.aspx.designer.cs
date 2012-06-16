@@ -112,6 +112,33 @@ namespace CSLA.web.App_pages.mod.ControlSeguimiento {
         protected global::System.Web.UI.WebControls.Label lbl_usuarios;
         
         /// <summary>
+        /// lse_actividad control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.ListSearchExtender lse_actividad;
+        
+        /// <summary>
+        /// lse_usuarioAsignado control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.ListSearchExtender lse_usuarioAsignado;
+        
+        /// <summary>
+        /// lse_usuarios control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.ListSearchExtender lse_usuarios;
+        
+        /// <summary>
         /// lbx_actividades control.
         /// </summary>
         /// <remarks>

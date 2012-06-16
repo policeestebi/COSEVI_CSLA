@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/msp.EstiloBasico/mspContenido.Master"
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/msp.EstiloBasico/mspContenido.Master" MaintainScrollPositionOnPostback="true"
     AutoEventWireup="true" CodeBehind="frw_asignacionActividad.aspx.cs" Inherits="CSLA.web.App_pages.mod.ControlSeguimiento.frw_asignacionActividad" %>
 
 <%@ Register Assembly="COSEVI.web.controls" Namespace="COSEVI.web.controls" TagPrefix="cc1" %>
@@ -11,6 +11,29 @@
 <asp:Content ID="Content3" ContentPlaceHolderID="cuerpoPagina" runat="server">
     <asp:ScriptManager ID="scr_Man" runat="server">
     </asp:ScriptManager>
+    <script type="text/javascript">
+
+    var xPos, yPos;
+    var prm = Sys.WebForms.PageRequestManager.getInstance();
+
+    function BeginRequestHandler(sender, args) {
+        if ($get('<%=lbx_actividades.ClientID %>') != null) {
+            xPos = $get('<%=lbx_actividades.ClientID %>').scrollLeft;
+            yPos = $get('<%=lbx_actividades.ClientID %>').scrollTop;
+        }
+    }
+
+    function EndRequestHandler(sender, args) {
+        if ($get('<%=lbx_actividades.ClientID %>') != null) {
+            $get('<%=lbx_actividades.ClientID %>').scrollLeft = xPos;
+            $get('<%=lbx_actividades.ClientID %>').scrollTop = yPos;
+        }
+    }
+
+    prm.add_beginRequest(BeginRequestHandler);
+    prm.add_endRequest(EndRequestHandler);        
+    </script>  
+
     <asp:UpdatePanel ID="upd_Principal" runat="server" ChildrenAsTriggers="true" UpdateMode="Conditional">
         <ContentTemplate>
             <act:Accordion ID="ard_principal" runat="server" SelectedIndex="0" FadeTransitions="false"
@@ -98,6 +121,39 @@
                                                             </td>
                                                         </tr>
                                                         <tr>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                <act:ListSearchExtender ID="lse_actividad" runat="server" TargetControlID="lbx_actividades"
+                                                                    PromptText="Digite para buscar..." PromptPosition="Top" />
+                                                            </td>
+                                                            <td>
+                                                                &nbsp;
+                                                            </td>
+                                                            <td>
+                                                            </td>
+                                                            <td>
+                                                                &nbsp;
+                                                            </td>
+                                                            <td>
+                                                                <act:ListSearchExtender ID="lse_usuarioAsignado" runat="server" TargetControlID="lbx_usuariosAsociados"
+                                                                    PromptText="Digite para buscar..." PromptPosition="Top" />
+                                                            </td>
+                                                            <td>
+                                                                &nbsp;
+                                                            </td>
+                                                            <td>
+                                                                &nbsp;
+                                                            </td>
+                                                            <td>
+                                                                &nbsp;
+                                                            </td>
+                                                            <td>
+                                                                <act:ListSearchExtender ID="lse_usuarios" runat="server" TargetControlID="lbx_usuarios"
+                                                                    PromptText="Digite para buscar..." PromptPosition="Top" />
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
                                                             <td>
                                                                 <asp:ListBox ID="lbx_actividades" runat="server" SelectionMode="Single" Width="200px"
                                                                     Height="150px" AutoPostBack="true" OnSelectedIndexChanged="lbx_actividades_SelectedIndexChanged">
@@ -113,7 +169,7 @@
                                                             </td>
                                                             <td>
                                                                 <asp:ListBox ID="lbx_usuariosAsociados" runat="server" SelectionMode="Multiple" Width="200px"
-                                                                    Height="150px" AutoPostBack="true"></asp:ListBox>
+                                                                    Height="150px"></asp:ListBox>
                                                             </td>
                                                             <td>
                                                                 &nbsp;
@@ -130,7 +186,7 @@
                                                             </td>
                                                             <td>
                                                                 <asp:ListBox ID="lbx_usuarios" runat="server" SelectionMode="Multiple" Width="200px"
-                                                                    Height="150px" AutoPostBack="true"></asp:ListBox>
+                                                                    Height="150px"></asp:ListBox>
                                                             </td>
                                                         </tr>
                                                     </table>
