@@ -213,7 +213,30 @@ namespace CSLA.web.App_pages.mod.Estadistico
                 Grafico.Series["Leyendas"].Points.DataBindXY(vl_topActividades, "pNombreActividad", vl_topActividades, "pHorasReales");
 
                 // Set pyramid chart type
-                Grafico.Series["Leyendas"].ChartType = SeriesChartType.Column;
+                Grafico.Series["Leyendas"].ChartType = SeriesChartType.Line;
+                // set the markers for each point of the Pareto Line
+                Grafico.Series["Leyendas"].IsValueShownAsLabel = true;
+                Grafico.Series["Leyendas"].MarkerColor = Color.OrangeRed;
+                Grafico.Series["Leyendas"].MarkerBorderColor = Color.OrangeRed;
+                Grafico.Series["Leyendas"].MarkerStyle = MarkerStyle.Circle;
+                Grafico.Series["Leyendas"].MarkerSize = 8;
+                Grafico.Series["Leyendas"].LabelFormat = "0.#";  // format with one decimal and leading zero
+                // Set Color of line Pareto chart
+                Grafico.Series["Leyendas"].Color = Color.Orange;
+
+
+                // Disable axis labels auto fitting of text
+                Grafico.ChartAreas["AreaGrafico"].AxisX.IsLabelAutoFit = false;
+                // Set axis labels font
+                Grafico.ChartAreas["AreaGrafico"].AxisX.LabelStyle.Font = new Font("Arial", 10);
+                // Set axis labels angle
+                Grafico.ChartAreas["AreaGrafico"].AxisX.LabelStyle.Angle = -90;
+                // Disable offset labels style
+                Grafico.ChartAreas["AreaGrafico"].AxisX.LabelStyle.IsStaggered = false;
+                // Enable X axis labels
+                Grafico.ChartAreas["AreaGrafico"].AxisX.LabelStyle.Enabled = true;
+                // Enable AntiAliasing for either Text and Graphics or just Graphics
+                Grafico.AntiAliasing = AntiAliasingStyles.All; // AntiAliasingStyles.Graphics and AntiAliasingStyles.Text
 
                 // create the destination series and add it to the chart
                 Series destSeries = new Series("Pareto");
@@ -245,7 +268,7 @@ namespace CSLA.web.App_pages.mod.Estadistico
                 Grafico.Series["Pareto"].MarkerSize = 8;
                 Grafico.Series["Pareto"].LabelFormat = "0.#";  // format with one decimal and leading zero
                 // Set Color of line Pareto chart
-                Grafico.Series["Pareto"].Color = Color.FromArgb(252, 180, 65);
+                Grafico.Series["Pareto"].Color = Color.Tomato;
 
                 // Set 3D mode
                 Grafico.ChartAreas["AreaGrafico"].Area3DStyle.Enable3D = true;
@@ -268,15 +291,19 @@ namespace CSLA.web.App_pages.mod.Estadistico
                     }
                 }
 
-                // Set Antialiasing mode
-                Grafico.AntiAliasing = AntiAliasingStyles.Graphics;
-                Grafico.AlignDataPointsByAxisLabel();
+                // Set axis title
+                Grafico.ChartAreas["AreaGrafico"].AxisY.Title = "Horas Invertidas";
+                Grafico.ChartAreas["AreaGrafico"].AxisY.TitleFont = new Font("Times New Roman", 12, FontStyle.Bold);
+                Grafico.ChartAreas["AreaGrafico"].AxisX2.Title = "Actividades Registradas";
+                Grafico.ChartAreas["AreaGrafico"].AxisX2.TitleFont = new Font("Times New Roman", 12, FontStyle.Bold);
 
-                Grafico.ChartAreas["AreaGrafico"].BackColor = Color.Snow;
-                Grafico.ChartAreas["AreaGrafico"].BackSecondaryColor = Color.White;
-                Grafico.ChartAreas["AreaGrafico"].ShadowColor = Color.LightBlue;
-                Grafico.ChartAreas["AreaGrafico"].BackGradientStyle = GradientStyle.TopBottom;
-                Grafico.ChartAreas["AreaGrafico"].BorderColor = Color.Chocolate;
+                // Properties
+                Grafico.ChartAreas["AreaGrafico"].BackColor = Color.Bisque;
+                Grafico.ChartAreas["AreaGrafico"].AxisY.Interval = 8;
+                Grafico.ChartAreas["AreaGrafico"].AxisX.Interval = 1;
+                Grafico.ChartAreas["AreaGrafico"].AxisX.TextOrientation = TextOrientation.Rotated90;
+                Grafico.ChartAreas["AreaGrafico"].AxisX.LabelStyle.IsEndLabelVisible = false;
+
             }
             catch (Exception po_exception)
             {
