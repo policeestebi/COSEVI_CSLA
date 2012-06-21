@@ -13,6 +13,7 @@ using CSLA.web.App_Variables;
 using ExceptionManagement.Exceptions;
 using CSLA.web.App_Constantes;
 using COSEVI.CSLA.lib.entidades.mod.Administracion;
+using COSEVI.CSLA.lib.accesoDatos.mod.Administracion;
 
 // =========================================================================
 // COSEVI - Consejo de Seguridad Vial. - 2011
@@ -55,6 +56,7 @@ namespace CSLA.web.App_pages.mod.Estadistico
                 {
                     this.validarAcceso();
                     cargarProyectos();
+                    cargarUsuarios();
                 }
                 catch (Exception po_exception)
                 {
@@ -91,18 +93,18 @@ namespace CSLA.web.App_pages.mod.Estadistico
         {
             try
             {
-                if (!Page.IsPostBack)
-                {
-                    //Cuando se está ingresando a la página, se limpia la variable de sesión para evitar valores incorrectos
-                    Session[cls_constantes.CODIGOPROYECTO] = null;
-                }
-                else
-                {
-                    if (!(Session[cls_constantes.CODIGOPROYECTO] == null))
-                    {
-                        CargaGrafico(Convert.ToInt32(Session[cls_constantes.CODIGOPROYECTO]));
-                    }
-                }
+                //if (!Page.IsPostBack)
+                //{
+                //    //Cuando se está ingresando a la página, se limpia la variable de sesión para evitar valores incorrectos
+                //    Session[cls_constantes.CODIGOPROYECTO] = null;
+                //}
+                //else
+                //{
+                //    if (!(Session[cls_constantes.CODIGOPROYECTO] == null))
+                //    {
+                //        CargaGrafico(Convert.ToInt32(Session[cls_constantes.CODIGOPROYECTO]), string.Empty);
+                //    }
+                //}
             }
             catch (Exception po_exception)
             {
@@ -126,7 +128,31 @@ namespace CSLA.web.App_pages.mod.Estadistico
                 //Si se está obteniendo información para un proyecto que NO es el proyecto por defecto
                 if (ps_proyecto > 0)
                 {
-                    obtenerGraficoPorProyecto(ps_proyecto);
+                    obtenerGraficoPorProyecto(ps_proyecto, string.Empty);
+                }
+                else
+                {
+                    obtenerGraficoPorDefecto();
+                }
+            }
+            catch (Exception po_exception)
+            {
+                throw new Exception("Ocurrió un error al definir el tipo de gráfico.", po_exception);
+            }
+        }
+
+
+        /// <summary>
+        /// Método que realiza la consulta en BD para obtener la información por proyecto y usuario
+        /// </summary>
+        private void CargaGrafico(int pi_proyecto, string ps_usuario)
+        {
+            try
+            {
+                //Si se está obteniendo información para un proyecto que NO es el proyecto por defecto
+                if (pi_proyecto > 0)
+                {
+                    obtenerGraficoPorProyecto(pi_proyecto, ps_usuario);
                 }
                 else
                 {
@@ -164,13 +190,14 @@ namespace CSLA.web.App_pages.mod.Estadistico
         /// <summary>
         /// Método que obtiene la información con la que se va a cargar en gráfico
         /// </summary>
-        private void obtenerGraficoPorProyecto(int ps_proyecto)
+        private void obtenerGraficoPorProyecto(int pi_proyecto, string ps_usuario)
         {
             try
             {
                 //Se procede a obtener la información por proyecto
                 cls_totalidadLabores vo_estadistico = new cls_totalidadLabores();
-                vo_estadistico.pPK_proyecto = ps_proyecto;
+                vo_estadistico.pPK_proyecto = pi_proyecto;
+                vo_estadistico.pPK_usuario = ps_usuario;
                 List<cls_totalidadLabores> vl_estadistico = cls_gestorEstadistico.TotalidadLaboresPorProyecto(vo_estadistico);
 
                 //Se asignan los tooltips para el gráfico
@@ -186,8 +213,14 @@ namespace CSLA.web.App_pages.mod.Estadistico
 
                 //Se asignan los colores de la composición del gráfico
                 Grafico.Series["Leyendas"].Points[0].Color = Color.Tomato;
-                Grafico.Series["Leyendas"].Points[1].Color = Color.SteelBlue;
-                Grafico.Series["Leyendas"].Points[2].Color = Color.Orange;
+                if (Grafico.Series["Leyendas"].Points.Count > 1)
+                {
+                    Grafico.Series["Leyendas"].Points[1].Color = Color.SteelBlue;
+                }
+                if (Grafico.Series["Leyendas"].Points.Count > 2)
+                {
+                    Grafico.Series["Leyendas"].Points[2].Color = Color.Orange;
+                }
 
                 //Se indica que tipo de gráfico se va a presentar al usuario
                 Grafico.Series["Leyendas"].ChartType = SeriesChartType.Pie;
@@ -254,6 +287,32 @@ namespace CSLA.web.App_pages.mod.Estadistico
         }
 
         /// <summary>
+        /// Se carga la lista con la totalidad de usuarios que pueden ser asignados a una actividad
+        /// </summary>
+        private void cargarUsuarios()
+        {
+            try
+            {
+                /*
+                 NOta: * Revisar los selects de los listar, para ver que tanto es necesario cambiar los "pNombre" por los nombres de la tabla => "pNombre" - "pNombreUsuario"
+                       * Ver si es relevante cambiar los nombres a los listbox
+                 */
+                lbx_usuarios.DataSource = cls_gestorUsuario.listarUsuarios();
+                lbx_usuarios.DataTextField = "pNombre";
+                lbx_usuarios.DataValueField = "pPK_usuario";
+                lbx_usuarios.DataBind();
+
+                this.lbx_usuarios.Items.Insert(0, new ListItem("Todos los tiempos", "0"));
+                this.lbx_usuarios.SelectedIndex = 0;
+
+            }
+            catch (Exception po_exception)
+            {
+                throw new Exception("Ocurrió un error cargando la lista de usuarios.", po_exception);
+            }
+        }
+
+        /// <summary>
         /// Método que lanza la excepción personalizada
         /// </summary>
         /// <param name="po_exception">Excepción a levantar</param>
@@ -294,16 +353,17 @@ namespace CSLA.web.App_pages.mod.Estadistico
         {
             try
             {
-                this.ddl_proyecto.SelectedValue = ((DropDownList)sender).SelectedValue;
-                Session[cls_constantes.CODIGOPROYECTO] = ddl_proyecto.SelectedValue;
+                //this.ddl_proyecto.SelectedValue = ((DropDownList)sender).SelectedValue;
+                //Session[cls_constantes.CODIGOPROYECTO] = ddl_proyecto.SelectedValue;
+                //Session[cls_constantes.USUARIOCONSULTA] = lbx_usuarios.SelectedItem;
 
                 //Si el proyecto es un proyecto válido, se carga, de lo contrario, se limpia la variable en memoria
                 //Si el proyecto es el "0", no se traerá nada, por lo que no se mostrará nada en ventana, que es el 
                 //caso defecto, y está bien
-                if (Convert.ToInt32(ddl_proyecto.SelectedValue) > -1)
-                {
-                    CargaGrafico(Convert.ToInt32(ddl_proyecto.SelectedValue));
-                }
+                //if (Convert.ToInt32(ddl_proyecto.SelectedValue) > -1)
+                //{
+                //    CargaGrafico(Convert.ToInt32(ddl_proyecto.SelectedValue), lbx_usuarios.SelectedItem.ToString());
+                //}
             }
             catch (Exception po_exception)
             {
@@ -317,13 +377,45 @@ namespace CSLA.web.App_pages.mod.Estadistico
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        protected void Grafico_Click(object sender, ImageMapEventArgs e)
+        protected void Generar_Click(object sender, EventArgs e)
         {
+            try
+            {
+                //Session[cls_constantes.CODIGOPROYECTO] = ddl_proyecto.SelectedValue;
+                //Session[cls_constantes.USUARIOCONSULTA] = lbx_usuarios.SelectedItem;
+
+                //Si el proyecto es un proyecto válido, se carga, de lo contrario, se limpia la variable en memoria
+                //Si el proyecto es el "0", no se traerá nada, por lo que no se mostrará nada en ventana, que es el 
+                //caso defecto, y está bien
+                if (Convert.ToInt32(ddl_proyecto.SelectedValue) > -1)
+                {
+                    if (Convert.ToInt32(lbx_usuarios.SelectedIndex) > 0)
+                    {
+                        CargaGrafico(Convert.ToInt32(ddl_proyecto.SelectedValue), lbx_usuarios.SelectedValue.ToString());
+                    }
+                    else
+                    {
+                        CargaGrafico(Convert.ToInt32(ddl_proyecto.SelectedValue), string.Empty);
+                    }
+                }
+            }
+            catch (Exception po_exception)
+            {
+                String vs_error_usuario = "Ocurrió un error al enfocar la sección del gráfico.";
+                this.lanzarExcepcion(po_exception, vs_error_usuario);
+            }
+        }
+
+         /// </summary>
+         /// <param name="sender"></param>
+         /// <param name="e"></param>
+         protected void Grafico_Click(object sender, ImageMapEventArgs e)
+         {
             try
             {
                 int pointIndex = int.Parse(e.PostBackValue);
                 Series series = Grafico.Series["Leyendas"];
-
+ 
                 if (pointIndex >= 0 && pointIndex < series.Points.Count)
                 {
                     series.Points[pointIndex].CustomProperties = string.Empty;

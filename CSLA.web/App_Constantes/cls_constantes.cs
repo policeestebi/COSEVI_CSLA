@@ -87,6 +87,13 @@ namespace CSLA.web.App_Constantes
         /// </summary>
         public const string FECHAHASTA = "vs_fechaHasta";
 
+        /// <summary>
+        /// Constante que se utiliza para guardar el código
+        /// del usuario del que se va a obtener información 
+        /// para los gráficos.
+        /// </summary>
+        public const string USUARIOCONSULTA = "vs_usuarioConsulta";
+
 
     }
 

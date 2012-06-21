@@ -43,13 +43,43 @@
                         </td>
                         <td>
                             <asp:DropDownList ID="ddl_proyecto" runat="server" OnSelectedIndexChanged="ddlProyecto_SelectedIndexChanged"
-                                AutoPostBack="true">
+                                >
                             </asp:DropDownList>
                         </td>
                     </tr>
                 </table>
-                <asp:Chart ID="Grafico" runat="server" Height="393px" Width="540px"  OnClick="Grafico_Click"
-                    oninit="Grafico_Init">
+                <table id="Table3">
+                    <tr align="right">
+                        <td>
+                            <asp:Label ID="lbl_usuario" runat="server" Text="Usuario: "></asp:Label>
+                        </td>
+                        <td>
+                            <act:ListSearchExtender ID="lse_usuarios" runat="server" TargetControlID="lbx_usuarios"
+                                PromptText="Digite para buscar..." PromptPosition="Top" />
+                        </td>
+                    </tr>
+                </table>
+                <table id="Table4">
+                    <tr align="right">
+                        <td>
+                            &nbsp;
+                        </td>
+                        <td>
+                            <asp:ListBox ID="lbx_usuarios" runat="server" SelectionMode="Single" Width="200px"
+                                Height="58px"></asp:ListBox>
+                        </td>
+                    </tr>
+                </table>
+                <table id="Table5">
+                    <tr align="right">
+                        <td>
+                            <asp:Button ID="btn_generar" CausesValidation="false" OnClick="Generar_Click"
+                                runat="server" Text="Generar" />
+                        </td>
+                    </tr>
+                </table>
+                <asp:Chart ID="Grafico" runat="server" Height="393px" Width="540px" OnClick="Grafico_Click"
+                    OnInit="Grafico_Init">
                     <Titles>
                         <asp:Title ShadowOffset="3" Name="Title1" />
                     </Titles>

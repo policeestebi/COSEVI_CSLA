@@ -132,7 +132,8 @@ namespace COSEVI.CSLA.lib.accesoDatos.mod.Estadistico
            try
            {
                String vs_comando = "PA_estd_inversionTiempos";
-               cls_parameter[] vu_parametros = { new cls_parameter("@paramProyecto", po_totalidadLabores.pPK_proyecto) };
+               cls_parameter[] vu_parametros = { new cls_parameter("@paramProyecto", po_totalidadLabores.pPK_proyecto),
+                                                 new cls_parameter("@paramUsuario", po_totalidadLabores.pPK_usuario)};
 
                DataSet vu_dataSet = cls_sqlDatabase.executeDataset(vs_comando, true, vu_parametros);
 
@@ -176,7 +177,8 @@ namespace COSEVI.CSLA.lib.accesoDatos.mod.Estadistico
                 String vs_comando = "PA_estd_actividadesTopProyecto";
                 cls_parameter[] vu_parametros = { new cls_parameter("@paramProyecto", po_topActividades.pPK_proyecto),
                                                   new cls_parameter("@paramFechaInicio", po_topActividades.pFechaDesde),
-                                                  new cls_parameter("@paramFechaFin", po_topActividades.pFechaHasta)
+                                                  new cls_parameter("@paramFechaFin", po_topActividades.pFechaHasta),
+                                                  new cls_parameter("@paramUsuario", po_topActividades.pPK_usuario)
                                                 };
 
                 DataSet vu_dataSet = cls_sqlDatabase.executeDataset(vs_comando, true, vu_parametros);
@@ -202,6 +204,7 @@ namespace COSEVI.CSLA.lib.accesoDatos.mod.Estadistico
         }
 
         #endregion Gráfico Top Actividades por Proyecto
+
 
         #region Gráfico Comparación Horas Actividad
 

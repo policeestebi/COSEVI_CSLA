@@ -831,16 +831,17 @@ GO
 -- Descripción: 
 -- =============================================
 CREATE PROCEDURE  PA_estd_inversionTiempos
-  @paramProyecto	INT
+  @paramProyecto	INT,
+  @paramUsuario varchar(50)
 AS 
  BEGIN 
-
+	
+	IF (@paramUsuario = '')
+	BEGIN
 	Select 'Actividad' as tipo, COUNT(PK_registro)AS cantidad 
 			From t_cont_registro_actividad tcra 
 			Where tcra.PK_proyecto = @paramProyecto
-
 	Union all
-
 	Select tipo = CASE tco.tipo 
 					WHEN 'I' THEN 'Imprevisto'
 					WHEN 'O' THEN 'Operacion' END, 
@@ -850,9 +851,29 @@ AS
 			WHERE tcro.fecha between tcp.fechaInicio AND tcp.fechaFin
 			AND tcp.PK_proyecto = @paramProyecto
 		Group by tco.tipo
-
+	END
+	ELSE
+	BEGIN
+	Select 'Actividad' as tipo, COUNT(PK_registro)AS cantidad 
+			From t_cont_registro_actividad tcra 
+			Where tcra.PK_proyecto = @paramProyecto and tcra.pk_usuario = @paramUsuario
+	Union all
+	Select tipo = CASE tco.tipo 
+					WHEN 'I' THEN 'Imprevisto'
+					WHEN 'O' THEN 'Operacion' END, 
+			   COUNT(tco.tipo) AS cantidad 
+			From t_cont_registro_operacion tcro INNER JOIN t_cont_operacion tco
+			ON tcro.PK_codigo = tco.PK_codigo, t_cont_proyecto tcp
+			WHERE tcro.fecha between tcp.fechaInicio AND tcp.fechaFin
+			AND tcp.PK_proyecto = @paramProyecto and tcro.pk_usuario = @paramUsuario
+		Group by tco.tipo
+	END
 END  
 GO 
+
+exec PA_estd_inversionTiempos 1,'Administrador'
+
+
 
 IF  EXISTS (SELECT * FROM sys.procedures WHERE object_id = OBJECT_ID(N'[dbo].[PA_estd_actividadesTopProyecto]'))
 DROP PROCEDURE [dbo].[PA_estd_actividadesTopProyecto]
@@ -870,28 +891,51 @@ GO
 CREATE PROCEDURE  [dbo].[PA_estd_actividadesTopProyecto]
   @paramProyecto	INT,
   @paramFechaInicio	datetime,
-  @paramFechaFin	datetime
+  @paramFechaFin	datetime,
+  @paramUsuario     varchar(50)
 AS 
  BEGIN 
-
-	Select TOP(10)tca.nombre AS actividad, SUM(horas) AS cantidadHoras 
-			From t_cont_registro_actividad tcra INNER JOIN t_cont_proyecto tcp
-				ON 
-				   tcra.PK_proyecto = tcp.PK_proyecto INNER JOIN t_cont_actividad tca
-				ON 
-				   tcra.PK_actividad = tca.PK_actividad INNER JOIN t_cont_asignacion_actividad tcaa 
-				ON 
-				   tcra.PK_actividad = tcaa.PK_actividad AND
-				   tcra.PK_paquete = tcaa.PK_paquete AND
-				   tcra.PK_componente = tcaa.PK_componente AND
-				   tcra.PK_entregable = tcaa.PK_entregable AND
-				   tcra.PK_proyecto = tcaa.PK_proyecto AND
-				   tcra.PK_usuario = tcaa.PK_usuario 
-			Where 
-				tcra.PK_proyecto = @paramProyecto AND
-				tcra.fecha BETWEEN @paramFechaInicio AND @paramFechaFin
-	GROUP BY tca.nombre
-
+	IF(@paramUsuario = '')
+	BEGIN
+		Select TOP(10)tca.nombre AS actividad, SUM(horas) AS cantidadHoras 
+				From t_cont_registro_actividad tcra INNER JOIN t_cont_proyecto tcp
+					ON 
+					   tcra.PK_proyecto = tcp.PK_proyecto INNER JOIN t_cont_actividad tca
+					ON 
+					   tcra.PK_actividad = tca.PK_actividad INNER JOIN t_cont_asignacion_actividad tcaa 
+					ON 
+					   tcra.PK_actividad = tcaa.PK_actividad AND
+					   tcra.PK_paquete = tcaa.PK_paquete AND
+					   tcra.PK_componente = tcaa.PK_componente AND
+					   tcra.PK_entregable = tcaa.PK_entregable AND
+					   tcra.PK_proyecto = tcaa.PK_proyecto AND
+					   tcra.PK_usuario = tcaa.PK_usuario 
+				Where 
+					tcra.PK_proyecto = @paramProyecto AND
+					tcra.fecha BETWEEN @paramFechaInicio AND @paramFechaFin
+		GROUP BY tca.nombre
+	END
+	ELSE
+	BEGIN
+		Select TOP(10)tca.nombre AS actividad, SUM(horas) AS cantidadHoras 
+				From t_cont_registro_actividad tcra INNER JOIN t_cont_proyecto tcp
+					ON 
+					   tcra.PK_proyecto = tcp.PK_proyecto INNER JOIN t_cont_actividad tca
+					ON 
+					   tcra.PK_actividad = tca.PK_actividad INNER JOIN t_cont_asignacion_actividad tcaa 
+					ON 
+					   tcra.PK_actividad = tcaa.PK_actividad AND
+					   tcra.PK_paquete = tcaa.PK_paquete AND
+					   tcra.PK_componente = tcaa.PK_componente AND
+					   tcra.PK_entregable = tcaa.PK_entregable AND
+					   tcra.PK_proyecto = tcaa.PK_proyecto AND
+					   tcra.PK_usuario = tcaa.PK_usuario 
+				Where 
+					tcra.PK_proyecto = @paramProyecto AND
+					tcra.fecha BETWEEN @paramFechaInicio AND @paramFechaFin AND
+					tcra.PK_usuario = @paramUsuario
+		GROUP BY tca.nombre
+	END
 END  
 GO
 
