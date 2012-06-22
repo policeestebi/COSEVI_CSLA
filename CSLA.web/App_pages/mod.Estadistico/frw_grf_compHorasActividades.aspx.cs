@@ -13,6 +13,7 @@ using CSLA.web.App_Variables;
 using ExceptionManagement.Exceptions;
 using CSLA.web.App_Constantes;
 using COSEVI.CSLA.lib.entidades.mod.Administracion;
+using COSEVI.CSLA.lib.accesoDatos.mod.Administracion;
 
 // =========================================================================
 // COSEVI - Consejo de Seguridad Vial. - 2011
@@ -55,6 +56,7 @@ namespace CSLA.web.App_pages.mod.Estadistico
                 {
                     this.validarAcceso();
                     cargarProyectos();
+                    cargarUsuarios();
                 }
                 catch (Exception po_exception)
                 {
@@ -91,18 +93,18 @@ namespace CSLA.web.App_pages.mod.Estadistico
         {
             try
             {
-                if (!Page.IsPostBack)
-                {
-                    //Cuando se está ingresando a la página, se limpian las variables de sesión para evitar valores incorrectos
-                    LimpiarVariablesSession();
-                }
-                else
-                {
-                    if (!(Session[cls_constantes.CODIGOPROYECTO] == null))
-                    {
-                        CargaGrafico(Convert.ToInt32(Session[cls_constantes.CODIGOPROYECTO]), Convert.ToInt32(Session[cls_constantes.CODIGOPAQUETE]));
-                    }
-                }
+                //if (!Page.IsPostBack)
+                //{
+                //    //Cuando se está ingresando a la página, se limpian las variables de sesión para evitar valores incorrectos
+                //    LimpiarVariablesSession();
+                //}
+                //else
+                //{
+                //    if (!(Session[cls_constantes.CODIGOPROYECTO] == null))
+                //    {
+                //        CargaGrafico(Convert.ToInt32(Session[cls_constantes.CODIGOPROYECTO]), Convert.ToInt32(Session[cls_constantes.CODIGOPAQUETE]));
+                //    }
+                //}
             }
             catch (Exception po_exception)
             {
@@ -119,14 +121,14 @@ namespace CSLA.web.App_pages.mod.Estadistico
         /// <summary>
         /// Método que realiza la consulta en BD para obtener la información por proyecto y cargar sus valores
         /// </summary>
-        private void CargaGrafico(int pi_proyecto, int pi_paquete)
+        private void CargaGrafico(int pi_proyecto, int pi_paquete, string ps_usuario)
         {
             try
             {
                 //Si se está obteniendo información para un proyecto que NO es el proyecto por defecto
                 if (pi_proyecto > 0)
                 {
-                    obtenerGraficoActividadesPorProyecto(pi_proyecto, pi_paquete);
+                    obtenerGraficoActividadesPorProyecto(pi_proyecto, pi_paquete, ps_usuario);
                 }
                 else
                 {
@@ -190,7 +192,7 @@ namespace CSLA.web.App_pages.mod.Estadistico
         /// <summary>
         /// Método que obtiene la información con la que se va a cargar en gráfico
         /// </summary>
-        private void obtenerGraficoActividadesPorProyecto(int pi_proyecto, int pi_paquete)
+        private void obtenerGraficoActividadesPorProyecto(int pi_proyecto, int pi_paquete, string ps_usuario)
         {
             try
             {
@@ -198,6 +200,7 @@ namespace CSLA.web.App_pages.mod.Estadistico
                 cls_compHorasActividades vo_compHorasActividades = new cls_compHorasActividades();
                 vo_compHorasActividades.pPK_proyecto = pi_proyecto;
                 vo_compHorasActividades.pPK_paquete = pi_paquete;
+                vo_compHorasActividades.pPK_usuario = ps_usuario;
 
                 List<cls_compHorasActividades> vl_topActividades = cls_gestorEstadistico.CompHorasActividadesPorProyecto(vo_compHorasActividades);
 
@@ -340,11 +343,38 @@ namespace CSLA.web.App_pages.mod.Estadistico
         /// <summary>
         /// Método utilizado para limpiar las 3 variables de sesión que utiliza este gráfico
         /// </summary>
-        private void LimpiarVariablesSession()
+        //private void LimpiarVariablesSession()
+        //{
+        //    Session[cls_constantes.CODIGOPROYECTO] = null;
+        //    Session[cls_constantes.CODIGOPAQUETE] = null;
+        //}
+
+        /// <summary>
+        /// Se carga la lista con la totalidad de usuarios que pueden ser asignados a una actividad
+        /// </summary>
+        private void cargarUsuarios()
         {
-            Session[cls_constantes.CODIGOPROYECTO] = null;
-            Session[cls_constantes.CODIGOPAQUETE] = null;
+            try
+            {
+                /*
+                 NOta: * Revisar los selects de los listar, para ver que tanto es necesario cambiar los "pNombre" por los nombres de la tabla => "pNombre" - "pNombreUsuario"
+                       * Ver si es relevante cambiar los nombres a los listbox
+                 */
+                lbx_usuarios.DataSource = cls_gestorUsuario.listarUsuarios();
+                lbx_usuarios.DataTextField = "pNombre";
+                lbx_usuarios.DataValueField = "pPK_usuario";
+                lbx_usuarios.DataBind();
+
+                this.lbx_usuarios.Items.Insert(0, new ListItem("Todas las actividades", "0"));
+                this.lbx_usuarios.SelectedIndex = 0;
+
+            }
+            catch (Exception po_exception)
+            {
+                throw new Exception("Ocurrió un error cargando la lista de usuarios.", po_exception);
+            }
         }
+
 
         /// <summary>
         /// Método que lanza la excepción personalizada
@@ -387,16 +417,22 @@ namespace CSLA.web.App_pages.mod.Estadistico
         {
             try
             {
-                Session[cls_constantes.CODIGOPROYECTO] = ddl_proyecto.SelectedValue;
-                Session[cls_constantes.CODIGOPAQUETE] = ddl_paquete.SelectedValue;
+                //Session[cls_constantes.CODIGOPROYECTO] = ddl_proyecto.SelectedValue;
+                //Session[cls_constantes.CODIGOPAQUETE] = ddl_paquete.SelectedValue;
 
                 //Si el proyecto es un proyecto válido, se carga, de lo contrario, se limpia la variable en memoria
                 //Si el proyecto es el "0", no se traerá nada, por lo que no se mostrará nada en ventana, que es el 
                 //caso defecto, y está bien
                 if (Convert.ToInt32(ddl_proyecto.SelectedValue) > -1)
                 {
-                    //int codigoPaquete = string.IsNullOrEmpty(ddl_paquete.SelectedValue) ? 0 : Convert.ToInt32(ddl_paquete.SelectedValue);
-                    CargaGrafico(Convert.ToInt32(ddl_proyecto.SelectedValue), Convert.ToInt32(ddl_paquete.SelectedValue));
+                    if (Convert.ToInt32(lbx_usuarios.SelectedIndex) > 0)
+                    {
+                        CargaGrafico(Convert.ToInt32(ddl_proyecto.SelectedValue), Convert.ToInt32(ddl_paquete.SelectedValue), lbx_usuarios.SelectedValue.ToString());
+                    }
+                    else
+                    {
+                        CargaGrafico(Convert.ToInt32(ddl_proyecto.SelectedValue), Convert.ToInt32(ddl_paquete.SelectedValue), string.Empty);
+                    }
                 }
             }
             catch (Exception po_exception)
@@ -416,7 +452,7 @@ namespace CSLA.web.App_pages.mod.Estadistico
             try
             {
                 this.ddl_proyecto.SelectedValue = ((DropDownList)sender).SelectedValue;
-                Session[cls_constantes.CODIGOPROYECTO] = ddl_proyecto.SelectedValue;
+                //Session[cls_constantes.CODIGOPROYECTO] = ddl_proyecto.SelectedValue;
 
                 //Si el proyecto es un proyecto válido, se carga, de lo contrario, se limpia la variable en memoria
                 //Si el proyecto es el "0", no se traerá nada, por lo que no se mostrará nada en ventana, que es el 

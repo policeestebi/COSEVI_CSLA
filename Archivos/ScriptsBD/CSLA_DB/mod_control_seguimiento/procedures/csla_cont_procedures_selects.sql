@@ -956,30 +956,55 @@ GO
 -- =============================================
 CREATE PROCEDURE  [dbo].[PA_estd_comparacionHorasActividad]
   @paramProyecto	INT,
-  @paramPaquete	INT
+  @paramPaquete		INT,
+  @paramUsuario     varchar(50)
 AS 
  BEGIN 
-
-		Select tca.nombre AS nombreActividad,
-		   tcaa.horasAsignadas AS horasAsignadas,
-		   SUM(tcra.horas) AS horasReales
-			From t_cont_registro_actividad tcra INNER JOIN t_cont_proyecto tcp
-				ON 
-				   tcra.PK_proyecto = tcp.PK_proyecto INNER JOIN t_cont_actividad tca
-				ON 
-				   tcra.PK_actividad = tca.PK_actividad INNER JOIN t_cont_asignacion_actividad tcaa 
-				ON 
-				   tcra.PK_actividad = tcaa.PK_actividad AND
-				   tcra.PK_paquete = tcaa.PK_paquete AND
-				   tcra.PK_componente = tcaa.PK_componente AND
-				   tcra.PK_entregable = tcaa.PK_entregable AND
-				   tcra.PK_proyecto = tcaa.PK_proyecto AND
-				   tcra.PK_usuario = tcaa.PK_usuario 
-			Where 
-				tcra.PK_proyecto = @paramProyecto AND
-				tcra.PK_paquete = @paramPaquete
-	GROUP BY tca.nombre, tcaa.horasAsignadas
-
+	IF(@paramUsuario = '')
+		BEGIN
+			Select tca.nombre AS nombreActividad,
+			   tcaa.horasAsignadas AS horasAsignadas,
+			   SUM(tcra.horas) AS horasReales
+				From t_cont_registro_actividad tcra INNER JOIN t_cont_proyecto tcp
+					ON 
+					   tcra.PK_proyecto = tcp.PK_proyecto INNER JOIN t_cont_actividad tca
+					ON 
+					   tcra.PK_actividad = tca.PK_actividad INNER JOIN t_cont_asignacion_actividad tcaa 
+					ON 
+					   tcra.PK_actividad = tcaa.PK_actividad AND
+					   tcra.PK_paquete = tcaa.PK_paquete AND
+					   tcra.PK_componente = tcaa.PK_componente AND
+					   tcra.PK_entregable = tcaa.PK_entregable AND
+					   tcra.PK_proyecto = tcaa.PK_proyecto AND
+					   tcra.PK_usuario = tcaa.PK_usuario 
+				Where 
+					tcra.PK_proyecto = @paramProyecto AND
+					tcra.PK_paquete = @paramPaquete
+				GROUP BY tca.nombre, tcaa.horasAsignadas
+		END
+	ELSE
+		BEGIN
+			Select tca.nombre AS nombreActividad,
+			   tcaa.horasAsignadas AS horasAsignadas,
+			   SUM(tcra.horas) AS horasReales
+				From t_cont_registro_actividad tcra INNER JOIN t_cont_proyecto tcp
+					ON 
+					   tcra.PK_proyecto = tcp.PK_proyecto INNER JOIN t_cont_actividad tca
+					ON 
+					   tcra.PK_actividad = tca.PK_actividad INNER JOIN t_cont_asignacion_actividad tcaa 
+					ON 
+					   tcra.PK_actividad = tcaa.PK_actividad AND
+					   tcra.PK_paquete = tcaa.PK_paquete AND
+					   tcra.PK_componente = tcaa.PK_componente AND
+					   tcra.PK_entregable = tcaa.PK_entregable AND
+					   tcra.PK_proyecto = tcaa.PK_proyecto AND
+					   tcra.PK_usuario = tcaa.PK_usuario 
+				Where 
+					tcra.PK_proyecto = @paramProyecto AND
+					tcra.PK_paquete = @paramPaquete AND
+					tcra.PK_usuario = @paramUsuario
+				GROUP BY tca.nombre, tcaa.horasAsignadas
+		END
 END 
 GO
 

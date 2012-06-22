@@ -222,7 +222,8 @@ namespace COSEVI.CSLA.lib.accesoDatos.mod.Estadistico
             {
                 String vs_comando = "PA_estd_comparacionHorasActividad";
                 cls_parameter[] vu_parametros = { new cls_parameter("@paramProyecto", po_compHorasActividades.pPK_proyecto),
-                                                  new cls_parameter("@paramPaquete", po_compHorasActividades.pPK_paquete)
+                                                  new cls_parameter("@paramPaquete", po_compHorasActividades.pPK_paquete),
+                                                  new cls_parameter("@paramUsuario", po_compHorasActividades.pPK_usuario)
                                                 };
 
                 DataSet vu_dataSet = cls_sqlDatabase.executeDataset(vs_comando, true, vu_parametros);
