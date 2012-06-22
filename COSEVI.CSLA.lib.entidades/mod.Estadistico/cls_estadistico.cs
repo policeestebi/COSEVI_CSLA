@@ -51,6 +51,12 @@ namespace COSEVI.CSLA.lib.entidades.mod.Estadistico
             set { this.PK_proyecto = value; }
         }
 
+        public string pPK_usuario
+        {
+            get { return PK_usuario; }
+            set { this.PK_usuario = value; }
+        }
+
         public string pTipoLabor
         {
             get { return tipoLabor; }
@@ -71,6 +77,11 @@ namespace COSEVI.CSLA.lib.entidades.mod.Estadistico
         /// Código del proyecto
         /// </summary>
  	    private int PK_proyecto;
+
+        /// <summary>
+        /// Código del usuario
+        /// </summary>
+        private string PK_usuario;
 
         /// <summary>
         /// Tipo de labor para el desgloce
@@ -111,6 +122,12 @@ namespace COSEVI.CSLA.lib.entidades.mod.Estadistico
             set { this.PK_proyecto = value; }
         }
 
+        public string pPK_usuario
+        {
+            get { return PK_usuario; }
+            set { this.PK_usuario = value; }
+        }
+
         public string pNombreActividad
         {
             get { return nombreActividad; }
@@ -143,6 +160,11 @@ namespace COSEVI.CSLA.lib.entidades.mod.Estadistico
         /// Código del proyecto
         /// </summary>
         private int PK_proyecto;
+
+        /// <summary>
+        /// Código del usuario
+        /// </summary>
+        private string PK_usuario;
 
         /// <summary>
         /// Nombre de la actividad para el desgloce
@@ -199,6 +221,12 @@ namespace COSEVI.CSLA.lib.entidades.mod.Estadistico
             set { this.PK_paquete = value; }
         }
 
+        public string pPK_usuario
+        {
+            get { return PK_usuario; }
+            set { this.PK_usuario = value; }
+        }
+
         public string pNombreActividad
         {
             get { return nombreActividad; }
@@ -230,6 +258,11 @@ namespace COSEVI.CSLA.lib.entidades.mod.Estadistico
         /// Código del paquete
         /// </summary>
         private int PK_paquete;
+
+        /// <summary>
+        /// Código del usuario
+        /// </summary>
+        private string PK_usuario;
 
         /// <summary>
         /// Nombre de la actividad para el desgloce

@@ -914,6 +914,7 @@ AS
 					tcra.PK_proyecto = @paramProyecto AND
 					tcra.fecha BETWEEN @paramFechaInicio AND @paramFechaFin
 		GROUP BY tca.nombre
+		ORDER BY cantidadHoras DESC
 	END
 	ELSE
 	BEGIN
@@ -935,6 +936,7 @@ AS
 					tcra.fecha BETWEEN @paramFechaInicio AND @paramFechaFin AND
 					tcra.PK_usuario = @paramUsuario
 		GROUP BY tca.nombre
+		ORDER BY cantidadHoras DESC
 	END
 END  
 GO

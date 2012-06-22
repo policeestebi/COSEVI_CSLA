@@ -121,25 +121,25 @@ namespace CSLA.web.App_pages.mod.Estadistico
         /// <summary>
         /// Método que realiza la consulta en BD para obtener la información por proyecto y cargar sus valores
         /// </summary>
-        private void CargaGrafico(int ps_proyecto)
-        {
-            try
-            {
-                //Si se está obteniendo información para un proyecto que NO es el proyecto por defecto
-                if (ps_proyecto > 0)
-                {
-                    obtenerGraficoPorProyecto(ps_proyecto, string.Empty);
-                }
-                else
-                {
-                    obtenerGraficoPorDefecto();
-                }
-            }
-            catch (Exception po_exception)
-            {
-                throw new Exception("Ocurrió un error al definir el tipo de gráfico.", po_exception);
-            }
-        }
+        //private void CargaGrafico(int ps_proyecto)
+        //{
+        //    try
+        //    {
+        //        //Si se está obteniendo información para un proyecto que NO es el proyecto por defecto
+        //        if (ps_proyecto > 0)
+        //        {
+        //            obtenerGraficoPorProyecto(ps_proyecto, string.Empty);
+        //        }
+        //        else
+        //        {
+        //            obtenerGraficoPorDefecto();
+        //        }
+        //    }
+        //    catch (Exception po_exception)
+        //    {
+        //        throw new Exception("Ocurrió un error al definir el tipo de gráfico.", po_exception);
+        //    }
+        //}
 
 
         /// <summary>
