@@ -22,33 +22,6 @@ namespace CSLA.web.App_pages.mod.ControlSeguimiento {
         protected global::System.Web.UI.ScriptManager scr_Man;
         
         /// <summary>
-        /// upd_Principal control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.UpdatePanel upd_Principal;
-        
-        /// <summary>
-        /// ard_principal control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::AjaxControlToolkit.Accordion ard_principal;
-        
-        /// <summary>
-        /// acp_creacionProyectos control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::AjaxControlToolkit.AccordionPane acp_creacionProyectos;
-        
-        /// <summary>
         /// lbl_proyecto control.
         /// </summary>
         /// <remarks>

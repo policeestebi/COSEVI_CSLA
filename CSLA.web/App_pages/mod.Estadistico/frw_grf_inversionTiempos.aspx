@@ -51,6 +51,7 @@
                 <table id="Table3">
                     <tr align="right">
                         <td>
+                            <asp:Label ID="Label1" runat="server" Text="Proyecto: "></asp:Label>
                             <asp:Label ID="lbl_usuario" runat="server" Text="Usuario: "></asp:Label>
                         </td>
                         <td>

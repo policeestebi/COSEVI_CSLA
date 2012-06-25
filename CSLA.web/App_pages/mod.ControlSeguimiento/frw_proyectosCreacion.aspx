@@ -10,295 +10,286 @@
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="cuerpoPagina" runat="server">
     <asp:ScriptManager ID="scr_Man" runat="server">
-    </asp:ScriptManager> 
+    </asp:ScriptManager>
+    <script type="text/javascript">
 
-    
-        <script type="text/javascript">
-
-            var xPosEntAsociados, yPosEntAsociados, xPosEntregables, yPosEntregables,
+        var xPosEntAsociados, yPosEntAsociados, xPosEntregables, yPosEntregables,
                 xPosEntregablesAsociados, yPosEntregablesAsociados, xPosCompAsociados, yPosCompAsociados, xPosComponentes, yPosComponentes,
                 xPosComponentesAsociados, yPosEComponentesAsociados, xPosPaqAsociados, yPosPaqAsociados, xPosPaquetes, yPosPaquetes,
                 xPosPaquetesAsociados, yPosPaquetesAsociados, xPosActAsociadas, yPosActAsociadas, xPosActividades, yPosActividades;
 
-            var prm = Sys.WebForms.PageRequestManager.getInstance();
+        var prm = Sys.WebForms.PageRequestManager.getInstance();
 
-            function BeginRequestHandler(sender, args) {
-                
-                if ($get('<%=lbx_entasociados.ClientID %>') != null) {
-                    xPosEntAsociados = $get('<%=lbx_entasociados.ClientID %>').scrollLeft;
-                    yPosEntAsociados = $get('<%=lbx_entasociados.ClientID %>').scrollTop;
-                }
-                if ($get('<%=lbx_entregables.ClientID %>') != null) {
-                    xPosEntregables = $get('<%=lbx_entregables.ClientID %>').scrollLeft;
-                    yPosEntregables = $get('<%=lbx_entregables.ClientID %>').scrollTop;
-                }
+        function BeginRequestHandler(sender, args) {
 
-                if ($get('<%=lbx_entregablesasociados.ClientID %>') != null) {
-                    xPosEntregablesAsociados = $get('<%=lbx_entregablesasociados.ClientID %>').scrollLeft;
-                    yPosEntregablesAsociados = $get('<%=lbx_entregablesasociados.ClientID %>').scrollTop;
-                }
-                if ($get('<%=lbx_compasociados.ClientID %>') != null) {
-                    xPosCompAsociados = $get('<%=lbx_compasociados.ClientID %>').scrollLeft;
-                    yPosCompAsociados = $get('<%=lbx_compasociados.ClientID %>').scrollTop;
-                }
-                if ($get('<%=lbx_componentes.ClientID %>') != null) {
-                    xPosComponentes = $get('<%=lbx_componentes.ClientID %>').scrollLeft;
-                    yPosComponentes = $get('<%=lbx_componentes.ClientID %>').scrollTop;
-                }
-
-                if ($get('<%=lbx_componentesasociados.ClientID %>') != null) {
-                    xPosComponentesAsociados = $get('<%=lbx_componentesasociados.ClientID %>').scrollLeft;
-                    yPosEComponentesAsociados = $get('<%=lbx_componentesasociados.ClientID %>').scrollTop;
-                }
-                if ($get('<%=lbx_paqasociados.ClientID %>') != null) {
-                    xPosPaqAsociados = $get('<%=lbx_paqasociados.ClientID %>').scrollLeft;
-                    yPosPaqAsociados = $get('<%=lbx_paqasociados.ClientID %>').scrollTop;
-                }
-                if ($get('<%=lbx_paquetes.ClientID %>') != null) {
-                    xPosPaquetes = $get('<%=lbx_paquetes.ClientID %>').scrollLeft;
-                    yPosPaquetes = $get('<%=lbx_paquetes.ClientID %>').scrollTop;
-                }
-
-                if ($get('<%=lbx_paquetesasociados.ClientID %>') != null) {
-                    xPosPaquetesAsociados = $get('<%=lbx_paquetesasociados.ClientID %>').scrollLeft;
-                    yPosPaquetesAsociados = $get('<%=lbx_paquetesasociados.ClientID %>').scrollTop;
-                }
-                if ($get('<%=lbx_actasociadas.ClientID %>') != null) {
-                    xPosActAsociadas = $get('<%=lbx_actasociadas.ClientID %>').scrollLeft;
-                    yPosActAsociadas = $get('<%=lbx_actasociadas.ClientID %>').scrollTop;
-                }
-                if ($get('<%=lbx_actividades.ClientID %>') != null) {
-                    xPosActividades = $get('<%=lbx_actividades.ClientID %>').scrollLeft;
-                    yPosActividades = $get('<%=lbx_actividades.ClientID %>').scrollTop;
-                }
-               
+            if ($get('<%=lbx_entasociados.ClientID %>') != null) {
+                xPosEntAsociados = $get('<%=lbx_entasociados.ClientID %>').scrollLeft;
+                yPosEntAsociados = $get('<%=lbx_entasociados.ClientID %>').scrollTop;
+            }
+            if ($get('<%=lbx_entregables.ClientID %>') != null) {
+                xPosEntregables = $get('<%=lbx_entregables.ClientID %>').scrollLeft;
+                yPosEntregables = $get('<%=lbx_entregables.ClientID %>').scrollTop;
             }
 
-            function EndRequestHandler(sender, args) {
-                Asignación de scrolling para entregables
-                if ($get('<%=lbx_entasociados.ClientID %>') != null) {
-                    $get('<%=lbx_entasociados.ClientID %>').scrollLeft = xPosEntAsociados;
-                    $get('<%=lbx_entasociados.ClientID %>').scrollTop = yPosEntAsociados;
-                }
-                if ($get('<%=lbx_entregables.ClientID %>') != null) {
-                    $get('<%=lbx_entregables.ClientID %>').scrollLeft = xPosEntregables;
-                    $get('<%=lbx_entregables.ClientID %>').scrollTop = yPosEntregables;
-                }
-
-                if ($get('<%=lbx_entregablesasociados.ClientID %>') != null) {
-                    $get('<%=lbx_entregablesasociados.ClientID %>').scrollLeft = xPosEntregablesAsociados;
-                    $get('<%=lbx_entregablesasociados.ClientID %>').scrollTop = yPosEntregablesAsociados;
-                }
-                if ($get('<%=lbx_compasociados.ClientID %>') != null) {
-                    $get('<%=lbx_compasociados.ClientID %>').scrollLeft = xPosCompAsociados;
-                    $get('<%=lbx_compasociados.ClientID %>').scrollTop = yPosCompAsociados;
-                }
-                if ($get('<%=lbx_componentes.ClientID %>') != null) {
-                    $get('<%=lbx_componentes.ClientID %>').scrollLeft = xPosComponentes;
-                    $get('<%=lbx_componentes.ClientID %>').scrollTop = yPosComponentes;
-                }
-
-                if ($get('<%=lbx_componentesasociados.ClientID %>') != null) {
-                    $get('<%=lbx_componentesasociados.ClientID %>').scrollLeft = xPosComponentesAsociados;
-                    $get('<%=lbx_componentesasociados.ClientID %>').scrollTop = yPosComponentesAsociados;
-                }
-                if ($get('<%=lbx_paqasociados.ClientID %>') != null) {
-                    $get('<%=lbx_paqasociados.ClientID %>').scrollLeft = xPosPaqAsociados;
-                    $get('<%=lbx_paqasociados.ClientID %>').scrollTop = yPosPaqAsociados;
-                }
-                if ($get('<%=lbx_paquetes.ClientID %>') != null) {
-                    $get('<%=lbx_paquetes.ClientID %>').scrollLeft = xPosPaquetes;
-                    $get('<%=lbx_paquetes.ClientID %>').scrollTop = yPosPaquetes;
-                }
-
-                if ($get('<%=lbx_paquetesasociados.ClientID %>') != null) {
-                    $get('<%=lbx_paquetesasociados.ClientID %>').scrollLeft = xPosPaquetesAsociados;
-                    $get('<%=lbx_paquetesasociados.ClientID %>').scrollTop = yPosPaquetesAsociados;
-                }
-                if ($get('<%=lbx_actasociadas.ClientID %>') != null) {
-                    $get('<%=lbx_actasociadas.ClientID %>').scrollLeft = xPosActAsociadas;
-                    $get('<%=lbx_actasociadas.ClientID %>').scrollTop = yPosActAsociadas;
-                }
-                if ($get('<%=lbx_actividades.ClientID %>') != null) {
-                    $get('<%=lbx_actividades.ClientID %>').scrollLeft = xPosActividades;
-                    $get('<%=lbx_actividades.ClientID %>').scrollTop = yPosActividades;
-                }
+            if ($get('<%=lbx_entregablesasociados.ClientID %>') != null) {
+                xPosEntregablesAsociados = $get('<%=lbx_entregablesasociados.ClientID %>').scrollLeft;
+                yPosEntregablesAsociados = $get('<%=lbx_entregablesasociados.ClientID %>').scrollTop;
+            }
+            if ($get('<%=lbx_compasociados.ClientID %>') != null) {
+                xPosCompAsociados = $get('<%=lbx_compasociados.ClientID %>').scrollLeft;
+                yPosCompAsociados = $get('<%=lbx_compasociados.ClientID %>').scrollTop;
+            }
+            if ($get('<%=lbx_componentes.ClientID %>') != null) {
+                xPosComponentes = $get('<%=lbx_componentes.ClientID %>').scrollLeft;
+                yPosComponentes = $get('<%=lbx_componentes.ClientID %>').scrollTop;
             }
 
-            prm.add_beginRequest(BeginRequestHandler);
-            prm.add_endRequest(EndRequestHandler);        
+            if ($get('<%=lbx_componentesasociados.ClientID %>') != null) {
+                xPosComponentesAsociados = $get('<%=lbx_componentesasociados.ClientID %>').scrollLeft;
+                yPosEComponentesAsociados = $get('<%=lbx_componentesasociados.ClientID %>').scrollTop;
+            }
+            if ($get('<%=lbx_paqasociados.ClientID %>') != null) {
+                xPosPaqAsociados = $get('<%=lbx_paqasociados.ClientID %>').scrollLeft;
+                yPosPaqAsociados = $get('<%=lbx_paqasociados.ClientID %>').scrollTop;
+            }
+            if ($get('<%=lbx_paquetes.ClientID %>') != null) {
+                xPosPaquetes = $get('<%=lbx_paquetes.ClientID %>').scrollLeft;
+                yPosPaquetes = $get('<%=lbx_paquetes.ClientID %>').scrollTop;
+            }
+
+            if ($get('<%=lbx_paquetesasociados.ClientID %>') != null) {
+                xPosPaquetesAsociados = $get('<%=lbx_paquetesasociados.ClientID %>').scrollLeft;
+                yPosPaquetesAsociados = $get('<%=lbx_paquetesasociados.ClientID %>').scrollTop;
+            }
+            if ($get('<%=lbx_actasociadas.ClientID %>') != null) {
+                xPosActAsociadas = $get('<%=lbx_actasociadas.ClientID %>').scrollLeft;
+                yPosActAsociadas = $get('<%=lbx_actasociadas.ClientID %>').scrollTop;
+            }
+            if ($get('<%=lbx_actividades.ClientID %>') != null) {
+                xPosActividades = $get('<%=lbx_actividades.ClientID %>').scrollLeft;
+                yPosActividades = $get('<%=lbx_actividades.ClientID %>').scrollTop;
+            }
+
+        }
+
+        function EndRequestHandler(sender, args) {
+
+            if ($get('<%=lbx_entasociados.ClientID %>') != null) {
+                $get('<%=lbx_entasociados.ClientID %>').scrollLeft = xPosEntAsociados;
+                $get('<%=lbx_entasociados.ClientID %>').scrollTop = yPosEntAsociados;
+            }
+            if ($get('<%=lbx_entregables.ClientID %>') != null) {
+                $get('<%=lbx_entregables.ClientID %>').scrollLeft = xPosEntregables;
+                $get('<%=lbx_entregables.ClientID %>').scrollTop = yPosEntregables;
+            }
+
+            if ($get('<%=lbx_entregablesasociados.ClientID %>') != null) {
+                $get('<%=lbx_entregablesasociados.ClientID %>').scrollLeft = xPosEntregablesAsociados;
+                $get('<%=lbx_entregablesasociados.ClientID %>').scrollTop = yPosEntregablesAsociados;
+            }
+            if ($get('<%=lbx_compasociados.ClientID %>') != null) {
+                $get('<%=lbx_compasociados.ClientID %>').scrollLeft = xPosCompAsociados;
+                $get('<%=lbx_compasociados.ClientID %>').scrollTop = yPosCompAsociados;
+            }
+            if ($get('<%=lbx_componentes.ClientID %>') != null) {
+                $get('<%=lbx_componentes.ClientID %>').scrollLeft = xPosComponentes;
+                $get('<%=lbx_componentes.ClientID %>').scrollTop = yPosComponentes;
+            }
+
+            if ($get('<%=lbx_componentesasociados.ClientID %>') != null) {
+                $get('<%=lbx_componentesasociados.ClientID %>').scrollLeft = xPosComponentesAsociados;
+                $get('<%=lbx_componentesasociados.ClientID %>').scrollTop = yPosComponentesAsociados;
+            }
+            if ($get('<%=lbx_paqasociados.ClientID %>') != null) {
+                $get('<%=lbx_paqasociados.ClientID %>').scrollLeft = xPosPaqAsociados;
+                $get('<%=lbx_paqasociados.ClientID %>').scrollTop = yPosPaqAsociados;
+            }
+            if ($get('<%=lbx_paquetes.ClientID %>') != null) {
+                $get('<%=lbx_paquetes.ClientID %>').scrollLeft = xPosPaquetes;
+                $get('<%=lbx_paquetes.ClientID %>').scrollTop = yPosPaquetes;
+            }
+
+            if ($get('<%=lbx_paquetesasociados.ClientID %>') != null) {
+                $get('<%=lbx_paquetesasociados.ClientID %>').scrollLeft = xPosPaquetesAsociados;
+                $get('<%=lbx_paquetesasociados.ClientID %>').scrollTop = yPosPaquetesAsociados;
+            }
+            if ($get('<%=lbx_actasociadas.ClientID %>') != null) {
+                $get('<%=lbx_actasociadas.ClientID %>').scrollLeft = xPosActAsociadas;
+                $get('<%=lbx_actasociadas.ClientID %>').scrollTop = yPosActAsociadas;
+            }
+            if ($get('<%=lbx_actividades.ClientID %>') != null) {
+                $get('<%=lbx_actividades.ClientID %>').scrollLeft = xPosActividades;
+                $get('<%=lbx_actividades.ClientID %>').scrollTop = yPosActividades;
+            }
+        }
+
+        prm.add_beginRequest(BeginRequestHandler);
+        prm.add_endRequest(EndRequestHandler);        
     </script>
-
-
-    <asp:UpdatePanel ID="upd_Principal" runat="server" ChildrenAsTriggers="true" UpdateMode="Conditional">
-        <ContentTemplate>
-            <act:Accordion ID="ard_principal" runat="server" SelectedIndex="0" FadeTransitions="false"
-                FramesPerSecond="40" TransitionDuration="250" AutoSize="None" RequireOpenedPane="false"
-                SuppressHeaderPostbacks="true" HeaderCssClass="encabezadoAcordeon" ContentCssClass="contenidoAcordeon"
-                HeaderSelectedCssClass="encabezadoSeleccionadoAcordeon">
-                <Panes>
-                    <act:AccordionPane ID="acp_creacionProyectos" runat="server">
-                        <Header>
-                            <a href="" style="color: #FFFFFF; font-size: 12px;">Creaci&oacute;n de Proyectos</a>
-                        </Header>
-                        <Content>
-                            <div class="left">
-                                <table id="tbl_Proyecto" width="10px">
-                                    <tr align="left">
-                                        <td>
-                                        </td>
-                                        <td>
-                                        </td>
-                                        <td>
-                                        </td>
-                                        <td align="left">
-                                            <asp:Label ID="lbl_proyecto" runat="server" Text="Proyecto: "></asp:Label>
-                                        </td>
-                                        <td align="left">
-                                            <asp:TextBox ID="txt_proyecto" runat="server" Width="100px" Enabled="false">
-                                            </asp:TextBox>
-                                        </td>
-                                    </tr>
-                                </table>
-                            </div>
-                            <%--Contenido Agregado Abajo --%>
-                            <%--Define the wizard properties--%>
-                            <asp:Wizard ID="wiz_creacion" runat="server" ActiveStepIndex="0" BackColor="#FFFBD6"
-                                BorderColor="#FFDFAD" Width="80%" SideBarStyle-BorderWidth="50" DisplaySideBar="false"
-                                SideBarStyle-BorderStyle="None" SideBarStyle-HorizontalAlign="Left" SideBarButtonStyle-Font-Size="Small"
-                                SideBarButtonStyle-Font-Bold="true" HeaderStyle-BackColor="Black" SideBarStyle-Width="100px"
-                                SideBarStyle-BackColor="AliceBlue" SideBarStyle-BorderColor="Black" OnFinishButtonClick="wiz_creacion_FinishButtonClick"
-                                OnActiveStepChanged="OnActiveStepChanged" CancelButtonText="Cancelar" FinishCompleteButtonText="Finalizar"
-                                StartNextButtonText="Siguiente" StepNextButtonText="Siguiente" StepPreviousButtonText="Atrás">
-                                <WizardSteps>
-                                    <asp:WizardStep ID="wzs_inicio" runat="server" Title="Inicio" StepType="Auto">
-                                        <div class="centrado">
-                                            <table id="tblInicio" style="display: block;" class="advertencia">
+    <table id="tbl_Principal">
+            <tr>
+                <td>
+                    <div class="left">
+                        <table id="tbl_Proyecto" width="10px">
+                            <tr align="left">
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td align="left">
+                                    <asp:Label ID="lbl_proyecto" runat="server" Text="Proyecto: "></asp:Label>
+                                </td>
+                                <td align="left">
+                                    <asp:TextBox ID="txt_proyecto" runat="server" Width="100px" Enabled="false">
+                                    </asp:TextBox>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <%--Contenido Agregado Abajo --%>
+                    <%--Define the wizard properties--%>
+                    <asp:Wizard ID="wiz_creacion" runat="server" ActiveStepIndex="0" BackColor="#FFFBD6"
+                        BorderColor="#FFDFAD" Width="80%" SideBarStyle-BorderWidth="50" DisplaySideBar="false"
+                        SideBarStyle-BorderStyle="None" SideBarStyle-HorizontalAlign="Left" SideBarButtonStyle-Font-Size="Small"
+                        SideBarButtonStyle-Font-Bold="true" HeaderStyle-BackColor="Black" SideBarStyle-Width="100px"
+                        SideBarStyle-BackColor="AliceBlue" SideBarStyle-BorderColor="Black" OnFinishButtonClick="wiz_creacion_FinishButtonClick"
+                        OnActiveStepChanged="OnActiveStepChanged" CancelButtonText="Cancelar" FinishCompleteButtonText="Finalizar"
+                        StartNextButtonText="Siguiente" StepNextButtonText="Siguiente" StepPreviousButtonText="Atrás">
+                        <WizardSteps>
+                            <asp:WizardStep ID="wzs_inicio" runat="server" Title="Inicio" StepType="Auto">
+                                <div class="centrado">
+                                    <table id="tblInicio" style="display: block;" class="advertencia">
+                                        <br />
+                                        <br />
+                                        <tr>
+                                            <td>
+                                            </td>
+                                            <td>
+                                                <asp:Label ID="lblAdvertencia" CssClass="label" runat="server" Text="Wizard de Creación de Proyectos"></asp:Label>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <asp:Image ID="img_creacion" AlternateText="imgCreacionProyecto" runat="server" ImageUrl="~/App_Themes/Basico/imagenes/iconos/img_proyecto.png" />
+                                            </td>
+                                            <td>
+                                                <asp:Label ID="lblAdvertenciaContenido" runat="server" Text="El siguiente Wizard le permitirá la creación de un Proyecto. En los siguientes pasos deberá realizar la asignación de los entregables, componentes, paquetes y actividades que compondrán el proyecto."></asp:Label>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    <br />
+                                    <br />
+                                </div>
+                            </asp:WizardStep>
+                            <asp:WizardStep ID="wzs_entregables" runat="server" Title="Entregables" StepType="Step">
+                                <div class="centrado">
+                                    <table id="tblMensajeEntregables" style="display: block;" class="advertencia">
+                                        <br />
+                                        <br />
+                                        <tr>
+                                            <td>
+                                                <asp:Label ID="lblEntregablesTitulo" CssClass="label" runat="server" Text="Agregar Entregables"></asp:Label>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <asp:Label ID="lblEntregablesMensaje" runat="server" Text="Seleccione los entragables desplagados a las derecha y agreguélos por medio de los botones a la lista de la izquierda."></asp:Label>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    <br />
+                                    <br />
+                                </div>
+                                <div class="center">
+                                    <table id="tbl_asignacionEntregables">
+                                        <tr align="left">
+                                            <td>
+                                                <asp:Label ID="lbl_entregables" runat="server" Text="Entregables Asociados: "></asp:Label>
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                <asp:Label ID="lbl_listaEntregables" runat="server" Text="Entregables: "></asp:Label>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <act:ListSearchExtender ID="lse_entasociados" runat="server" TargetControlID="lbx_entasociados"
+                                                    PromptText="Digite para buscar..." PromptPosition="Top" />
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                <act:ListSearchExtender ID="lse_entregables" runat="server" TargetControlID="lbx_entregables"
+                                                    PromptText="Digite para buscar..." PromptPosition="Top" />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <asp:ListBox ID="lbx_entasociados" runat="server" SelectionMode="Multiple" Width="200px"
+                                                    Height="150px"></asp:ListBox>
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                            </td>
+                                            <td>
+                                                <asp:Button ID="btn_asignarEntregable" runat="server" Text="&lt;" OnClick="btn_asignarEntregable_Click"
+                                                    Width="35px" colspan="2" />
                                                 <br />
-                                                <br />
-                                                <tr>
-                                                    <td>
-                                                    </td>
-                                                    <td>
-                                                        <asp:Label ID="lblAdvertencia" CssClass="label" runat="server" Text="Wizard de Creación de Proyectos"></asp:Label>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <asp:Image ID="img_creacion" AlternateText="imgCreacionProyecto" runat="server" ImageUrl="~/App_Themes/Basico/imagenes/iconos/img_proyecto.png" />
-                                                    </td>
-                                                    <td>
-                                                        <asp:Label ID="lblAdvertenciaContenido" runat="server" Text="El siguiente Wizard le permitirá la creación de un Proyecto. En los siguientes pasos deberá realizar la asignación de los entregables, componentes, paquetes y actividades que compondrán el proyecto."></asp:Label>
-                                                    </td>
-                                                </tr>
-                                            </table>
-                                            <br />
-                                            <br />
-                                        </div>
-                                    </asp:WizardStep>
-                                    <asp:WizardStep ID="wzs_entregables" runat="server" Title="Entregables" StepType="Step">
-                                        <div class="centrado">
-                                            <table id="tblMensajeEntregables" style="display: block;" class="advertencia">
-                                                <br />
-                                                <br />
-                                                <tr>
-                                                    <td>
-                                                        <asp:Label ID="lblEntregablesTitulo" CssClass="label" runat="server" Text="Agregar Entregables"></asp:Label>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <asp:Label ID="lblEntregablesMensaje" runat="server" Text="Seleccione los entragables desplagados a las derecha y agreguélos por medio de los botones a la lista de la izquierda."></asp:Label>
-                                                    </td>
-                                                </tr>
-                                            </table>
-                                            <br />
-                                            <br />
-                                        </div>
-                                        <div class="center">
-                                            <table id="tbl_asignacionEntregables">
-                                                <tr align="left">
-                                                    <td>
-                                                        <asp:Label ID="lbl_entregables" runat="server" Text="Entregables Asociados: "></asp:Label>
-                                                    </td>
-                                                    <td>
-                                                        &nbsp;
-                                                    </td>
-                                                    <td>
-                                                    </td>
-                                                    <td>
-                                                        &nbsp;
-                                                    </td>
-                                                    <td>
-                                                        <asp:Label ID="lbl_listaEntregables" runat="server" Text="Entregables: "></asp:Label>
-                                                    </td>
-                                                </tr>
-                                                <tr align="left">
-                                                    <td>
-                                                        <act:ListSearchExtender ID="lse_entasociados" runat="server" TargetControlID="lbx_entasociados"
-                                                         PromptText="Digite para buscar..." PromptPosition="Top" />
-                                                    </td>
-                                                    <td>
-                                                        &nbsp;
-                                                    </td>
-                                                    <td>
-                                                    </td>
-                                                    <td>
-                                                        &nbsp;
-                                                    </td>
-                                                    <td>
-                                                        <act:ListSearchExtender ID="lse_entregables" runat="server" TargetControlID="lbx_entregables"
-                                                         PromptText="Digite para buscar..." PromptPosition="Top" />
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <asp:ListBox ID="lbx_entasociados" runat="server" SelectionMode="Multiple" Width="200px"
-                                                            Height="150px"></asp:ListBox>
-                                                    </td>
-                                                    <td>
-                                                        &nbsp;
-                                                    </td>
-                                                    <td>
-                                                        <asp:Button ID="btn_asignarEntregable" runat="server" Text="&lt;" OnClick="btn_asignarEntregable_Click"
-                                                            Width="35px" colspan="2" />
-                                                        <br />
-                                                        <asp:Button ID="btn_removerEntregable" runat="server" Text="&gt;" OnClick="btn_removerEntregable_Click"
-                                                            Width="35px" colspan="2" />
-                                                    </td>
-                                                    <td>
-                                                        &nbsp;
-                                                    </td>
-                                                    <td>
-                                                        <asp:ListBox ID="lbx_entregables" runat="server" SelectionMode="Multiple" Width="200px"
-                                                            Height="150px"></asp:ListBox>
-                                                    </td>
-                                                </tr>
-                                            </table>
-                                            <br />
-                                            <br />
-                                        </div>
-                                    </asp:WizardStep>
-                                    <asp:WizardStep ID="wzs_componentes" runat="server" Title="Componentes" StepType="Step">
-                                        <div class="centrado">
-                                            <table id="tblMensajeComponentes" style="display: block;" class="advertencia">
-                                                <br />
-                                                <br />
-                                                <tr>
-                                                    <td>
-                                                        <asp:Label ID="lbl_componentesTitulo" CssClass="label" runat="server" Text="Agregar Componentes"></asp:Label>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <asp:Label ID="lbl_componentesMensaje" runat="server" Text="La primera lista contiene los entregables seleccionados en el paso anterior, seleccione alguno de estos y se desplegaran los componentes que pueden ser agregados por medio de los botones."></asp:Label>
-                                                    </td>
-                                                </tr>
-                                            </table>
-                                            <br />
-                                            <br />
-                                        </div>
-                                        <div class="center">
+                                                <asp:Button ID="btn_removerEntregable" runat="server" Text="&gt;" OnClick="btn_removerEntregable_Click"
+                                                    Width="35px" colspan="2" />
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                <asp:ListBox ID="lbx_entregables" runat="server" SelectionMode="Multiple" Width="200px"
+                                                    Height="150px"></asp:ListBox>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    <br />
+                                    <br />
+                                </div>
+                            </asp:WizardStep>
+                            <asp:WizardStep ID="wzs_componentes" runat="server" Title="Componentes" StepType="Step">
+                                <div class="centrado">
+                                    <table id="tblMensajeComponentes" style="display: block;" class="advertencia">
+                                        <br />
+                                        <br />
+                                        <tr>
+                                            <td>
+                                                <asp:Label ID="lbl_componentesTitulo" CssClass="label" runat="server" Text="Agregar Componentes"></asp:Label>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <asp:Label ID="lbl_componentesMensaje" runat="server" Text="La primera lista contiene los entregables seleccionados en el paso anterior, seleccione alguno de estos y se desplegaran los componentes que pueden ser agregados por medio de los botones."></asp:Label>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    <br />
+                                    <br />
+                                </div>
+                                <div class="center">
                                             <table id="tbl_componentes">
                                                 <tr>
                                                     <td>
@@ -688,11 +679,8 @@
                                         </tr>
                                     </table>
                                 </FinishNavigationTemplate>
-                            </asp:Wizard>
-                        </Content>
-                    </act:AccordionPane>
-                </Panes>
-            </act:Accordion>
-        </ContentTemplate>
-    </asp:UpdatePanel>
+                    </asp:Wizard>
+                </td>
+            </tr>
+    </table>
 </asp:Content>

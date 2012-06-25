@@ -105,22 +105,22 @@ namespace CSLA.web.App_pages.mod.ControlSeguimiento
         {
             try
             {         
-                //Inicialización de botones de la asignación
-                //Entregables
-                this.btn_asignarEntregable = (Button)acp_creacionProyectos.FindControl("btn_asignarEntregable");
-                this.btn_removerEntregable = (Button)acp_creacionProyectos.FindControl("btn_removerEntregable");
+                ////Inicialización de botones de la asignación
+                ////Entregables
+                //this.btn_asignarEntregable = (Button)acp_creacionProyectos.FindControl("btn_asignarEntregable");
+                //this.btn_removerEntregable = (Button)acp_creacionProyectos.FindControl("btn_removerEntregable");
 
-                //Componentes
-                this.btn_asignarComponente = (Button)acp_creacionProyectos.FindControl("btn_asignarComponente");
-                this.btn_removerComponente = (Button)acp_creacionProyectos.FindControl("btn_removerComponente");
+                ////Componentes
+                //this.btn_asignarComponente = (Button)acp_creacionProyectos.FindControl("btn_asignarComponente");
+                //this.btn_removerComponente = (Button)acp_creacionProyectos.FindControl("btn_removerComponente");
 
-                //Paquetes
-                this.btn_asignarPaquete = (Button)acp_creacionProyectos.FindControl("btn_asignarPaquete");
-                this.btn_removerPaquete = (Button)acp_creacionProyectos.FindControl("btn_removerPaquete");
+                ////Paquetes
+                //this.btn_asignarPaquete = (Button)acp_creacionProyectos.FindControl("btn_asignarPaquete");
+                //this.btn_removerPaquete = (Button)acp_creacionProyectos.FindControl("btn_removerPaquete");
 
-                //Actividad
-                this.btn_asignarActividad = (Button)acp_creacionProyectos.FindControl("btn_asignarActividad");
-                this.btn_removerActividad = (Button)acp_creacionProyectos.FindControl("btn_removerActividad");
+                ////Actividad
+                //this.btn_asignarActividad = (Button)acp_creacionProyectos.FindControl("btn_asignarActividad");
+                //this.btn_removerActividad = (Button)acp_creacionProyectos.FindControl("btn_removerActividad");
 
             }
             catch (Exception po_exception)
@@ -666,7 +666,7 @@ namespace CSLA.web.App_pages.mod.ControlSeguimiento
                 vs_error_tecnico = vs_error_tecnico.Replace("'", "|");
 
                 String vs_script = "window.showModalDialog(\"../../frw_error.aspx?vs_error_usuario=" + vs_error_usuario + "&vs_error_tecnico=" + vs_error_tecnico + "\",\"Ventana\",\"dialogHeight:450px;dialogWidth:625px;center:yes;status:no;menubar:no;resizable:no;scrollbars:yes;toolbar:no;location:no;directories:no\");";
-                ScriptManager.RegisterClientScriptBlock(this.upd_Principal, this.upd_Principal.GetType(), "jsKeyScript", vs_script, true);
+                ScriptManager.RegisterClientScriptBlock(this.wzs_inicio, this.wzs_inicio.GetType(), "jsKeyScript", vs_script, true);
 
                 throw new GeneralException("GeneralException", po_exception);
             }
@@ -691,9 +691,9 @@ namespace CSLA.web.App_pages.mod.ControlSeguimiento
             {
                 this.guardarDatos();
 
-                this.upd_Principal.Update();
+                //this.upd_Principal.Update();
 
-                this.ard_principal.SelectedIndex = 0;
+                //this.ard_principal.SelectedIndex = 0;
 
                 //Al finalizar, se envía a la página principal de proyectos
                 Response.Redirect("frw_proyectos.aspx", false);
